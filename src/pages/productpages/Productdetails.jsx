@@ -125,7 +125,7 @@ function Productdetails() {
                             </div>
                             : productData?.media_files.file_path.substr(productData?.media_files.file_path.lastIndexOf('\\') + 1).split('.')[3] == "pdf" ? <div>
                               <figure>
-                                <embed src={productData?.media_files.file_path} height="500px" width="100%"/>
+                                <embed src={productData?.media_files.file_path+"#toolbar=1&scrollbar=0"} height="500px" width="100%"/>
                               </figure>
                             </div> : ""
                       }

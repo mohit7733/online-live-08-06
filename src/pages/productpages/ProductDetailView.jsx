@@ -324,7 +324,7 @@ function ProductDetailView(props) {
                             return (
                               <div>
                                 <figure>
-                                  <embed src={item?.file_path+"#toolbar=0&navpanes=0&scrollbar=0"} height="500px" width="100%" frameborder="0"
+                                  <embed src={item?.file_path+"#toolbar=1&scrollbar=0"} height="500px" width="100%" frameborder="0"
                                     scrolling="auto" />
                                 </figure>
                               </div>
