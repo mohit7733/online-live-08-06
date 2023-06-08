@@ -84,14 +84,15 @@ export default function Subscriptions(props) {
       </div>
       <h2>Payment</h2>
 
-      <p>
+      <p style={{ lineHeight: "normal" }}>
         We warmly thank you for your trust.
-        <br />
-        To go ahead and discover more about our coming steps write us at {"   "}
-        <a style={{ paddingLeft: "4px", color: "#19a0dd" }} href="mailto:contact@beauty-meetings">
-        {"   "} contact@beauty-meetings.
-        </a>
+        <span style={{ display: "block" }}>To go ahead and discover more about our coming steps write us at {"   "}
+          <a style={{ paddingLeft: "4px", color: "#19a0dd" }} href="mailto:contact@beauty-meetings">
+            {"   "} contact@beauty-meetings.
+          </a></span>
       </p>
+      <br />
+      <br />
       <div class="payment_wrapper row justify-content-center">
         <div class="column">
           <div className="button">Monthly</div>
@@ -102,16 +103,16 @@ export default function Subscriptions(props) {
           <p>{subscriptions?.montlysubtitle}</p>
           <button
             class="btn11 btn btn-secondar"
-            style={{ background: "gray", color: "white" }}
+            style={{ background: "#9f9f9f", color: "white", lineHeight: "40px", minWidth: "200px" }}
 
-            //  onClick={() => {
-            //     navigate('/payment', {
-            //         state: {
-            //             amount: parseInt(subscriptions.monthlyprice?.substring(1)),
-            //             plan: "Monthly"
-            //         }
-            //     })
-            // }}
+          //  onClick={() => {
+          //     navigate('/payment', {
+          //         state: {
+          //             amount: parseInt(subscriptions.monthlyprice?.substring(1)),
+          //             plan: "Monthly"
+          //         }
+          //     })
+          // }}
           >
             Continue
           </button>
@@ -125,17 +126,17 @@ export default function Subscriptions(props) {
           </p>
           <button
             class="btn11 btn btn-"
-            style={{ background: "gray", color: "white" }}
+            style={{  background: "#9f9f9f", color: "white", lineHeight: "40px", minWidth: "200px"  }}
 
-            //  onClick={() => {
-            //     navigate('/payment', {
-            //         state:
-            //         {
-            //             amount: parseInt(subscriptions.yearlyprice?.substring(1)),
-            //             plan: "Yearly"
-            //         }
-            //     })
-            // }}
+          //  onClick={() => {
+          //     navigate('/payment', {
+          //         state:
+          //         {
+          //             amount: parseInt(subscriptions.yearlyprice?.substring(1)),
+          //             plan: "Yearly"
+          //         }
+          //     })
+          // }}
           >
             Continue
           </button>

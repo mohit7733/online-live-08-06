@@ -170,7 +170,7 @@ function Add_product(props) {
     setvalidLink(matchYoutubeUrl());
   }, [contact.yt_link]);
 
- 
+
   const logins_field = (e) => {
     switch (e) {
       case "p_name":
@@ -239,9 +239,9 @@ function Add_product(props) {
             prevOptions.map((option) =>
               option.id === id
                 ? {
-                    ...option,
-                    checkboxValues: [...option.checkboxValues, e.target.value],
-                  }
+                  ...option,
+                  checkboxValues: [...option.checkboxValues, e.target.value],
+                }
                 : option
             )
           );
@@ -251,11 +251,11 @@ function Add_product(props) {
           prevOptions.map((option) =>
             option.id === id
               ? {
-                  ...option,
-                  checkboxValues: option.checkboxValues.filter(
-                    (value) => value !== e.target.value
-                  ),
-                }
+                ...option,
+                checkboxValues: option.checkboxValues.filter(
+                  (value) => value !== e.target.value
+                ),
+              }
               : option
           )
         );
@@ -366,7 +366,12 @@ function Add_product(props) {
         event.target.files[0].type.split("/")[0] === "image"
       ) {
         if (event.target.files[0].size < 838000) {
-          contact.product_file.push(event.target.files[0]);
+          if (event.target.files[0].name.substr(event.target.files[0].name.lastIndexOf('\\') + 1).split('.')[1] != "jfif") {
+            contact.product_file.push(event.target.files[0]);
+          } else {
+            toast.error("This is not supported!");
+          }
+
         } else {
           toast.error("File size must not be more than 800 kB.");
         }
@@ -657,9 +662,9 @@ function Add_product(props) {
                       style={
                         multis_category?.length == 0 && anserstyle == true
                           ? {
-                              borderBottom: "1px solid red",
-                              borderRadius: "43px",
-                            }
+                            borderBottom: "1px solid red",
+                            borderRadius: "43px",
+                          }
                           : {}
                       }
                       className="form-group full"
@@ -922,11 +927,11 @@ function Add_product(props) {
                     return (
                       <div className="radio_section">
                         <p>
-                          Q {index + 1}.{ " " +quest?.question}
+                          Q {index + 1}.{" " + quest?.question}
                         </p>
                         <div className="radio_btn">
                           {quest?.type == "Subjective" ||
-                          quest?.type.toLowerCase() === "textarea" ? (
+                            quest?.type.toLowerCase() === "textarea" ? (
                             <textarea
                               className="form-control"
                               name="Policy"
@@ -960,8 +965,8 @@ function Add_product(props) {
                                     emptyans?.filter((item) => {
                                       return item?.id == quest?.id;
                                     }) == undefined
-                                  ? { borderBottom: "1px solid red" }
-                                  : {}
+                                    ? { borderBottom: "1px solid red" }
+                                    : {}
                               }
                             ></textarea>
                           ) : (
@@ -979,8 +984,8 @@ function Add_product(props) {
                                     emptyans?.filter((item) => {
                                       return item?.id == quest?.id;
                                     }) == undefined
-                                  ? { borderBottom: "1px solid red" }
-                                  : {}
+                                    ? { borderBottom: "1px solid red" }
+                                    : {}
                               }
                             >
                               <select
@@ -1007,7 +1012,7 @@ function Add_product(props) {
                                       <input
                                         type={
                                           quest?.type.toLowerCase() !==
-                                          "objective"
+                                            "objective"
                                             ? quest?.type.toLowerCase()
                                             : "radio"
                                         }
@@ -1033,14 +1038,14 @@ function Add_product(props) {
                                           emptyans_id?.filter((item) => {
                                             return item === quest?.id;
                                           })[0] == quest?.id &&
-                                          anserstyle == true
+                                            anserstyle == true
                                             ? { borderBottom: "1px solid red" }
                                             : anserstyle == true &&
                                               emptyans?.filter((item) => {
                                                 return item?.id == quest?.id;
                                               }) == undefined
-                                            ? { borderBottom: "1px solid red" }
-                                            : {}
+                                              ? { borderBottom: "1px solid red" }
+                                              : {}
                                         }
                                       >
                                         {option}
@@ -1077,7 +1082,7 @@ function Add_product(props) {
                         seterrorfield({ ...errorfield, product_file: "" });
                         onImageChange(e);
                       }}
-                      accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.slideshow, application/vnd.openxmlformats-officedocument.presentationml.presentation"
+                      accept=".xlsx,.xls,image/png, image/jpeg,.jpg,.doc, .docx,.ppt, .pptx,.txt,.pdf,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.slideshow, application/vnd.openxmlformats-officedocument.presentationml.presentation"
                     />
                     <img src="images/profile_upload.svg" alt="" />
                     <h4>
@@ -1113,10 +1118,10 @@ function Add_product(props) {
                             contact.yt_link == ""
                               ? { display: "none" }
                               : {
-                                  display: "block",
-                                  color: "red",
-                                  fontSize: "10px",
-                                }
+                                display: "block",
+                                color: "red",
+                                fontSize: "10px",
+                              }
                           }
                         >
                           {validlink != true

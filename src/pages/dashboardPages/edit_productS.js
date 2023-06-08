@@ -218,9 +218,9 @@ function Edit_productS(props) {
             prevOptions.map((option) =>
               option.id === id
                 ? {
-                    ...option,
-                    checkbox: [...option.checkbox, e.target.value],
-                  }
+                  ...option,
+                  checkbox: [...option.checkbox, e.target.value],
+                }
                 : option
             )
           );
@@ -230,11 +230,11 @@ function Edit_productS(props) {
           prevOptions.map((option) =>
             option.id === id
               ? {
-                  ...option,
-                  checkbox: option.checkbox.filter(
-                    (value) => value !== e.target.value
-                  ),
-                }
+                ...option,
+                checkbox: option.checkbox.filter(
+                  (value) => value !== e.target.value
+                ),
+              }
               : option
           )
         );
@@ -276,7 +276,7 @@ function Edit_productS(props) {
             contact.ps_name = result.data?.product_short_name;
             contact.category = result.data?.category;
             contact.s_category = result.data?.sub_cat;
-            contact.thumb_index = result?.data?.thumb_index;
+            contact.thumb_index = result?.data?.thumb_index != null && result?.data?.thumb_index != "null" ? parseInt(result?.data?.thumb_index) : 1;
 
             console.log(result.data?.youtube_link, ",,,,,,,");
             if (
@@ -307,10 +307,10 @@ function Edit_productS(props) {
             contact.Creation = result.data?.date_of_creation;
             contact.product_file2 = result.data?.media_files;
             contact.questions = result.data?.questions;
-            contact.thumb_index = result?.data?.thumb_index;
+            contact.thumb_index = result?.data?.thumb_index != null && result?.data?.thumb_index != "null" ? parseInt(result?.data?.thumb_index) : 1;
             contact.yt_link =
               result.data?.youtube_link != "undefined" &&
-              result.data?.youtube_link != null
+                result.data?.youtube_link != null
                 ? result.data?.youtube_link
                 : "null";
             result.data?.questions?.map((item) => {
@@ -471,9 +471,13 @@ function Edit_productS(props) {
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
-      // console.log(event.target.files[0].size, "<<<<<<<");
+      // console.log(event.target.files, event.target.files[0].name.substr(event.target.files[0].name.lastIndexOf('\\') + 1).split('.')[1], "<<<<<<<");
       if (event.target.files[0].size < 838000) {
-        contact.product_file.push(event.target.files[0]);
+        if (event.target.files[0].name.substr(event.target.files[0].name.lastIndexOf('\\') + 1).split('.')[1] != "jfif") {
+          contact.product_file.push(event.target.files[0]);
+        } else {
+          toast.error("This is not supported!");
+        }
       } else {
         toast.error("File size must not be more than 800 kB. ");
       }
@@ -709,9 +713,9 @@ function Edit_productS(props) {
                       style={
                         selectOptions.length == 0
                           ? {
-                              borderBottom: "1px solid red",
-                              borderRadius: "43px",
-                            }
+                            borderBottom: "1px solid red",
+                            borderRadius: "43px",
+                          }
                           : {}
                       }
                     >
@@ -737,7 +741,7 @@ function Edit_productS(props) {
                         onChange={(Option) => {
                           setSelectOptions(Option);
                         }}
-                        // onEditOption={handleEditOption}
+                      // onEditOption={handleEditOption}
                       />
                     </div>
 
@@ -787,11 +791,11 @@ function Edit_productS(props) {
                       placeholder="Price Policy"
                       value={contact?.Policy}
                       onChange={(e) => logins_field2(e)}
-                      // style={
-                      //   errorfield?.Policy == ""
-                      //     ? {}
-                      //     : { borderBottom: "1px solid red" }
-                      // }
+                    // style={
+                    //   errorfield?.Policy == ""
+                    //     ? {}
+                    //     : { borderBottom: "1px solid red" }
+                    // }
                     ></textarea>
                     <p className="limit">{contact?.Policy?.length}/100</p>
                     <div className="form-group full">
@@ -867,7 +871,7 @@ function Edit_productS(props) {
                         </p>
                         <div className="radio_btn">
                           {item?.type == "Subjective" ||
-                          item?.type.toLowerCase() === "textarea" ? (
+                            item?.type.toLowerCase() === "textarea" ? (
                             <textarea
                               className="form-control"
                               name="Policy"
@@ -879,7 +883,7 @@ function Edit_productS(props) {
                                     item?.id
                                 )[0]?.answer
                               }
-                            
+
                               onChange={(e) => {
                                 handlequestion(
                                   e,
@@ -955,20 +959,20 @@ function Edit_productS(props) {
                                   return (
                                     <div
                                       className="align-items-center"
-                                      // style={
-                                      //   optionsedit?.length < 1 &&
-                                      //   Addstyel == true
-                                      //     ? { borderBottom: "1px solid red" }
-                                      //     : {}
-                                      // }
+                                    // style={
+                                    //   optionsedit?.length < 1 &&
+                                    //   Addstyel == true
+                                    //     ? { borderBottom: "1px solid red" }
+                                    //     : {}
+                                    // }
                                     >
                                       {item?.type.toLowerCase() ==
-                                      "objective" ? (
+                                        "objective" ? (
                                         <>
                                           <input
                                             type={
                                               item?.type.toLowerCase() !==
-                                              "objective"
+                                                "objective"
                                                 ? "Checkbox"
                                                 : "radio"
                                             }
@@ -998,7 +1002,7 @@ function Edit_productS(props) {
                                           // id={}
                                           type={
                                             item?.type.toLowerCase() !==
-                                            "objective"
+                                              "objective"
                                               ? "Checkbox"
                                               : "radio"
                                           }
@@ -1038,13 +1042,13 @@ function Edit_productS(props) {
                                           optionsedit?.filter((item3) => {
                                             return item3?.id == item.id;
                                           })[0]?.checkbox?.length == 0 &&
-                                          optionsedit?.filter((item2) => {
-                                            return item2?.id == item.id;
-                                          })[0]?.id == item.id &&
-                                          item?.type.toLowerCase() == "checkbox"
+                                            optionsedit?.filter((item2) => {
+                                              return item2?.id == item.id;
+                                            })[0]?.id == item.id &&
+                                            item?.type.toLowerCase() == "checkbox"
                                             ? {
-                                                borderBottom: "1px solid red",
-                                              }
+                                              borderBottom: "1px solid red",
+                                            }
                                             : {}
                                         }
                                       >
@@ -1077,9 +1081,9 @@ function Edit_productS(props) {
                         seterrorfield({ ...errorfield, product_file: "" });
                         onImageChange(e);
                       }}
-                      accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf,application/msword ,application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.slideshow, application/vnd.openxmlformats-officedocument.presentationml.presentation"
+                      accept=".xlsx,.xls,image/png, image/jpeg,.jpg,.doc, .docx,.ppt, .pptx,.txt,.pdf,application/msword ,application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.slideshow, application/vnd.openxmlformats-officedocument.presentationml.presentation"
                     />
-                    <img src="images/profile_upload.svg" alt="" />
+                    <img src={window.location.origin + "/images/profile_upload.svg"} alt="" />
                     <h4>
                       Upload Image or <br />
                       Document
@@ -1109,6 +1113,7 @@ function Edit_productS(props) {
                   </div>
                   <div className="thumbnail_section">
                     <h6>Set Thumbnail Image</h6>
+
                     {contact?.product_file?.map((data, index) => {
                       // console.log(data);
                       if (data["type"]?.split("/")[0] === "image") {
