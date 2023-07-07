@@ -470,7 +470,7 @@ function Company_information(props) {
                         type="text"
                         name="state"
                         onChange={onChangeValues}
-                        value={cInfo?.state}
+                        value={cInfo?.state == "null" ? "" : cInfo?.state}
                         className={
                           editcompany ? "form-control" : "form-control disabled"
                         }
@@ -1067,7 +1067,7 @@ function Company_information(props) {
                           cInfo?.brand_name != "" &&
                           cInfo?.website != "" &&
                           cInfo?.post_code != "" &&
-                          cInfo?.state != "" &&
+                          // cInfo?.state != "" &&
                           cInfo?.country != "" &&
                           cInfo?.contact1_email != "" &&
                           cInfo?.contact1_phone != "" &&
