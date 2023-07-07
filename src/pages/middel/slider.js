@@ -24,8 +24,8 @@ function Slider_home() {
         }
     }, [check])
     useEffect(() => {
-            banner_data()
-        
+        banner_data()
+
     }, [])
 
     var settings = {
@@ -52,7 +52,7 @@ function Slider_home() {
                                             <div className="handle_bannner row justify-content-end">
                                                 <div className="banner-text">
                                                     <h1><span>{data?.title1}</span> {data?.title2}</h1>
-                                                    <p>{data?.description}</p>
+                                                    <p dangerouslySetInnerHTML={{ __html: data?.description }} />
                                                     <div className="button d-flex">
                                                         <a href={localStorage.getItem("token") == null ? "/login" : "#"} className="btn btn-secondary">I am a Buyer</a>
                                                         <a href={localStorage.getItem("token") == null ? "/login" : "#"} className="btn btn-primary">I am a Supplier</a>

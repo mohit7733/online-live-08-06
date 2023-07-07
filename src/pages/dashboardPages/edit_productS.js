@@ -276,7 +276,7 @@ function Edit_productS(props) {
             contact.ps_name = result.data?.product_short_name;
             contact.category = result.data?.category;
             contact.s_category = result.data?.sub_cat;
-            contact.thumb_index = result?.data?.thumb_index != null && result?.data?.thumb_index != "null" ? parseInt(result?.data?.thumb_index) : 1;
+            contact.thumb_index = result?.data?.thumb_index != null && result?.data?.thumb_index != "null" ? parseInt(result?.data?.thumb_index) : 0;
 
             console.log(result.data?.youtube_link, ",,,,,,,");
             if (
@@ -293,11 +293,13 @@ function Edit_productS(props) {
               var sub_categoryoptions = JSON.parse(result.data?.sub_cat);
               if (oncepush == false) {
                 sub_categoryoptions?.map((item) => {
-                  selectOptions.push({ value: item, label: item });
+                  if (sub_categoryoptions.length > selectOptions.length) {
+                    selectOptions.push({ value: item, label: item });
+                  }
                 });
               }
             }
-
+            { console.log(sub_categoryoptions, sub_categoryoptions.length, "><><><><><><><><><><><<") }
             contact.country = result.data?.made_in;
             contact.Description = result.data?.product_dec;
             contact.c_name = result.data?.price_range;
@@ -307,7 +309,7 @@ function Edit_productS(props) {
             contact.Creation = result.data?.date_of_creation;
             contact.product_file2 = result.data?.media_files;
             contact.questions = result.data?.questions;
-            contact.thumb_index = result?.data?.thumb_index != null && result?.data?.thumb_index != "null" ? parseInt(result?.data?.thumb_index) : 1;
+            contact.thumb_index = result?.data?.thumb_index != null && result?.data?.thumb_index != "null" ? parseInt(result?.data?.thumb_index) : 0;
             contact.yt_link =
               result.data?.youtube_link != "undefined" &&
                 result.data?.youtube_link != null
@@ -726,20 +728,21 @@ function Edit_productS(props) {
                       ) : (
                         ""
                       )}
-
                       <Select
                         isObject={false}
                         options={subcategoriesoptions}
                         isMulti
-                        defaultValue={selectOptions}
-                        // value={multis_category}
+                        // defaultValue={selectOptions}
+                        value={selectOptions}
                         name="colors"
                         className="Company_sector2 basic-multi-select"
                         classNamePrefix="select"
                         placeholder="Sub-Category *"
                         // isOptionDisabled={() => selectOptions?.length >= 3}
                         onChange={(Option) => {
-                          setSelectOptions(Option);
+                          if (selectOptions?.length <= 2) {
+                            setSelectOptions(Option);
+                          }
                         }}
                       // onEditOption={handleEditOption}
                       />

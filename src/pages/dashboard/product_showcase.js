@@ -165,13 +165,13 @@ function Product_showcase(props) {
             </li>
             <li>
               <a href="#">
-              {user_type == "both"
+                {user_type == "both"
                   ? "Supplier"
                   : user_type == "buyer"
-                  ? "Buyer"
-                  : user_type == "supplier"
-                  ? "Supplier"
-                  : ""}             
+                    ? "Buyer"
+                    : user_type == "supplier"
+                      ? "Supplier"
+                      : ""}
               </a>
             </li>
             <li>
@@ -199,7 +199,7 @@ function Product_showcase(props) {
               // href="/add-new-product"
               onClick={() => {
                 checkSubscription().then((response) => {
-                  console.log(response, "<<<<<<<," ,response?.message?.subscription_status ,                    response?.data.manage_type?.toLowerCase() == "shareduser"
+                  console.log(response, "<<<<<<<,", response?.message?.subscription_status, response?.data.manage_type?.toLowerCase() == "shareduser"
                   );
                   if (response?.data?.subscription_status !== 0) {
                     navigate("/add-new-product");
@@ -291,11 +291,12 @@ function Product_showcase(props) {
                       <img
                         src={deleteicon}
                         alt=""
-                        onClick={(e) => {
-                          setdeleteid(data.id);
-                          setalertshow(true);
-                        }}
-                        // onClick={(e) => deletedata(data.id)}
+                        style={{ opacity: "0.6" }}
+                      // onClick={(e) => {
+                      //   setdeleteid(data.id);
+                      //   setalertshow(true);
+                      // }}
+                      // onClick={(e) => deletedata(data.id)}
                       />
                     </td>
                   </tr>

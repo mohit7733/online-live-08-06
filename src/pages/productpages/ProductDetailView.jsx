@@ -20,6 +20,7 @@ function ProductDetailView(props) {
   const [iconChange2, seticonChange2] = useState(false);
   const [thumbshow, setthumbshow] = useState(false);
   const [main, setmain] = useState([]);
+  const slugdata = useParams();
   const [link, setlink] = useState("");
   const [select, setselect] = useState();
   const { state } = useLocation();
@@ -46,7 +47,7 @@ function ProductDetailView(props) {
       redirect: "follow",
     };
     fetch(
-      api + "/api/v1/products_details?product_id=" + state?.id,
+      api + "/api/v1/products_details?product_id=" + slugdata?.id,
       requestOptions
     )
       .then((response) => response.json())
@@ -76,7 +77,7 @@ function ProductDetailView(props) {
       "Bearer " + localStorage.getItem("token")
     );
 
-    formvalues.append("product_id", state?.id);
+    formvalues.append("product_id", slugdata?.id);
 
     var requestOptions = {
       method: "post",
@@ -330,7 +331,6 @@ function ProductDetailView(props) {
                               </div>
                             )
                           }
-                          console.log(item?.file_path.substr(item?.file_path.lastIndexOf('\\') + 1).split('.')[3])
 
                         })}
                         {link != "" ? (

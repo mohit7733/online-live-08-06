@@ -20,6 +20,9 @@ function Header() {
   useEffect(() => {
     console.log(profile_img ,usericon);
     setshow(false);
+    if (window.location.pathname == "/product-details" || window.location.pathname == "/product-details/") {
+      navigate("/product-view")
+    }
 
   }, [pathname]);
 

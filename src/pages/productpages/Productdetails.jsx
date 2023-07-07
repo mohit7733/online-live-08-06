@@ -8,7 +8,7 @@ import ReactPlayer from "react-player";
 function Productdetails() {
   const [productData, setProductData] = useState([]);
   const [check, setcheck] = useState(true);
-  const { id } = useParams();
+  const slugdata = useParams();
   const { state } = useLocation()
 
   console.log(productData);
@@ -24,7 +24,7 @@ function Productdetails() {
       // headers: myHeaders,
       redirect: "follow",
     };
-    fetch(api + "/api/v1/products_details?product_id=" + state?.id, requestOptions)
+    fetch(api + "/api/v1/products_details?product_id=" + slugdata?.id, requestOptions)
       .then((response) => response.json())
       .then((result) => setProductData(result.data))
       .catch((error) => console.log("error", error));

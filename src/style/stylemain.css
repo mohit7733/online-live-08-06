@@ -7658,8 +7658,7 @@ a.error_icon {
 
 .banner-section .banner-slide .background {
   background-size: cover;
-  padding: 108px 0px;
-  /* background-image: url(../../public/images/banner1.jpg); */
+  padding: 108px 0;
 }
 
 #create-breadcrumbs,
@@ -7772,12 +7771,15 @@ label {
 
   border: 1px solid #ccc;
 }
+
 .form-control.name {
   width: 100%;
 }
+
 .payformd {
   padding-top: 15px;
 }
+
 .card .col-sm-6 {
   flex: 0 0 50%;
   max-width: 50%;

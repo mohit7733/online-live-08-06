@@ -23,7 +23,7 @@ function Productresearchsection(props) {
   const [disableedit2, setDisableedit2] = useState(false);
   const [Madatoryfield, setMadatoryfield] = useState("");
   const [companySector, setCompanySector] = useState([]);
-  const [answer2, setanswear2] = useState("");
+  const [nonmedId, setnonmedId] = useState([]);
   const [emptyans_id, setemptyans_id] = useState([]);
   const [sectors, setsectors] = useState([]);
 
@@ -42,13 +42,14 @@ function Productresearchsection(props) {
     c_name: "",
     Description: "",
     product_file: [],
-    thumb_index: "",
+    thumb_index: 0,
     Policy: "",
     Quantity: "",
     sector_name: [],
     Creation: "",
     product_file2: [],
     yt_link: "",
+    questions: [],
   });
   const [errorfield, seterrorfield] = useState({
     p_name: "",
@@ -74,9 +75,6 @@ function Productresearchsection(props) {
   });
 
   const [selectOptions, setSelectOptions] = useState([]);
-
-
-  console.log(country , "<<<<<<");
 
   useEffect(() => {
     axios
@@ -215,9 +213,9 @@ function Productresearchsection(props) {
             prevOptions.map((option) =>
               option.id === id
                 ? {
-                    ...option,
-                    checkboxValues: [...option.checkboxValues, e.target.value],
-                  }
+                  ...option,
+                  checkboxValues: [...option.checkboxValues, e.target.value],
+                }
                 : option
             )
           );
@@ -227,21 +225,30 @@ function Productresearchsection(props) {
           prevOptions.map((option) =>
             option.id === id
               ? {
-                  ...option,
-                  checkboxValues: option.checkboxValues.filter(
-                    (value) => value !== e.target.value
-                  ),
-                }
+                ...option,
+                checkboxValues: option.checkboxValues.filter(
+                  (value) => value !== e.target.value
+                ),
+              }
               : option
           )
         );
       }
+      setnonmedId(
+        nonmedId?.filter(
+          (item) => item == id
+        ).length == 0
+          ? nonmedId
+          : nonmedId?.filter(
+            (item) => item != id
+          )
+      );
     }
   };
 
   useEffect(() => {
-    console.log(options, "<<<<<<<,");
-  }, [options]);
+    console.log(options, contact, "<<<<<<<,");
+  }, [options, contact]);
 
   useEffect(() => {
     setDisableedit(false);
@@ -256,7 +263,6 @@ function Productresearchsection(props) {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then((res) => {
-        console.log(res?.data, res?.data?.data?.company, "<<<,,");
 
         if (res?.data?.data?.company != null) {
           setTimeout(() => {
@@ -266,11 +272,11 @@ function Productresearchsection(props) {
 
         if (res?.data?.success == true) {
           setTimeout(() => {
-            contact.p_name = res?.data?.data.company?.company_name;
-            contact.ps_name = res?.data?.data.company?.company_short_name;
-            contact.country = res?.data?.data.company?.country;
-            contact.Description = res?.data?.data.company?.company_dec;
-            contact.thumb_index = res?.data?.data.company?.thumb_index;
+            contact.p_name = res?.data?.data.company?.company_name != undefined ? res?.data?.data.company?.company_name : "";
+            contact.ps_name = res?.data?.data.company?.company_short_name != undefined ? res?.data?.data.company?.company_short_name : "";
+            contact.country = res?.data?.data.company?.country != undefined ? res?.data?.data.company?.country : "";
+            contact.Description = res?.data?.data.company?.company_dec != undefined ? res?.data?.data.company?.company_dec : "";
+            contact.thumb_index = res?.data?.thumb_index != null && res?.data?.thumb_index != "null" ? parseInt(res?.data?.thumb_index) : 0;
             // contact.sector_name = res?.data?.data.company?.sector;
 
             if (
@@ -329,17 +335,31 @@ function Productresearchsection(props) {
     });
 
     answerArray?.map((question, index) => {
-      formdata.append(`company_question[${index}][id]`, question?.questionId);
+
+      if (0 == index) {
+        if (
+          nonmedId?.filter((item) => {
+            return item == question?.questionId;
+          })?.length == 0
+        ) {
+          nonmedId.map((itemid, index2) => {
+            formdata.append(`company_question[${index2}][id]`, itemid);
+            formdata.append(`company_question[${index2}][answer]`, null);
+          });
+        }
+      }
+
+      formdata.append(`company_question[${(nonmedId.length + index)}][id]`, question?.questionId);
       formdata.append(
-        `company_question[${index}][answer]`,
+        `company_question[${(nonmedId.length + index)}][answer]`,
         options?.filter((item) => {
           return item?.id == question?.questionId;
         })[0]?.id == question?.questionId
           ? JSON.stringify(
-              options?.filter((item) => {
-                return item?.id == question?.questionId;
-              })[0]?.checkboxValues
-            )
+            options?.filter((item) => {
+              return item?.id == question?.questionId;
+            })[0]?.checkboxValues
+          )
           : question?.answer
       );
     });
@@ -354,9 +374,11 @@ function Productresearchsection(props) {
       redirect: "follow",
     };
 
-    console.log( answerArray?.filter((item) => {
-      return item?.mandatory != 0;
-    }).length != Mandetroy_quest?.length);
+    // console.log(
+    //   answerArray?.filter((item) => {
+    //     return item?.mandatory != 0;
+    //   })?.length != Mandetroy_quest?.length
+    // );
 
     if (
       answerArray?.filter((item) => {
@@ -392,13 +414,11 @@ function Productresearchsection(props) {
   };
 
   useEffect(() => {
-    console.log(errorfield, contact, image);
-  }, [errorfield, contact, image]);
+    // console.log(errorfield, contact, image);
+  }, [errorfield, contact, image, answerArray?.length]);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  // console.log(contact?.category);
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -412,7 +432,16 @@ function Productresearchsection(props) {
             return file?.type != "application/pdf";
           })?.length <= 5
         ) {
-          contact.product_file.push(event.target.files[0]);
+          if (event.target.files[0].size < 838000) {
+            if (event.target.files[0].name.substr(event.target.files[0].name.lastIndexOf('\\') + 1).split('.')[1] != "jfif") {
+              contact.product_file.push(event.target.files[0]);
+            } else {
+              toast.error("This is not supported!");
+            }
+
+          } else {
+            toast.error("File size must not be more than 800 kB.");
+          }
           setTimeout(() => {
             setcontact({ ...contact });
           }, 400);
@@ -462,42 +491,70 @@ function Productresearchsection(props) {
       .then((response) => response.json())
       .then((result) => {
         setquestion(result.data);
+        // console.log(result.data , "<<<<<,");
         result.data?.map((item) => {
           if (item?.mandatory != 0) {
-            emptyans_id.push(item?.id);
-            Mandetroy_quest.push(item);
+            if (result.data.filter((data) => data?.mandatory != 0).length > Mandetroy_quest.length) {
+              emptyans_id.push(item?.id);
+              Mandetroy_quest.push(item);
+            }
+          }
+          if (item?.mandatory == 0) {
+            if (result.data.filter((data) => data?.mandatory == 0).length > nonmedId.length) {
+              nonmedId.push(item?.id);
+            }
           }
         });
       })
       .catch((error) => console.log("error", error));
   };
 
+  // console.log(nonmedId , "<<<<<<<<<<<nonmedId" , emptyans_id);
+
+  useEffect(() => {
+    answerArray?.map((item2) => {
+      if (
+        nonmedId?.filter((item) => {
+          return item == item2?.questionId;
+        })
+      ) {
+        console.log(
+          nonmedId?.filter((item) => {
+            return item == item2?.questionId;
+          }),
+          "<<<<<"
+        );
+      }
+    });
+
+    console.log(answerArray?.length);
+  }, [answerArray?.length]);
+
+
   useEffect(() => {
     if (check) {
       question_data();
       setcheck(false);
     }
-  }, [check, subcategory]);
+
+  }, [check, subcategory, answerArray]);
 
   useEffect(() => {
     get_companyinfo();
-    return () => {
-       };
+    return () => { };
   }, []);
-
 
   const handlequestion = (e, id, type, mandatory) => {
     if (answerArray.filter((data) => data.questionId == id)[0]) {
       answerArray.filter((data) => data.questionId == id)[0].answer =
         e.target.value;
     } else {
-      answerArray.push({
+      setanswerArray([...answerArray, {
         answer: e.target.value,
         questionId: id,
-        mandatory: mandatory,
-      });
+        mandatory: mandatory == null ? 1 : mandatory,
+      }]);
     }
-
     answerArray?.map((item) => {
       // console.log(item, "<<<<<<<");
       if (item?.answer == "") {
@@ -511,7 +568,16 @@ function Productresearchsection(props) {
         setemptyans_id(emptyans_id?.filter((id) => id != item?.questionId));
       }
     });
-
+    console.log(answerArray, mandatory, e.target.value, nonmedId, "KKKKDDDDDDDDDDDDDDDKKK");
+    setnonmedId(
+      nonmedId?.filter(
+        (item) => item == id
+      ).length == 0
+        ? nonmedId
+        : nonmedId?.filter(
+          (item) => item != id
+        )
+    );
     // console.log(
     //   answerArray?.filter((item) => {
     //     return item?.mandatory != 0;
@@ -564,10 +630,10 @@ function Productresearchsection(props) {
                 {user_type == "both"
                   ? "Supplier"
                   : user_type == "buyer"
-                  ? "Buyer"
-                  : user_type == "supplier"
-                  ? "Supplier"
-                  : ""}
+                    ? "Buyer"
+                    : user_type == "supplier"
+                      ? "Supplier"
+                      : ""}
               </a>
             </li>
             <li>
@@ -665,7 +731,7 @@ function Productresearchsection(props) {
                       disableedit ? "disabled2 custom-select " : "custom-select"
                     }
                     style={
-                      errorfield?.country == ""
+                      errorfield && errorfield.country == ""
                         ? {}
                         : { borderBottom: "1px solid red" }
                     }
@@ -675,6 +741,7 @@ function Productresearchsection(props) {
                       disabled={disableedit}
                       value={contact?.country}
                       onChange={(e) => logins_field2(e)}
+
                     >
                       <option>Country *</option>
                       {country.data.map((data, i) => {
@@ -724,23 +791,24 @@ function Productresearchsection(props) {
                   disabled={disableedit}
                   onChange={(e) => logins_field2(e)}
                   style={
-                    errorfield?.Description == ""
+                    errorfield && errorfield.Description == ""
                       ? {}
                       : { borderBottom: "1px solid red" }
                   }
                 ></textarea>
                 <p class="limit">{contact.Description?.length + "/" + "250"}</p>
               </div>
-              {question?.map((quest, index) => {
+              {console.log(question, contact?.questions)}
+              {question && question?.map((quest, index) => {
                 // console.log(quest);
                 return (
-                  <div className="radio_section">
+                  <div className="radio_section" key={index}>
                     <p>
-                      Q {index + 1 }.{" " +quest?.question}
+                      Q {index + 1}.{" " + quest?.question}
                     </p>
                     <div className="radio_btn">
                       {quest?.type == "Subjective" ||
-                      quest?.type.toLowerCase() === "textarea" ? (
+                        quest?.type.toLowerCase() === "textarea" ? (
                         <textarea
                           className={
                             disableedit
@@ -749,14 +817,21 @@ function Productresearchsection(props) {
                           }
                           name="Policy"
                           disabled={disableedit}
-                          placeholder={ quest?.mandatory != 0 ? "Your Answer *" :"Your Answer"}
+                          placeholder={
+                            quest?.mandatory != 0
+                              ? "Your Answer *"
+                              : "Your Answer"
+                          }
                           onChange={(e) => {
                             handlequestion(
                               e,
                               quest.id,
                               quest?.type,
-                              quest?.mandatory
+                              quest.mandatory
                             );
+
+
+                            // console.log(nonmedId , "<<<<<<<<<nonmedId");
                           }}
                           defaultValue={
                             contact?.questions?.filter(
@@ -767,16 +842,16 @@ function Productresearchsection(props) {
                             emptyans_id?.filter((item) => {
                               return item === quest?.id;
                             })[0] == quest?.id &&
-                            quest?.mandatory != 0 &&
-                            anserstyle == true
+                              quest?.mandatory != 0 &&
+                              anserstyle == true
                               ? { borderBottom: "1px solid red" }
                               : anserstyle == true &&
                                 emptyans?.filter((item) => {
                                   return item?.id == quest?.id;
                                 }) == undefined &&
                                 quest?.mandatory != 0
-                              ? { borderBottom: "1px solid red" }
-                              : {}
+                                ? { borderBottom: "1px solid red" }
+                                : {}
                           }
                         ></textarea>
                       ) : (
@@ -795,8 +870,10 @@ function Productresearchsection(props) {
                                 e,
                                 quest.id,
                                 quest?.type,
-                                quest?.mandatory
+                                quest.mandatory
                               );
+
+
                             }}
                             disabled={disableedit}
                             className=""
@@ -809,17 +886,17 @@ function Productresearchsection(props) {
                                   emptyans?.filter((item) => {
                                     return item?.id == quest?.id;
                                   }) == undefined
-                                ? { borderBottom: "1px solid red" }
-                                : {}
+                                  ? { borderBottom: "1px solid red" }
+                                  : {}
                             }
                           >
                             <option disabled={true}>
                               {" "}
                               {disableedit == true
                                 ? contact?.questions?.filter(
-                                    (data) =>
-                                      data?.company_question_id == quest?.id
-                                  )[0]?.answer
+                                  (data) =>
+                                    data?.company_question_id == quest?.id
+                                )[0]?.answer
                                 : "Select"}{" "}
                             </option>
                             {quest?.ques_obj?.map((option) => {
@@ -849,7 +926,7 @@ function Productresearchsection(props) {
                                   )
                                 ) {
                                   var ans = JSON.parse(
-                                    contact?.questions?.filter(
+                                    contact?.questions && contact?.questions?.filter(
                                       (data) =>
                                         data?.company_question_id == quest?.id
                                     )[0]?.answer
@@ -865,18 +942,15 @@ function Productresearchsection(props) {
 
                             if (option != null) {
                               return (
-                                <div
-                                  className="align-items-center"
-                                 
-                                >
+                                <div className="align-items-center">
                                   {disableedit == true ? (
                                     <>
                                       {quest?.type.toLowerCase() ==
-                                      "objective" ? (
+                                        "objective" ? (
                                         <input
                                           type={
                                             quest?.type.toLowerCase() !==
-                                            "objective"
+                                              "objective"
                                               ? "Checkbox"
                                               : "radio"
                                           }
@@ -902,15 +976,31 @@ function Productresearchsection(props) {
                                               e,
                                               quest.id,
                                               quest?.type,
-                                              quest?.mandatory
+                                              quest.mandatory
                                             );
+
+
+                                          }}
+                                          onChange={(e) => {
+                                            handlequestion2(
+                                              e,
+                                              quest.id,
+                                              quest?.type
+                                            );
+                                            handlequestion(
+                                              e,
+                                              quest.id,
+                                              quest?.type,
+                                              quest.mandatory
+                                            );
+
                                           }}
                                         />
                                       ) : (
                                         <input
                                           type={
                                             quest?.type.toLowerCase() !==
-                                            "objective"
+                                              "objective"
                                               ? "Checkbox"
                                               : "radio"
                                           }
@@ -919,12 +1009,12 @@ function Productresearchsection(props) {
                                           // defaultvalue={option}
                                           defaultValue={
                                             quest?.type.toLowerCase() !==
-                                            "objective"
+                                              "objective"
                                               ? contact?.questions?.filter(
-                                                  (data) =>
-                                                    data?.company_question_id ==
-                                                    quest?.id
-                                                )[0]?.answer
+                                                (data) =>
+                                                  data?.company_question_id ==
+                                                  quest?.id
+                                              )[0]?.answer
                                               : option
                                           }
                                           onClick={(e) => {
@@ -938,6 +1028,22 @@ function Productresearchsection(props) {
                                               quest.id,
                                               quest?.type
                                             );
+
+                                          }}
+                                          onChange={(e) => {
+                                            handlequestion2(
+                                              e,
+                                              quest.id,
+                                              quest?.type
+                                            );
+                                            handlequestion(
+                                              e,
+                                              quest.id,
+                                              quest?.type,
+                                              quest.mandatory
+                                            );
+
+
                                           }}
                                           checked={
                                             ans
@@ -950,7 +1056,7 @@ function Productresearchsection(props) {
                                               ?.toUpperCase() ==
                                             option?.toUpperCase()
                                           }
-                                          // disabled={disableedit}
+                                        // disabled={disableedit}
                                         />
                                       )}
                                     </>
@@ -958,7 +1064,7 @@ function Productresearchsection(props) {
                                     <input
                                       type={
                                         quest?.type.toLowerCase() !==
-                                        "objective"
+                                          "objective"
                                           ? "Checkbox"
                                           : "radio"
                                       }
@@ -978,7 +1084,21 @@ function Productresearchsection(props) {
                                           quest.id,
                                           quest?.type
                                         );
-                                      
+
+                                      }}
+                                      onChange={(e) => {
+                                        handlequestion2(
+                                          e,
+                                          quest.id,
+                                          quest?.type
+                                        );
+                                        handlequestion(
+                                          e,
+                                          quest.id,
+                                          quest?.type,
+                                          quest.mandatory
+                                        );
+
 
                                       }}
                                       defaultChecked={
@@ -992,12 +1112,11 @@ function Productresearchsection(props) {
                                           ?.toUpperCase() ==
                                         option?.toUpperCase()
                                       }
-                                      //  disabled={disableedit}
+                                    //  disabled={disableedit}
                                     />
                                   )}
 
                                   <label
-                                   
                                     style={
                                       emptyans_id?.filter((item) => {
                                         return item === quest?.id;
@@ -1007,8 +1126,8 @@ function Productresearchsection(props) {
                                           emptyans?.filter((item) => {
                                             return item?.id == quest?.id;
                                           }) == undefined
-                                        ? { borderBottom: "1px solid red" }
-                                        : {}
+                                          ? { borderBottom: "1px solid red" }
+                                          : {}
                                     }
                                     for="Lorem Ipsum A"
                                   >
@@ -1043,8 +1162,8 @@ function Productresearchsection(props) {
                     disableedit
                       ? disableedit
                       : contact.product_file?.length >= 6
-                      ? true
-                      : false
+                        ? true
+                        : false
                   }
                   type={"file"}
                   name="product_file"
@@ -1106,10 +1225,10 @@ function Productresearchsection(props) {
                         contact.yt_link == ""
                           ? { display: "none" }
                           : {
-                              display: "block",
-                              color: "red",
-                              fontSize: "10px",
-                            }
+                            display: "block",
+                            color: "red",
+                            fontSize: "10px",
+                          }
                       }
                     >
                       {validlink != true ? "Please Enter A valid Link !" : ""}
@@ -1267,8 +1386,8 @@ function Productresearchsection(props) {
                   if (
                     contact.p_name != "" &&
                     contact.ps_name != "" &&
-                    contact.country != "" &&
-                    contact.Description != "" &&
+                    contact.country != "" && contact.country != undefined &&
+                    contact.Description != "" && contact.Description != undefined &&
                     // contact.product_file != "" &&
                     contact.sector_name != ""
                     // contact.Guarantee != "" &&
@@ -1310,9 +1429,9 @@ function Productresearchsection(props) {
                   if (
                     contact.p_name != "" &&
                     contact.ps_name != "" &&
-                    contact.country != "" &&
-                    contact.Description != "" &&
-                    contact.product_file != ""
+                    contact.country != "" && contact.country != undefined &&
+                    contact.Description != "" && contact.Description != undefined &&
+                    contact.product_file[0]
                     // contact.sector_name != ""
                   ) {
                     add_company_profile();

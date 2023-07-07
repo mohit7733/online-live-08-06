@@ -156,7 +156,7 @@ export default function Favourite(props) {
                     className="col_img"
                     onClick={() => {
                       navigate(
-                        "/product-detail-view/" +
+                        "/product-view/" +item.product_id+"/"+
                           item?.product_short_name?.replace(/\s+/g, "-"),
                         {
                           state: {
@@ -187,7 +187,7 @@ export default function Favourite(props) {
                         style={{ cursor: "pointer" }}
                         onClick={() => {
                           navigate(
-                            "/product-detail-view/" +
+                            "/product-view/" +item.product_id+"/"+
                               item?.product_short_name?.replace(/\s+/g, "-"),
                             {
                               state: {
