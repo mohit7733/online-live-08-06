@@ -213,9 +213,9 @@ function Productresearchsection(props) {
             prevOptions.map((option) =>
               option.id === id
                 ? {
-                  ...option,
-                  checkboxValues: [...option.checkboxValues, e.target.value],
-                }
+                    ...option,
+                    checkboxValues: [...option.checkboxValues, e.target.value],
+                  }
                 : option
             )
           );
@@ -225,23 +225,19 @@ function Productresearchsection(props) {
           prevOptions.map((option) =>
             option.id === id
               ? {
-                ...option,
-                checkboxValues: option.checkboxValues.filter(
-                  (value) => value !== e.target.value
-                ),
-              }
+                  ...option,
+                  checkboxValues: option.checkboxValues.filter(
+                    (value) => value !== e.target.value
+                  ),
+                }
               : option
           )
         );
       }
       setnonmedId(
-        nonmedId?.filter(
-          (item) => item == id
-        ).length == 0
+        nonmedId?.filter((item) => item == id).length == 0
           ? nonmedId
-          : nonmedId?.filter(
-            (item) => item != id
-          )
+          : nonmedId?.filter((item) => item != id)
       );
     }
   };
@@ -263,7 +259,6 @@ function Productresearchsection(props) {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then((res) => {
-
         if (res?.data?.data?.company != null) {
           setTimeout(() => {
             setDisableedit(true);
@@ -272,11 +267,26 @@ function Productresearchsection(props) {
 
         if (res?.data?.success == true) {
           setTimeout(() => {
-            contact.p_name = res?.data?.data.company?.company_name != undefined ? res?.data?.data.company?.company_name : "";
-            contact.ps_name = res?.data?.data.company?.company_short_name != undefined ? res?.data?.data.company?.company_short_name : "";
-            contact.country = res?.data?.data.company?.country != undefined ? res?.data?.data.company?.country : "";
-            contact.Description = res?.data?.data.company?.company_dec != undefined ? res?.data?.data.company?.company_dec : "";
-            contact.thumb_index = res?.data?.thumb_index != null && res?.data?.thumb_index != "null" ? parseInt(res?.data?.thumb_index) : 0;
+            contact.p_name =
+              res?.data?.data.company?.company_name != undefined
+                ? res?.data?.data.company?.company_name
+                : "";
+            contact.ps_name =
+              res?.data?.data.company?.company_short_name != undefined
+                ? res?.data?.data.company?.company_short_name
+                : "";
+            contact.country =
+              res?.data?.data.company?.country != undefined
+                ? res?.data?.data.company?.country
+                : "";
+            contact.Description =
+              res?.data?.data.company?.company_dec != undefined
+                ? res?.data?.data.company?.company_dec
+                : "";
+            contact.thumb_index =
+              res?.data?.thumb_index != null && res?.data?.thumb_index != "null"
+                ? parseInt(res?.data?.thumb_index)
+                : 0;
             // contact.sector_name = res?.data?.data.company?.sector;
 
             if (
@@ -335,7 +345,6 @@ function Productresearchsection(props) {
     });
 
     answerArray?.map((question, index) => {
-
       if (0 == index) {
         if (
           nonmedId?.filter((item) => {
@@ -349,17 +358,20 @@ function Productresearchsection(props) {
         }
       }
 
-      formdata.append(`company_question[${(nonmedId.length + index)}][id]`, question?.questionId);
       formdata.append(
-        `company_question[${(nonmedId.length + index)}][answer]`,
+        `company_question[${nonmedId.length + index}][id]`,
+        question?.questionId
+      );
+      formdata.append(
+        `company_question[${nonmedId.length + index}][answer]`,
         options?.filter((item) => {
           return item?.id == question?.questionId;
         })[0]?.id == question?.questionId
           ? JSON.stringify(
-            options?.filter((item) => {
-              return item?.id == question?.questionId;
-            })[0]?.checkboxValues
-          )
+              options?.filter((item) => {
+                return item?.id == question?.questionId;
+              })[0]?.checkboxValues
+            )
           : question?.answer
       );
     });
@@ -433,12 +445,15 @@ function Productresearchsection(props) {
           })?.length <= 5
         ) {
           if (event.target.files[0].size < 838000) {
-            if (event.target.files[0].name.substr(event.target.files[0].name.lastIndexOf('\\') + 1).split('.')[1] != "jfif") {
+            if (
+              event.target.files[0].name
+                .substr(event.target.files[0].name.lastIndexOf("\\") + 1)
+                .split(".")[1] != "jfif"
+            ) {
               contact.product_file.push(event.target.files[0]);
             } else {
               toast.error("This is not supported!");
             }
-
           } else {
             toast.error("File size must not be more than 800 kB.");
           }
@@ -494,13 +509,19 @@ function Productresearchsection(props) {
         // console.log(result.data , "<<<<<,");
         result.data?.map((item) => {
           if (item?.mandatory != 0) {
-            if (result.data.filter((data) => data?.mandatory != 0).length > Mandetroy_quest.length) {
+            if (
+              result.data.filter((data) => data?.mandatory != 0).length >
+              Mandetroy_quest.length
+            ) {
               emptyans_id.push(item?.id);
               Mandetroy_quest.push(item);
             }
           }
           if (item?.mandatory == 0) {
-            if (result.data.filter((data) => data?.mandatory == 0).length > nonmedId.length) {
+            if (
+              result.data.filter((data) => data?.mandatory == 0).length >
+              nonmedId.length
+            ) {
               nonmedId.push(item?.id);
             }
           }
@@ -530,18 +551,16 @@ function Productresearchsection(props) {
     console.log(answerArray?.length);
   }, [answerArray?.length]);
 
-
   useEffect(() => {
     if (check) {
       question_data();
       setcheck(false);
     }
-
   }, [check, subcategory, answerArray]);
 
   useEffect(() => {
     get_companyinfo();
-    return () => { };
+    return () => {};
   }, []);
 
   const handlequestion = (e, id, type, mandatory) => {
@@ -549,11 +568,14 @@ function Productresearchsection(props) {
       answerArray.filter((data) => data.questionId == id)[0].answer =
         e.target.value;
     } else {
-      setanswerArray([...answerArray, {
-        answer: e.target.value,
-        questionId: id,
-        mandatory: mandatory == null ? 1 : mandatory,
-      }]);
+      setanswerArray([
+        ...answerArray,
+        {
+          answer: e.target.value,
+          questionId: id,
+          mandatory: mandatory == null ? 1 : mandatory,
+        },
+      ]);
     }
     answerArray?.map((item) => {
       // console.log(item, "<<<<<<<");
@@ -568,15 +590,17 @@ function Productresearchsection(props) {
         setemptyans_id(emptyans_id?.filter((id) => id != item?.questionId));
       }
     });
-    console.log(answerArray, mandatory, e.target.value, nonmedId, "KKKKDDDDDDDDDDDDDDDKKK");
+    console.log(
+      answerArray,
+      mandatory,
+      e.target.value,
+      nonmedId,
+      "KKKKDDDDDDDDDDDDDDDKKK"
+    );
     setnonmedId(
-      nonmedId?.filter(
-        (item) => item == id
-      ).length == 0
+      nonmedId?.filter((item) => item == id).length == 0
         ? nonmedId
-        : nonmedId?.filter(
-          (item) => item != id
-        )
+        : nonmedId?.filter((item) => item != id)
     );
     // console.log(
     //   answerArray?.filter((item) => {
@@ -630,10 +654,10 @@ function Productresearchsection(props) {
                 {user_type == "both"
                   ? "Supplier"
                   : user_type == "buyer"
-                    ? "Buyer"
-                    : user_type == "supplier"
-                      ? "Supplier"
-                      : ""}
+                  ? "Buyer"
+                  : user_type == "supplier"
+                  ? "Supplier"
+                  : ""}
               </a>
             </li>
             <li>
@@ -741,7 +765,6 @@ function Productresearchsection(props) {
                       disabled={disableedit}
                       value={contact?.country}
                       onChange={(e) => logins_field2(e)}
-
                     >
                       <option>Country *</option>
                       {country.data.map((data, i) => {
@@ -799,71 +822,29 @@ function Productresearchsection(props) {
                 <p class="limit">{contact.Description?.length + "/" + "250"}</p>
               </div>
               {console.log(question, contact?.questions)}
-              {question && question?.map((quest, index) => {
-                // console.log(quest);
-                return (
-                  <div className="radio_section" key={index}>
-                    <p>
-                      Q {index + 1}.{" " + quest?.question}
-                    </p>
-                    <div className="radio_btn">
-                      {quest?.type == "Subjective" ||
+              {question &&
+                question?.map((quest, index) => {
+                  // console.log(quest);
+                  return (
+                    <div className="radio_section" key={index}>
+                      <p>
+                        Q {index + 1}.{" " + quest?.question}
+                      </p>
+                      <div className="radio_btn">
+                        {quest?.type == "Subjective" ||
                         quest?.type.toLowerCase() === "textarea" ? (
-                        <textarea
-                          className={
-                            disableedit
-                              ? "disabled2 form-control "
-                              : "form-control"
-                          }
-                          name="Policy"
-                          disabled={disableedit}
-                          placeholder={
-                            quest?.mandatory != 0
-                              ? "Your Answer *"
-                              : "Your Answer"
-                          }
-                          onChange={(e) => {
-                            handlequestion(
-                              e,
-                              quest.id,
-                              quest?.type,
-                              quest.mandatory
-                            );
-
-
-                            // console.log(nonmedId , "<<<<<<<<<nonmedId");
-                          }}
-                          defaultValue={
-                            contact?.questions?.filter(
-                              (data) => data?.company_question_id == quest?.id
-                            )[0]?.answer
-                          }
-                          style={
-                            emptyans_id?.filter((item) => {
-                              return item === quest?.id;
-                            })[0] == quest?.id &&
-                              quest?.mandatory != 0 &&
-                              anserstyle == true
-                              ? { borderBottom: "1px solid red" }
-                              : anserstyle == true &&
-                                emptyans?.filter((item) => {
-                                  return item?.id == quest?.id;
-                                }) == undefined &&
-                                quest?.mandatory != 0
-                                ? { borderBottom: "1px solid red" }
-                                : {}
-                          }
-                        ></textarea>
-                      ) : (
-                        ""
-                      )}
-                      {quest?.type.toLowerCase() === "select" ? (
-                        <div className="custom-select">
-                          <select
-                            defaultValue={
-                              contact?.questions?.filter(
-                                (data) => data?.company_question_id == quest?.id
-                              )[0]?.answer
+                          <textarea
+                            className={
+                              disableedit
+                                ? "disabled2 form-control "
+                                : "form-control"
+                            }
+                            name="Policy"
+                            disabled={disableedit}
+                            placeholder={
+                              quest?.mandatory != 0
+                                ? "Your Answer *"
+                                : "Your Answer"
                             }
                             onChange={(e) => {
                               handlequestion(
@@ -873,276 +854,311 @@ function Productresearchsection(props) {
                                 quest.mandatory
                               );
 
-
+                              // console.log(nonmedId , "<<<<<<<<<nonmedId");
                             }}
-                            disabled={disableedit}
-                            className=""
+                            defaultValue={
+                              contact?.questions?.filter(
+                                (data) => data?.company_question_id == quest?.id
+                              )[0]?.answer
+                            }
                             style={
                               emptyans_id?.filter((item) => {
                                 return item === quest?.id;
-                              })[0] == quest?.id && anserstyle == true
+                              })[0] == quest?.id &&
+                              quest?.mandatory != 0 &&
+                              anserstyle == true
                                 ? { borderBottom: "1px solid red" }
                                 : anserstyle == true &&
                                   emptyans?.filter((item) => {
                                     return item?.id == quest?.id;
-                                  }) == undefined
-                                  ? { borderBottom: "1px solid red" }
-                                  : {}
+                                  }) == undefined &&
+                                  quest?.mandatory != 0
+                                ? { borderBottom: "1px solid red" }
+                                : {}
                             }
-                          >
-                            <option disabled={true}>
-                              {" "}
-                              {disableedit == true
-                                ? contact?.questions?.filter(
+                          ></textarea>
+                        ) : (
+                          ""
+                        )}
+                        {quest?.type.toLowerCase() === "select" ? (
+                          <div className="custom-select">
+                            <select
+                              defaultValue={
+                                contact?.questions?.filter(
                                   (data) =>
                                     data?.company_question_id == quest?.id
                                 )[0]?.answer
-                                : "Select"}{" "}
-                            </option>
-                            {quest?.ques_obj?.map((option) => {
-                              return <option value={option}>{option}</option>;
-                            })}
-                          </select>
-                        </div>
-                      ) : (
-                        <>
-                          {quest?.ques_obj?.map((option, index2) => {
-                            // console.log(contact?.questions, option);
-                            if (quest?.type.toLowerCase() == "checkbox") {
-                              try {
-                                if (
-                                  /^[\],:{}\s]*$/.test(
-                                    contact?.questions
-                                      ?.filter(
-                                        (data) =>
-                                          data?.company_question_id == quest?.id
-                                      )[0]
-                                      .answer.replace(/\\["\\\/bfnrtu]/g, "@")
-                                      .replace(
-                                        /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,
-                                        "]"
-                                      )
-                                      .replace(/(?:^|:|,)(?:\s*\[)+/g, "")
-                                  )
-                                ) {
-                                  var ans = JSON.parse(
-                                    contact?.questions && contact?.questions?.filter(
+                              }
+                              onChange={(e) => {
+                                handlequestion(
+                                  e,
+                                  quest.id,
+                                  quest?.type,
+                                  quest.mandatory
+                                );
+                              }}
+                              disabled={disableedit}
+                              className=""
+                              style={
+                                emptyans_id?.filter((item) => {
+                                  return item === quest?.id;
+                                })[0] == quest?.id && anserstyle == true
+                                  ? { borderBottom: "1px solid red" }
+                                  : anserstyle == true &&
+                                    emptyans?.filter((item) => {
+                                      return item?.id == quest?.id;
+                                    }) == undefined
+                                  ? { borderBottom: "1px solid red" }
+                                  : {}
+                              }
+                            >
+                              <option disabled={true}>
+                                {" "}
+                                {disableedit == true
+                                  ? contact?.questions?.filter(
                                       (data) =>
                                         data?.company_question_id == quest?.id
                                     )[0]?.answer
-                                  );
+                                  : "Select"}{" "}
+                              </option>
+                              {quest?.ques_obj?.map((option) => {
+                                return <option value={option}>{option}</option>;
+                              })}
+                            </select>
+                          </div>
+                        ) : (
+                          <>
+                            {quest?.ques_obj?.map((option, index2) => {
+                              // console.log(contact?.questions, option);
+                              if (quest?.type.toLowerCase() == "checkbox") {
+                                try {
+                                  if (
+                                    /^[\],:{}\s]*$/.test(
+                                      contact?.questions
+                                        ?.filter(
+                                          (data) =>
+                                            data?.company_question_id ==
+                                            quest?.id
+                                        )[0]
+                                        .answer.replace(/\\["\\\/bfnrtu]/g, "@")
+                                        .replace(
+                                          /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,
+                                          "]"
+                                        )
+                                        .replace(/(?:^|:|,)(?:\s*\[)+/g, "")
+                                    )
+                                  ) {
+                                    var ans = JSON.parse(
+                                      contact?.questions &&
+                                        contact?.questions?.filter(
+                                          (data) =>
+                                            data?.company_question_id ==
+                                            quest?.id
+                                        )[0]?.answer
+                                    );
+                                  }
+                                } catch (error) {
+                                  console.log(error);
                                 }
-                              } catch (error) {
-                                console.log(error);
+                                // console.log(
+                                //   ans,
+                                // );
                               }
-                              // console.log(
-                              //   ans,
-                              // );
-                            }
 
-                            if (option != null) {
-                              return (
-                                <div className="align-items-center">
-                                  {disableedit == true ? (
-                                    <>
-                                      {quest?.type.toLowerCase() ==
+                              if (option != null) {
+                                return (
+                                  <div className="align-items-center">
+                                    {disableedit == true ? (
+                                      <>
+                                        {quest?.type.toLowerCase() ==
                                         "objective" ? (
-                                        <input
-                                          type={
-                                            quest?.type.toLowerCase() !==
+                                          <input
+                                            type={
+                                              quest?.type.toLowerCase() !==
                                               "objective"
-                                              ? "Checkbox"
-                                              : "radio"
-                                          }
-                                          id={"op" + index2}
-                                          name={`question${quest.id}`}
-                                          checked={
-                                            contact?.questions
-                                              ?.filter(
-                                                (data) =>
-                                                  data?.company_question_id ==
-                                                  quest?.id
-                                              )[0]
-                                              ?.answer?.toLowerCase() ==
-                                            option.toLowerCase()
-                                          }
-                                          onClick={(e) => {
-                                            handlequestion2(
-                                              e,
-                                              quest.id,
-                                              quest?.type
-                                            );
-                                            handlequestion(
-                                              e,
-                                              quest.id,
-                                              quest?.type,
-                                              quest.mandatory
-                                            );
-
-
-                                          }}
-                                          onChange={(e) => {
-                                            handlequestion2(
-                                              e,
-                                              quest.id,
-                                              quest?.type
-                                            );
-                                            handlequestion(
-                                              e,
-                                              quest.id,
-                                              quest?.type,
-                                              quest.mandatory
-                                            );
-
-                                          }}
-                                        />
-                                      ) : (
-                                        <input
-                                          type={
-                                            quest?.type.toLowerCase() !==
+                                                ? "Checkbox"
+                                                : "radio"
+                                            }
+                                            id={"op" + index2}
+                                            name={`question${quest.id}`}
+                                            checked={
+                                              contact?.questions
+                                                ?.filter(
+                                                  (data) =>
+                                                    data?.company_question_id ==
+                                                    quest?.id
+                                                )[0]
+                                                ?.answer?.toLowerCase() ==
+                                              option.toLowerCase()
+                                            }
+                                            onClick={(e) => {
+                                              handlequestion2(
+                                                e,
+                                                quest.id,
+                                                quest?.type
+                                              );
+                                              handlequestion(
+                                                e,
+                                                quest.id,
+                                                quest?.type,
+                                                quest.mandatory
+                                              );
+                                            }}
+                                            onChange={(e) => {
+                                              handlequestion2(
+                                                e,
+                                                quest.id,
+                                                quest?.type
+                                              );
+                                              handlequestion(
+                                                e,
+                                                quest.id,
+                                                quest?.type,
+                                                quest.mandatory
+                                              );
+                                            }}
+                                          />
+                                        ) : (
+                                          <input
+                                            type={
+                                              quest?.type.toLowerCase() !==
                                               "objective"
-                                              ? "Checkbox"
-                                              : "radio"
-                                          }
-                                          id={"op" + index2}
-                                          name={`question${quest.id}`}
-                                          // defaultvalue={option}
-                                          defaultValue={
-                                            quest?.type.toLowerCase() !==
+                                                ? "Checkbox"
+                                                : "radio"
+                                            }
+                                            id={"op" + index2}
+                                            name={`question${quest.id}`}
+                                            // defaultvalue={option}
+                                            defaultValue={
+                                              quest?.type.toLowerCase() !==
                                               "objective"
-                                              ? contact?.questions?.filter(
-                                                (data) =>
-                                                  data?.company_question_id ==
-                                                  quest?.id
-                                              )[0]?.answer
-                                              : option
-                                          }
-                                          onClick={(e) => {
-                                            handlequestion2(
-                                              e,
-                                              quest.id,
-                                              quest?.type
-                                            );
-                                            handlequestion(
-                                              e,
-                                              quest.id,
-                                              quest?.type
-                                            );
-
-                                          }}
-                                          onChange={(e) => {
-                                            handlequestion2(
-                                              e,
-                                              quest.id,
-                                              quest?.type
-                                            );
-                                            handlequestion(
-                                              e,
-                                              quest.id,
-                                              quest?.type,
-                                              quest.mandatory
-                                            );
-
-
-                                          }}
-                                          checked={
-                                            ans
-                                              ?.filter((item) => {
-                                                return (
-                                                  item?.toUpperCase() ==
-                                                  option?.toUpperCase()
-                                                );
-                                              })[0]
-                                              ?.toUpperCase() ==
-                                            option?.toUpperCase()
-                                          }
-                                        // disabled={disableedit}
-                                        />
-                                      )}
-                                    </>
-                                  ) : (
-                                    <input
-                                      type={
-                                        quest?.type.toLowerCase() !==
-                                          "objective"
-                                          ? "Checkbox"
-                                          : "radio"
-                                      }
-                                      id={"op" + index2}
-                                      name={`question${quest.id}`}
-                                      // name={"fav_language" + index2}
-                                      // defaultvalue={option}
-                                      value={option}
-                                      onClick={(e) => {
-                                        handlequestion2(
-                                          e,
-                                          quest.id,
-                                          quest?.type
-                                        );
-                                        handlequestion(
-                                          e,
-                                          quest.id,
-                                          quest?.type
-                                        );
-
-                                      }}
-                                      onChange={(e) => {
-                                        handlequestion2(
-                                          e,
-                                          quest.id,
-                                          quest?.type
-                                        );
-                                        handlequestion(
-                                          e,
-                                          quest.id,
-                                          quest?.type,
-                                          quest.mandatory
-                                        );
-
-
-                                      }}
-                                      defaultChecked={
-                                        ans
-                                          ?.filter((item) => {
-                                            return (
-                                              item?.toUpperCase() ==
+                                                ? contact?.questions?.filter(
+                                                    (data) =>
+                                                      data?.company_question_id ==
+                                                      quest?.id
+                                                  )[0]?.answer
+                                                : option
+                                            }
+                                            onClick={(e) => {
+                                              handlequestion2(
+                                                e,
+                                                quest.id,
+                                                quest?.type
+                                              );
+                                              handlequestion(
+                                                e,
+                                                quest.id,
+                                                quest?.type
+                                              );
+                                            }}
+                                            onChange={(e) => {
+                                              handlequestion2(
+                                                e,
+                                                quest.id,
+                                                quest?.type
+                                              );
+                                              handlequestion(
+                                                e,
+                                                quest.id,
+                                                quest?.type,
+                                                quest.mandatory
+                                              );
+                                            }}
+                                            checked={
+                                              ans
+                                                ?.filter((item) => {
+                                                  return (
+                                                    item?.toUpperCase() ==
+                                                    option?.toUpperCase()
+                                                  );
+                                                })[0]
+                                                ?.toUpperCase() ==
                                               option?.toUpperCase()
-                                            );
-                                          })[0]
-                                          ?.toUpperCase() ==
-                                        option?.toUpperCase()
-                                      }
-                                    //  disabled={disableedit}
-                                    />
-                                  )}
+                                            }
+                                            // disabled={disableedit}
+                                          />
+                                        )}
+                                      </>
+                                    ) : (
+                                      <input
+                                        type={
+                                          quest?.type.toLowerCase() !==
+                                          "objective"
+                                            ? "Checkbox"
+                                            : "radio"
+                                        }
+                                        id={"op" + index2}
+                                        name={`question${quest.id}`}
+                                        // name={"fav_language" + index2}
+                                        // defaultvalue={option}
+                                        value={option}
+                                        onClick={(e) => {
+                                          handlequestion2(
+                                            e,
+                                            quest.id,
+                                            quest?.type
+                                          );
+                                          handlequestion(
+                                            e,
+                                            quest.id,
+                                            quest?.type
+                                          );
+                                        }}
+                                        onChange={(e) => {
+                                          handlequestion2(
+                                            e,
+                                            quest.id,
+                                            quest?.type
+                                          );
+                                          handlequestion(
+                                            e,
+                                            quest.id,
+                                            quest?.type,
+                                            quest.mandatory
+                                          );
+                                        }}
+                                        defaultChecked={
+                                          ans
+                                            ?.filter((item) => {
+                                              return (
+                                                item?.toUpperCase() ==
+                                                option?.toUpperCase()
+                                              );
+                                            })[0]
+                                            ?.toUpperCase() ==
+                                          option?.toUpperCase()
+                                        }
+                                        //  disabled={disableedit}
+                                      />
+                                    )}
 
-                                  <label
-                                    style={
-                                      emptyans_id?.filter((item) => {
-                                        return item === quest?.id;
-                                      })[0] == quest?.id && anserstyle == true
-                                        ? { borderBottom: "1px solid red" }
-                                        : anserstyle == true &&
-                                          emptyans?.filter((item) => {
-                                            return item?.id == quest?.id;
-                                          }) == undefined
+                                    <label
+                                      style={
+                                        emptyans_id?.filter((item) => {
+                                          return item === quest?.id;
+                                        })[0] == quest?.id && anserstyle == true
+                                          ? { borderBottom: "1px solid red" }
+                                          : anserstyle == true &&
+                                            emptyans?.filter((item) => {
+                                              return item?.id == quest?.id;
+                                            }) == undefined
                                           ? { borderBottom: "1px solid red" }
                                           : {}
-                                    }
-                                    for="Lorem Ipsum A"
-                                  >
-                                    {option}
-                                  </label>
-                                </div>
-                              );
-                            }
-                          })}
-                        </>
-                      )}
+                                      }
+                                      for="Lorem Ipsum A"
+                                    >
+                                      {option}
+                                    </label>
+                                  </div>
+                                );
+                              }
+                            })}
+                          </>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
             <div className="col_right">
               <h6>Company Images</h6>
@@ -1162,8 +1178,8 @@ function Productresearchsection(props) {
                     disableedit
                       ? disableedit
                       : contact.product_file?.length >= 6
-                        ? true
-                        : false
+                      ? true
+                      : false
                   }
                   type={"file"}
                   name="product_file"
@@ -1225,10 +1241,10 @@ function Productresearchsection(props) {
                         contact.yt_link == ""
                           ? { display: "none" }
                           : {
-                            display: "block",
-                            color: "red",
-                            fontSize: "10px",
-                          }
+                              display: "block",
+                              color: "red",
+                              fontSize: "10px",
+                            }
                       }
                     >
                       {validlink != true ? "Please Enter A valid Link !" : ""}
@@ -1386,8 +1402,10 @@ function Productresearchsection(props) {
                   if (
                     contact.p_name != "" &&
                     contact.ps_name != "" &&
-                    contact.country != "" && contact.country != undefined &&
-                    contact.Description != "" && contact.Description != undefined &&
+                    contact.country != "" &&
+                    contact.country != undefined &&
+                    contact.Description != "" &&
+                    contact.Description != undefined &&
                     // contact.product_file != "" &&
                     contact.sector_name != ""
                     // contact.Guarantee != "" &&
@@ -1429,8 +1447,10 @@ function Productresearchsection(props) {
                   if (
                     contact.p_name != "" &&
                     contact.ps_name != "" &&
-                    contact.country != "" && contact.country != undefined &&
-                    contact.Description != "" && contact.Description != undefined &&
+                    contact.country != "" &&
+                    contact.country != undefined &&
+                    contact.Description != "" &&
+                    contact.Description != undefined &&
                     contact.product_file[0]
                     // contact.sector_name != ""
                   ) {
