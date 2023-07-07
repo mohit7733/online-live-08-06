@@ -136,9 +136,9 @@ function Company_informationNew(props) {
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
-        if (result?.success == false) {
-          toast.error("Please Select Profile and Brand Image !");
-        }
+        // if (result?.success == false) {
+        //   toast.error("Please Select Profile and Brand Image !");
+        // }
 
         if (result?.status == "true") {
           toast.success(result?.message);
@@ -197,18 +197,18 @@ function Company_informationNew(props) {
       case "company_name":
         errorfield.company_name = e.target.value == "" ? "required" : "";
         break;
-      case "brand_logo":
-        errorfield.brand_logo = e.target.files[0].name == "" ? "required" : "";
-        break;
+      // case "brand_logo":
+      //   errorfield.brand_logo = e.target.files[0].name == "" ? "required" : "";
+      //   break;
       case "brand_name":
         errorfield.brand_name = e.target.value == "" ? "required" : "";
         break;
       case "city":
         errorfield.city = e.target.value == "" ? "required" : "";
         break;
-      case "state":
-        errorfield.state = e.target.value == "" ? "required" : "";
-        break;
+      // case "state":
+      //   errorfield.state = e.target.value == "" ? "required" : "";
+      //   break;
       case "post_code":
         errorfield.post_code = e.target.value == "" ? "required" : "";
         break;
@@ -249,13 +249,13 @@ function Company_informationNew(props) {
       case "brand_name":
         errorfield.brand_name = cInfo?.brand_name == "" ? "required" : "";
         break;
-      case "brand_logo":
-        errorfield.brand_logo = cInfo?.brand_logo == "" ? "required" : "";
-        // console.log(cInfo?.brand_logo);
-        break;
-      case "state":
-        errorfield.state = cInfo?.state == "" ? "required" : "";
-        break;
+      // case "brand_logo":
+      //   errorfield.brand_logo = cInfo?.brand_logo == "" ? "required" : "";
+      //   // console.log(cInfo?.brand_logo);
+      //   break;
+      // case "state":
+      //   errorfield.state = cInfo?.state == "" ? "required" : "";
+      //   break;
       case "city":
         errorfield.city = cInfo?.city == "" ? "required" : "";
         break;
@@ -430,7 +430,7 @@ function Company_informationNew(props) {
                 <div className="form-row align-items-center">
                   <div className="left">
                     <label>
-                      Brand Logo <span style={{ color: "red" }}>*</span>
+                      Brand Logo 
                     </label>
                     <br />
                     <span className="sub-label">
@@ -594,7 +594,7 @@ function Company_informationNew(props) {
                         className={
                           editcompany ? "form-control" : "form-control disabled"
                         }
-                        placeholder="State *"
+                        placeholder="State"
                         disabled={!editcompany}
                         style={
                           errorfield.state == ""
@@ -833,7 +833,6 @@ function Company_informationNew(props) {
                   <div className="left">
                     <label>
                       Upload Profile Photo{" "}
-                      <span style={{ color: "red" }}>*</span>
                     </label>
                     <br />
                     <span className="sub-label">
@@ -855,7 +854,7 @@ function Company_informationNew(props) {
                                 : { borderBottom: "1px solid red" }
                             }
                           >
-                            <div className="button">Choose File *</div>
+                            <div className="button">Choose File </div>
                             <div className="files">
                               {" "}
                               {cInfo?.contact1_image?.name}{" "}
@@ -1185,7 +1184,7 @@ function Company_informationNew(props) {
                           cInfo?.post_code != "" &&
                           cInfo?.address1 != "" &&
                           cInfo?.country != "" &&
-                          cInfo?.state != "" &&
+                          // cInfo?.state != "" &&
                           cInfo?.website != "" &&
                           cInfo?.contact1_image?.name != ""
                         ) {
