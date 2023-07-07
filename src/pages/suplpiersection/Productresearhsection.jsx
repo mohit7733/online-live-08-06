@@ -394,7 +394,7 @@ function Productresearchsection(props) {
 
     if (
       answerArray?.filter((item) => {
-        return item?.mandatory != 0;
+        return item?.mandatory == 0;
       }).length != Mandetroy_quest?.length
     ) {
       answerArray?.map((item) => {
@@ -508,9 +508,9 @@ function Productresearchsection(props) {
         setquestion(result.data);
         // console.log(result.data , "<<<<<,");
         result.data?.map((item) => {
-          if (item?.mandatory != 0) {
+          if (item?.mandatory == 0) {
             if (
-              result.data.filter((data) => data?.mandatory != 0).length >
+              result.data.filter((data) => data?.mandatory == 0).length >
               Mandetroy_quest.length
             ) {
               emptyans_id.push(item?.id);
@@ -842,7 +842,7 @@ function Productresearchsection(props) {
                             name="Policy"
                             disabled={disableedit}
                             placeholder={
-                              quest?.mandatory != 0
+                              quest?.mandatory == 0
                                 ? "Your Answer *"
                                 : "Your Answer"
                             }
@@ -865,14 +865,14 @@ function Productresearchsection(props) {
                               emptyans_id?.filter((item) => {
                                 return item === quest?.id;
                               })[0] == quest?.id &&
-                              quest?.mandatory != 0 &&
+                              quest?.mandatory == 0 &&
                               anserstyle == true
                                 ? { borderBottom: "1px solid red" }
                                 : anserstyle == true &&
                                   emptyans?.filter((item) => {
                                     return item?.id == quest?.id;
                                   }) == undefined &&
-                                  quest?.mandatory != 0
+                                  quest?.mandatory == 0
                                 ? { borderBottom: "1px solid red" }
                                 : {}
                             }
