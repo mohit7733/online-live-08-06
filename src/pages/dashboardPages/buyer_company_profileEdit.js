@@ -939,9 +939,9 @@ function Company_profile_Edit(props) {
                   <h6>Product Images</h6>
                   <div
                     className="data_upload"
-                    style={
-                      imagelimt > 0 ? {} : { borderBottom: "2px solid red" }
-                    }
+                    // style={
+                    //   imagelimt > 0 ? {} : { borderBottom: "2px solid red" }
+                    // }
                   >
                     <input
                       type={"file"}
@@ -956,7 +956,8 @@ function Company_profile_Edit(props) {
                     <img src="images/profile_upload.svg" alt="" />
                     <h4>
                       Upload Company Logo{" "}
-                      <span style={{ color: "red" }}>*</span> or <br />
+                      {/* <span style={{ color: "red" }}>*</span> */}
+                       or <br />
                       Document
                       <br />
                       <p> Image , Document Size : 800kb </p>
@@ -1142,7 +1143,7 @@ function Company_profile_Edit(props) {
                   onClick={(e) => {
                     if (
                       // errorfield?.p_name == ""
-                      imagelimt === 0 &&
+                      // imagelimt === 0 &&
                       contact.p_name == "" &&
                       contact.ps_name == "" &&
                       contact.country == "" &&

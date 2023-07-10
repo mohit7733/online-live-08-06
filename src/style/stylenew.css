@@ -2285,16 +2285,17 @@ a.error_icon i {
 }
 
 .buyers_wrapper .column {
-  height: 130px;
-  border: solid 1px #d9d9d9;
+  align-items: center;
+  border: 1px solid #d9d9d9;
   border-radius: 10px;
   display: flex;
+  height: 130px;
   justify-content: center;
-  align-items: center;
-  margin: 20px 0px;
-  transition: all 0.5s ease-in-out;
+  margin: 16px 0;
   padding: 36px 0;
+  transition: all .5s ease-in-out;
 }
+
 
 .buyers_wrapper .pagination {
   padding: 0 0 56px;
@@ -3991,10 +3992,10 @@ iframe {
   margin-bottom: 50px;
 }
 
-.product_supplier_inner,
+/* .product_supplier_inner,
 .product_supplir_profile {
-  /*  margin-right: 110px;*/
-}
+   margin-right: 110px;
+} */
 
 /* css changes k */
 .btn23 {
@@ -6642,7 +6643,9 @@ iframe {
 }
 
 .dropdown2 {
-  transform: translateY(-6.5px);
+  -webkit-transform: translateY(-6.5px);
+  transform: translateY(-3px);
+  transform: translateY(-3px);
 }
 
 .about .inner .inner-text ul li,
@@ -6652,6 +6655,8 @@ iframe {
   color: #333;
   margin-left: 20px;
 }
+
+
 
 .Quality-section .column>.row {
   margin-bottom: 30px;
@@ -7604,6 +7609,15 @@ table tr td .fa-pen-to-square {
   padding-left: 56px;
 }
 
+.buyers_wrapper .grid-col h5,
+.client-section .grid-col h5 {
+  font-size: 20px;
+  font-weight: 600;
+  padding: 8px;
+  text-align: center;
+}
+
+
 .blog-panel .col-text h5 {
   color: #19a0dd;
 }
@@ -7611,6 +7625,20 @@ table tr td .fa-pen-to-square {
 .blog-panel .col-text h2 {
   padding: 12px 0px;
 }
+
+
+.client-section .column {
+  align-items: center;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  display: flex;
+  height: 130px;
+  justify-content: center;
+  margin: 16px 0;
+  overflow: hidden;
+  transition: all .5s ease-in-out;
+}
+
 
 .blog-panel .col-text h6 {
   font-size: 14px;
@@ -12964,4 +12992,26 @@ footer .f-logos {
 
 .banner-section .banner-slide .banner-text p p {
   padding: 0;
+}
+
+
+
+@media (min-width: 1025px) and (max-width: 1080px) {
+
+  .header .logo {
+    margin-right: 10px;
+  }
+
+  /* sylenew.css 7314  */
+
+  .header .nav li {
+    display: inline-block;
+    padding: 0 10px;
+    position: relative;
+  }
+
+  .header .nav li a {
+    font-size: 15px !important;
+
+  }
 }

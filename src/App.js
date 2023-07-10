@@ -126,12 +126,10 @@ function App() {
             path="/product-before-meeting"
             element={<Productbeforemeeting />}
           />
-          <Route
-            path="/product-view/:id/:name"
-            element={
-              <Private_route element={<ProductDetailView pageType="new" />} />
-            }
-          />
+         <Route
+						path="/product-view/:id/:name"
+						element={<ProductDetailView pageType="new" />}
+					/>
           <Route
             path="/product-after-meeting"
             element={<Productaftermeeting />}
@@ -163,7 +161,7 @@ function App() {
           />
           <Route path="/how-does-it-work" element={<How_it_work />} />
           <Route path="/they-trusted-us" element={<Theytrustedus />} />
-          <Route path="/buyer" element={<Theytrustedus />} />
+          <Route path="/buyer-at-a-glance" element={<Theytrustedus />} />
           <Route path="/contact-us" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route

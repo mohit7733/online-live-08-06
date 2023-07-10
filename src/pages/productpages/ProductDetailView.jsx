@@ -14,6 +14,35 @@ import meetingicon2 from "../../assets/images/meeting2.svg";
 import favouriteicon from "../../assets/images/favourite.svg";
 import favouriteicon2 from "../../assets/images/favourite2.svg";
 function ProductDetailView(props) {
+
+
+  let token = localStorage.getItem("token");
+  const path = window.location.pathname;
+  useEffect(() => {
+    if (token === null && path.includes("/product-view")) {
+      console.log('worked')
+      const newPath = path.replace("/product-view", "/product-details");
+      navigate(newPath);
+    }
+    if (
+      token !== null &&
+      path.includes("/product-details") &&
+      localStorage.getItem("user_type") !== "Supplier"
+    ) {
+      const newPath = path.replace("/product-details", "/product-view");
+      navigate(newPath);
+    }
+    if (
+      token !== null &&
+      localStorage.getItem("user_id") == productData?.supplier_id
+    ) {
+      const newPath = path.replace("/product-details", "/product-view");
+      navigate(newPath);
+    }
+  }, [token]);
+
+
+  
   const [showpolicy, setshowpolicy] = useState(false);
   const [sidebar, setsidebar] = useState(true);
   const [iconChange, seticonChange] = useState(false);
@@ -36,6 +65,14 @@ function ProductDetailView(props) {
   const [apiDateFormat, setApiDateFormat] = useState("");
   const [modalState, setModalState] = useState(false);
   const getProductDetails = () => {
+
+
+ /// product view changes
+
+
+
+
+
     var myHeaders = new Headers();
     myHeaders.append(
       "Authorization",
