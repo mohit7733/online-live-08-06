@@ -27,8 +27,8 @@ function Clients() {
             <div className="section client-section">
                 <div className="container">
                     <div className="heading row justify-content-between align-items-center" data-aos="fade-up">
-                        <h2>They Trusted Us</h2>
-                        <a href="/they-trusted-us" className="btn-link">View More</a>
+                        <h2>Buyers Who Trusted Us</h2>
+                        <a href="/buyer-at-a-glance" className="btn-link">View All Buyers</a>
                     </div>
                     <div className="row grid-5">
                         {
@@ -38,6 +38,7 @@ function Clients() {
                                         <div className="column">
                                             <img src={logos?.logo} title="" alt="" />
                                         </div>
+                                        <h5>{logos?.country}</h5>
                                     </div>
                                 )
                             })

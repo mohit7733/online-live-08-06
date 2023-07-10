@@ -437,7 +437,7 @@ function Productview() {
                           // }
                           >
                             {" "}
-                            {data?.product_name}
+                            {data?.product_short_name}
                           </h4>
                           <ul className="d-flex align-items-center">
                             <li className="made_inclass">

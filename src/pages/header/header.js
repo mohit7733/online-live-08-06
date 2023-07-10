@@ -57,10 +57,10 @@ function Header() {
                     <Link to="/how-does-it-work">How it works</Link>
                   </li>
                   <li>
-                    <Link to="/buyer">Buyers</Link>
+                    <Link to="/buyer-at-a-glance">Buyers at a glance</Link>
                   </li>
                   <li>
-                    <Link to="/product-view">Products</Link>
+                    <Link to="/product-view">Showcased Products</Link>
                   </li>
                   <li
                     className="
@@ -68,7 +68,7 @@ function Header() {
                   dropdown"
                   >
                     <Link to="#">
-                      Resources{" "}
+                      Content Library{" "}
                       <span>
                         <i className="fa fa-angle-down" aria-hidden="true"></i>
                       </span>
@@ -115,7 +115,13 @@ function Header() {
                     <figure style={{ lineHeight: 0 }}>
                       <img className="user_oc" src={profile_img} alt="sdfsa" />
                     </figure>
-                    {localStorage.getItem("username")}
+                    {localStorage.getItem("username").length > 5 ? (
+                      <>
+                        {localStorage.getItem("username").slice(0, 5)}...
+                      </>
+                    ) : (
+                      localStorage.getItem("username")
+                    )}
                   </a>
                   <div
                     id="toggle"
