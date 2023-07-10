@@ -6644,8 +6644,8 @@ iframe {
 
 .dropdown2 {
   -webkit-transform: translateY(-6.5px);
-  transform: translateY(-3px);
-  transform: translateY(-3px);
+  -webkit-transform: translateY(-3px);
+  transform: translateY(-6px);
 }
 
 .about .inner .inner-text ul li,
