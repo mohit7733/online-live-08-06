@@ -14,16 +14,27 @@ import meetingicon2 from "../../assets/images/meeting2.svg";
 import favouriteicon from "../../assets/images/favourite.svg";
 import favouriteicon2 from "../../assets/images/favourite2.svg";
 function ProductDetailView(props) {
-
-
-  let token = localStorage.getItem("token");
+  // const [productData, setProductData] = useState([]);
+  const [productData, setProductData] = useState([]);
+  const token = localStorage.getItem("token");
+  console.log(productData?.product?.supplier_id, "supplier id ");
+  console.log(localStorage.getItem("user_id"), "local storage data user id");
+  // let token = localStorage.getItem("token");
   const path = window.location.pathname;
   useEffect(() => {
     if (token === null && path.includes("/product-view")) {
-      console.log('worked')
+      console.log("worked");
       const newPath = path.replace("/product-view", "/product-details");
       navigate(newPath);
     }
+    // if (token !== null &&
+    //   path.includes( "/product-view") &&
+    //   // localStorage.getItem("user_type") !== "Supplier" &&
+    //   localStorage?.getItem("user_type") !== productData?.product?.supplier_id
+    //   ) {
+    //     const newPath = path.replace( "/product-view" , "/product-details");
+    //     navigate(newPath);
+    //   }
     if (
       token !== null &&
       path.includes("/product-details") &&
@@ -41,8 +52,6 @@ function ProductDetailView(props) {
     }
   }, [token]);
 
-
-  
   const [showpolicy, setshowpolicy] = useState(false);
   const [sidebar, setsidebar] = useState(true);
   const [iconChange, seticonChange] = useState(false);
@@ -53,7 +62,6 @@ function ProductDetailView(props) {
   const [link, setlink] = useState("");
   const [select, setselect] = useState();
   const { state } = useLocation();
-  const [productData, setProductData] = useState([]);
   const [textChange, settextChange] = useState();
   const [sDate, setSdate] = useState("");
   const [sTime, setSTime] = useState("");
@@ -65,13 +73,7 @@ function ProductDetailView(props) {
   const [apiDateFormat, setApiDateFormat] = useState("");
   const [modalState, setModalState] = useState(false);
   const getProductDetails = () => {
-
-
- /// product view changes
-
-
-
-
+    /// product view changes
 
     var myHeaders = new Headers();
     myHeaders.append(
@@ -93,11 +95,11 @@ function ProductDetailView(props) {
         // console.log(result.data.media_files ,result.data?.product?.thumb_index , thumb , "<<<<<<<result.data");
         setthumb(
           result.data?.media_files[
-          Number(
-            result.data?.product?.thumb_index == undefined
-              ? "0"
-              : result.data?.product?.thumb_index
-          )
+            Number(
+              result.data?.product?.thumb_index == undefined
+                ? "0"
+                : result.data?.product?.thumb_index
+            )
           ]
         );
         setProductData(result.data);
@@ -346,7 +348,12 @@ function ProductDetailView(props) {
                                 </figure>
                               </div>
                             );
-                          } else if (item.media_type === "doc" && item?.file_path.substr(item?.file_path.lastIndexOf('\\') + 1).split('.')[3] != "pdf") {
+                          } else if (
+                            item.media_type === "doc" &&
+                            item?.file_path
+                              .substr(item?.file_path.lastIndexOf("\\") + 1)
+                              .split(".")[3] != "pdf"
+                          ) {
                             return (
                               <div>
                                 <figure>
@@ -361,17 +368,27 @@ function ProductDetailView(props) {
                                 </figure>
                               </div>
                             );
-                          } else if (item?.file_path.substr(item?.file_path.lastIndexOf('\\') + 1).split('.')[3] == "pdf") {
+                          } else if (
+                            item?.file_path
+                              .substr(item?.file_path.lastIndexOf("\\") + 1)
+                              .split(".")[3] == "pdf"
+                          ) {
                             return (
                               <div>
                                 <figure>
-                                  <embed src={item?.file_path+"#toolbar=1&scrollbar=0"} height="500px" width="100%" frameborder="0"
-                                    scrolling="auto" />
+                                  <embed
+                                    src={
+                                      item?.file_path + "#toolbar=1&scrollbar=0"
+                                    }
+                                    height="500px"
+                                    width="100%"
+                                    frameborder="0"
+                                    scrolling="auto"
+                                  />
                                 </figure>
                               </div>
-                            )
+                            );
                           }
-
                         })}
                         {link != "" ? (
                           <div>
@@ -442,7 +459,7 @@ function ProductDetailView(props) {
                       })}
 
                       {productData.product?.youtube_link == "null" ||
-                        productData.product?.youtube_link == "undefined" ? (
+                      productData.product?.youtube_link == "undefined" ? (
                         ""
                       ) : (
                         <div>
@@ -577,26 +594,29 @@ function ProductDetailView(props) {
                             .format("DD MM YYYY")
                             .toLowerCase() === "invalid date"
                             ? productData.product?.date_of_creation.replace(
-                              /\//g,
-                              "-"
-                            )
-                            : moment(
-                              productData.product?.date_of_creation?.replace(
                                 /\//g,
-                                " "
-                              ),
-                              "DD MM YYYY"
-                            ).format("DD-MM-YYYY")}
+                                "-"
+                              )
+                            : moment(
+                                productData.product?.date_of_creation?.replace(
+                                  /\//g,
+                                  " "
+                                ),
+                                "DD MM YYYY"
+                              ).format("DD-MM-YYYY")}
                         </h5>
                       </li>
                     ) : null}
                   </ul>
 
                   {productData?.product?.supplier_id ==
-                    localStorage.getItem("user_id") ? (
+                  localStorage.getItem("user_id") ? (
                     ""
                   ) : (
-                    <div className="button-wrapper m-t" style={{ display: "none" }}>
+                    <div
+                      className="button-wrapper m-t"
+                      style={{ display: "none" }}
+                    >
                       <a
                         // href="#"
                         onClick={() => addtofavvrate()}
@@ -617,7 +637,7 @@ function ProductDetailView(props) {
                           : "Add your favourites"}
                       </a>
                       {localStorage.getItem("user_type") &&
-                        localStorage.getItem("user_type").toLowerCase() ===
+                      localStorage.getItem("user_type").toLowerCase() ===
                         "supplier" ? null : (
                         <>
                           <button
@@ -662,8 +682,8 @@ function ProductDetailView(props) {
                     productData?.productownerstatus == true
                       ? { display: "contents" }
                       : productData?.requeststatus == 1
-                        ? { display: "contents" }
-                        : {}
+                      ? { display: "contents" }
+                      : {}
                   }
                 >
                   <div className="profile-list profile-brand">
@@ -705,13 +725,13 @@ function ProductDetailView(props) {
                                     __html:
                                       item?.type.toLowerCase() == "checkbox"
                                         ? item?.answer.replace(
-                                          /[\\\n["{}:\]']+/g,
-                                          " "
-                                        )
+                                            /[\\\n["{}:\]']+/g,
+                                            " "
+                                          )
                                         : item?.answer.replace(
-                                          /[\\\n[{}:\]]+/g,
-                                          "<br>"
-                                        ),
+                                            /[\\\n[{}:\]]+/g,
+                                            "<br>"
+                                          ),
                                   }}
                                 />
                                 {/* <p>
@@ -739,8 +759,8 @@ function ProductDetailView(props) {
 
               {/* {console.log(productData?.requeststatus)} */}
               {productData?.requeststatus === null ||
-                (productData?.requeststatus != 1 &&
-                  productData?.productownerstatus != true) ? (
+              (productData?.requeststatus != 1 &&
+                productData?.productownerstatus != true) ? (
                 <div className="request-box-wrapper">
                   <div className="request-box">
                     <h3>Do you want more information?</h3>
