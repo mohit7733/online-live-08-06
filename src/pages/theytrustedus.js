@@ -69,6 +69,7 @@ function Theytrustedus() {
                                             <div className="column">
                                                 <img src={api + "/assets/cms/" + logos.logo} title="" alt="" />
                                             </div>
+                                            <h5>{logos?.country}</h5>
                                         </div>
                                     )
                                 }
