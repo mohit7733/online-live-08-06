@@ -1160,18 +1160,18 @@ function Productresearchsection(props) {
                   );
                 })}
             </div>
-            <div className="col_right">
+            <div className="col_right"> 
               <h6>Company Images</h6>
               <div
                 // className="data_upload"
                 className={
                   disableedit ? "disabled2 data_upload " : "data_upload"
                 }
-                style={
-                  errorfield?.product_file == ""
-                    ? {}
-                    : { borderBottom: "2px solid red" }
-                }
+                // style={
+                //   errorfield?.product_file == ""
+                //     ? {}
+                //     : { borderBottom: "2px solid red" }
+                // }
               >
                 <input
                   disabled={
@@ -1190,8 +1190,8 @@ function Productresearchsection(props) {
                   accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.slideshow, application/vnd.openxmlformats-officedocument.presentationml.presentation"
                 />
                 <img src="images/profile_upload.svg" alt="" />
-                <h4>
-                  Upload Company Logo <span style={{ color: "red" }}>*</span> or{" "}
+                <h4>    
+                  Upload Company Logo or{" "}
                   <br />
                   Document
                   <br />
@@ -1450,8 +1450,9 @@ function Productresearchsection(props) {
                     contact.country != "" &&
                     contact.country != undefined &&
                     contact.Description != "" &&
-                    contact.Description != undefined &&
-                    contact.product_file[0]
+                    contact.Description != undefined
+                    //  &&
+                    // contact.product_file[0]
                     // contact.sector_name != ""
                   ) {
                     add_company_profile();
