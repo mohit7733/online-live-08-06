@@ -104,7 +104,7 @@ function ProductDetailView(props) {
       })
       .catch((error) => {
         console.log("error", error);
-        navigate("/notfound");
+        // navigate("/notfound");
       });
   };
 
