@@ -7,6 +7,29 @@ import ReactPlayer from "react-player";
 // import ProductImage from "../../../public/images/prod-detail_1.jpg"
 function Productdetails() {
   const [productData, setProductData] = useState([]);
+  const path = window.location.pathname;
+
+  let token = localStorage.getItem("token");
+  useEffect(() => {
+    if (
+      token !== null &&
+      path.includes("/product-details") &&
+      localStorage.getItem("user_type") !== "Supplier"
+    ) {
+      const newPath = path.replace("/product-details", "/product-view");
+      navigate(newPath);
+    }
+    if (
+      token !== null &&
+      localStorage.getItem("user_id") == productData?.supplier_id
+    ) {
+      const newPath = path.replace("/product-details", "/product-view");
+      navigate(newPath);
+    }
+  }, [token, productData]);
+
+
+
   const [check, setcheck] = useState(true);
   const slugdata = useParams();
   const { state } = useLocation()
@@ -27,7 +50,10 @@ function Productdetails() {
     fetch(api + "/api/v1/products_details?product_id=" + slugdata?.id, requestOptions)
       .then((response) => response.json())
       .then((result) => setProductData(result.data))
-      .catch((error) => console.log("error", error));
+      .catch((error) => {
+        console.log("error", error);
+        navigate("/notfound");
+      });
   };
 
   useEffect(() => {

@@ -68,7 +68,7 @@ import Company_profile_Edit from "./pages/dashboardPages/buyer_company_profileEd
 import MeetingSubscription from "./pages/meetings/MeetingSubscription";
 import MeetingSubscriptionPage from "./pages/dashboardPages/meeting_subscriptionPage";
 import Billing from "./pages/dashboardPages/billing";
-
+import NotFound404 from "./pages/notfound/NotFound";
 // import Forgot_password from './pages/middel/forgot_password'
 function App() {
 
@@ -93,6 +93,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about-us" element={<About />} />
           <Route path="/blogs" element={<Blog />} />
+          <Route path="/notfound" element={<NotFound404 />} />
           <Route path="/product-buyer" element={<ProductBuyer />} />
           <Route
             path="/add-new-product"

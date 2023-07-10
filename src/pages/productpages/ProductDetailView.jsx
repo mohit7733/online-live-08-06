@@ -102,7 +102,10 @@ function ProductDetailView(props) {
         );
         setProductData(result.data);
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => {
+        console.log("error", error);
+        navigate("/notfound");
+      });
   };
 
   const addtofavvrate = () => {
