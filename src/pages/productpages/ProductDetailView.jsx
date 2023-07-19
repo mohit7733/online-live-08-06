@@ -541,7 +541,7 @@ function ProductDetailView(props) {
                     {productData.product?.price_range ? (
                       <li className="before_meeting_li">
                         <h5>
-                          Price Range: : {productData.product?.price_range}
+                          Price Range: {productData.product?.price_range} {" "}
                           {productData.product?.price_policy ? (
                             <>
                               <a href="#">
@@ -776,7 +776,7 @@ function ProductDetailView(props) {
                 <div className="request-box-wrapper">
                   <div className="request-box">
                     <h3>Do you want more information?</h3>
-                    {productData?.checkrequest === 0 ? (
+                    {productData?.requeststatus === null ? (
                       <button
                         className="btn btn-secondary"
                         onClick={() => requestAdmin(productData?.product.id)}
