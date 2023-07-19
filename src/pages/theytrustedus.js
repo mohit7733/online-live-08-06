@@ -79,6 +79,19 @@ function Theytrustedus() {
                 </div>
                 <div className="pagination">
                     <ul style={{ marginTop: "1rem" }}>
+                        {
+                            theytrusted?.logos?.length <= 25 && pagination <= 25 ? "" :
+                                <li
+                                    className="selected"
+                                    onClick={(e) => {
+                                        window.scrollTo(0, 200)
+                                        setpagination(pagination - 25)
+                                    }}
+                                >
+                                    <a> <img src="images/arrow-right.png" title="" alt="" style={{ transform: "rotateY(180deg)" }} /> Previous</a>
+                                </li>
+                        }
+
                         {theytrusted?.logos?.length > 0
                             ? [
                                 ...Array(
@@ -106,26 +119,31 @@ function Theytrustedus() {
                                 i += 1;
                                 return (
                                     <li
-                                        className={pagination == i * 8 ? "active" : ""}
-                                        onClick={(e) => setpagination(i * 25)}
+                                        className={pagination == i * 25 ? "active" : ""}
+                                        onClick={(e) => {
+                                            if (i == 1) {
+                                                window.scrollTo(0, 200)
+                                            }
+                                            setpagination(i * 25)
+                                        }}
                                     >
                                         <a>{i}</a>
                                     </li>
                                 );
                             })
                             : ""}
-                            {
-                                theytrusted?.logos?.length <= 25 ? "" :
-                                
-                        <li
-                            className="selected"
-                            onClick={(e) => setpagination(pagination + 25)}
-                        >
-                            <a>
-                                Next <img src="images/arrow-right.png" title="" alt="" />
-                            </a>
-                        </li>
-                            }
+                        {
+                            theytrusted?.logos?.length <= 75 && pagination < 26 ? "" :
+
+                                <li
+                                    className="selected"
+                                    onClick={(e) => setpagination(pagination + 25)}
+                                >
+                                    <a>
+                                        Next <img src="images/arrow-right.png" title="" alt="" />
+                                    </a>
+                                </li>
+                        }
                     </ul>
                 </div>
             </div>

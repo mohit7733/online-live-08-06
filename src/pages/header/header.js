@@ -14,11 +14,11 @@ function Header() {
     setshow(false);
     setshowtoggle(false);
   };
-  const profile_img =  localStorage.getItem("profile_pic") == "null" || localStorage.getItem("profile_pic") == "assets/images/users/default.png" ? usericon : localStorage.getItem("profile_pic") ;
+  const profile_img = localStorage.getItem("profile_pic") == "null" || localStorage.getItem("profile_pic") == "assets/images/users/default.png" ? usericon : localStorage.getItem("profile_pic");
   const { pathname } = useLocation();
 
   useEffect(() => {
-    console.log(profile_img ,usericon);
+    console.log(profile_img, usericon);
     setshow(false);
     if (window.location.pathname == "/product-details" || window.location.pathname == "/product-details/") {
       navigate("/product-view")
@@ -103,8 +103,8 @@ function Header() {
               </div>
             </div>
             {localStorage.getItem("username") != "" &&
-            localStorage.getItem("username") != null &&
-            localStorage.getItem("token") != "" ? (
+              localStorage.getItem("username") != null &&
+              localStorage.getItem("token") != "" ? (
               <>
                 <div className="right d-flex product_buyer_wrap ">
                   <a
@@ -164,7 +164,7 @@ function Header() {
               style={{ height: "45px", width: "45px" }}
               className="user_oc"
               src={
-               profile_img
+                profile_img
               }
               alt="logo"
             />
@@ -192,8 +192,8 @@ function Header() {
             style={showmenu2 == false ? { display: "none" } : {}}
           >
             {localStorage.getItem("user_type") &&
-            (localStorage.getItem("user_type").toLowerCase() === "supplier" ||
-              localStorage.getItem("user_type").toLowerCase() === "both") ? (
+              (localStorage.getItem("user_type").toLowerCase() === "supplier" ||
+                localStorage.getItem("user_type").toLowerCase() === "both") ? (
               <li>
                 <a href="/dashboard/user-manegment">My Dashboard</a>
               </li>
@@ -209,13 +209,13 @@ function Header() {
             <li>
               <a
                 style={{ color: "#999999" }}
-                // href={
-                //   localStorage.getItem("user_type") != null
-                //     ? `/dashboard/user-manegment/${localStorage.getItem(
-                //         "user_type"
-                //       )}`
-                //     : ""
-                // }
+              // href={
+              //   localStorage.getItem("user_type") != null
+              //     ? `/dashboard/user-manegment/${localStorage.getItem(
+              //         "user_type"
+              //       )}`
+              //     : ""
+              // }
               >
                 User Management{" "}
               </a>
@@ -242,15 +242,15 @@ function Header() {
               </li>
               {
                 localStorage.getItem("user_type")?.toLowerCase() == "buyer" ?
-                "":
-                <>
-              <li>
-                <a href="/billing">Billing</a>
-              </li>
-              <li>
-                <a href="#">Credit Card Info</a>
-              </li>
-                </>
+                  "" :
+                  <>
+                    <li>
+                      <a href="/billing">Billing</a>
+                    </li>
+                    <li>
+                      <a href="#">Credit Card Info</a>
+                    </li>
+                  </>
               }
             </ul>
           </ul>
@@ -269,10 +269,14 @@ function Header() {
           </li>
           <ul className="sub__menu term">
             <li>
-              <a href="/privacy-terms"> Privacy and Terms</a>
+              <a
+              // href="/privacy-terms"
+              > Privacy and Terms</a>
             </li>
             <li>
-              <a href="/cookies-policy">Cookies Preferences</a>
+              <a
+              // href="/cookies-policy"
+              >Cookies Preferences</a>
             </li>
           </ul>
         </div>
