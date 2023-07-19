@@ -476,11 +476,11 @@ function Company_information(props) {
                         }
                         placeholder="State"
                         disabled={!editcompany}
-                        style={
-                          cInfo?.state != ""
-                            ? {}
-                            : { borderBottom: "1px solid red" }
-                        }
+                        // style={
+                        //   cInfo?.state != ""
+                        //     ? {}
+                        //     : { borderBottom: "1px solid red" }
+                        // }
                       />
                     </div>
                     <div
