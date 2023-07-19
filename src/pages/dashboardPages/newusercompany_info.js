@@ -114,7 +114,7 @@ function Company_informationNew(props) {
     }
 
     if (cInfo?.website == "") {
-      setErrorMessage("Please Fill All Mandatory Field !");
+      setErrorMessage("Please Fill All Mandatory Fields !");
     }
 
     formvalues.append("country_code", counrtcode);
@@ -345,7 +345,7 @@ function Company_informationNew(props) {
               <div className="column">
                 <h2>Company Information</h2>
                 <p className="error" style={{ cursor: "unset" }}>
-                  Please Fill All Mandatory Field*
+                  Please Fill All Mandatory Fields*
                 </p>
               </div>
               {/* {
@@ -453,7 +453,7 @@ function Company_informationNew(props) {
                             //     : { borderBottom: "1px solid red" }
                             // }
                           >
-                            <div className="button">Choose File *</div>
+                            <div className="button">Choose File </div>
                             <div className="files">
                               {" "}
                               {cInfo?.brand_logo?.name}{" "}

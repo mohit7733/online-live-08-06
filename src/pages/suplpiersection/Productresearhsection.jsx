@@ -641,6 +641,7 @@ function Productresearchsection(props) {
       },
     }),
   };
+  console.log(question, "this is question list");
   return (
     <>
       <div className={props.sidebar ? "active router-body" : "router-body"}>
@@ -685,7 +686,7 @@ function Productresearchsection(props) {
         <div className="product_prfile">
           <div class="  remark_wrap company_wrap row justify-content-between">
             <div class="column">
-              <h2>My Company Profile</h2>
+              <h2>My Company </h2>
             </div>
             {disableedit == true ? (
               <div class="edit_headingadded column">
@@ -828,7 +829,10 @@ function Productresearchsection(props) {
                   return (
                     <div className="radio_section" key={index}>
                       <p>
-                        Q {index + 1}.{" " + quest?.question}
+                        Q {index + 1}.{" " + quest?.question}{" "}
+                        <span style={{ color: "red" }}>
+                          {quest?.mandatory === 0 ? "*" : ""}
+                        </span>
                       </p>
                       <div className="radio_btn">
                         {quest?.type == "Subjective" ||
@@ -1160,7 +1164,7 @@ function Productresearchsection(props) {
                   );
                 })}
             </div>
-            <div className="col_right"> 
+            <div className="col_right">
               <h6>Company Images</h6>
               <div
                 // className="data_upload"
@@ -1190,9 +1194,8 @@ function Productresearchsection(props) {
                   accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.slideshow, application/vnd.openxmlformats-officedocument.presentationml.presentation"
                 />
                 <img src="images/profile_upload.svg" alt="" />
-                <h4>    
-                  Upload Company Logo or{" "}
-                  <br />
+                <h4>
+                  Upload Company Logo or <br />
                   Document
                   <br />
                   <p>Image , Document Size : 800kb</p>

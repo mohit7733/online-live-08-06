@@ -696,7 +696,10 @@ function Company_profile_Edit(props) {
                     return (
                       <div className="radio_section">
                         <p>
-                          Q {index + 1}.{" " + item?.question}
+                          Q {index + 1}.{" " + item?.question} <span style={{ color: 'red' }}>
+                            {item?.mandatory === 0 ? '*' : ''}
+                          </span>
+
                         </p>
                         <div className="radio_btn">
                           {item?.type == "Subjective" ||
@@ -939,9 +942,9 @@ function Company_profile_Edit(props) {
                   <h6>Product Images</h6>
                   <div
                     className="data_upload"
-                    // style={
-                    //   imagelimt > 0 ? {} : { borderBottom: "2px solid red" }
-                    // }
+                  // style={
+                  //   imagelimt > 0 ? {} : { borderBottom: "2px solid red" }
+                  // }
                   >
                     <input
                       type={"file"}
@@ -957,7 +960,7 @@ function Company_profile_Edit(props) {
                     <h4>
                       Upload Company Logo{" "}
                       {/* <span style={{ color: "red" }}>*</span> */}
-                       or <br />
+                      or <br />
                       Document
                       <br />
                       <p> Image , Document Size : 800kb </p>
