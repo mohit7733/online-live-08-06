@@ -480,6 +480,19 @@ function Productview() {
             </div>
             <div className="pagination">
               <ul style={{ marginTop: "1rem" }}>
+                {
+                  productData?.length > 8 && pagination > 8 ?
+                    <li
+                      className="hover_remove2 selected"
+                      onClick={(e) => {
+                        window.scrollTo(0, 200)
+                        setpagination(pagination - 8)}}
+                    >
+                      <a >
+                        <img src="images/arrow-right.png" title="" alt="" style={{ transform: "rotateY(180deg)" }} /> Previous
+                      </a>
+                    </li> : ""
+                }
                 {productData.length > 0
                   ? [
                     ...Array(
@@ -506,13 +519,19 @@ function Productview() {
                   ].map((data, i) => {
                     i += 1;
                     return (
-
                       <>
+                        {console.log(pagination)}
                         {
                           i == 1 ?
                             <li
                               className={pagination == i * 8 ? "remove_ho active" : productData?.length <= 8 ? "remove_ho " : ""}
-                              onClick={(e) => setpagination(i * 8)}
+                              onClick={(e) => {
+                                if (i == 1) {
+                                  window.scrollTo(0, 200)
+                                }
+                                setpagination(i * 8)
+                              }
+                              }
                             >
 
                               <a >{i}</a>
@@ -522,9 +541,7 @@ function Productview() {
                               className={pagination == i * 8 ? " active" : " "}
                               onClick={(e) => setpagination(i * 8)}
                             >
-
                               <a >{i}</a>
-
                             </li>
 
                         }
@@ -533,7 +550,7 @@ function Productview() {
                   })
                   : ""}
                 {
-                  productData?.length > 8 ?
+                  productData?.length > 24 && pagination < productData.length ?
                     <li
                       className="hover_remove2 selected"
                       onClick={(e) => setpagination(pagination + 8)}

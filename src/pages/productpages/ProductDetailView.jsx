@@ -17,24 +17,28 @@ function ProductDetailView(props) {
   // const [productData, setProductData] = useState([]);
   const [productData, setProductData] = useState([]);
   const token = localStorage.getItem("token");
-  console.log(productData?.product?.supplier_id, "supplier id ");
+  const user_type = localStorage?.getItem("user_type");
+  const slugdata = useParams();
+
   console.log(localStorage.getItem("user_id"), "local storage data user id");
   // let token = localStorage.getItem("token");
   const path = window.location.pathname;
   useEffect(() => {
-    if (token === null && path.includes("/product-view")) {
-      console.log("worked");
-      const newPath = path.replace("/product-view", "/product-details");
-      navigate(newPath);
-    }
+    // if (token === null && path.includes("/product-view")) {
+    //   console.log("worked");
+    //   const newPath = path.replace("/product-view", "/product-details");
+    //   navigate(newPath);
+    // }
     // if (token !== null &&
     //   path.includes( "/product-view") &&
     //   // localStorage.getItem("user_type") !== "Supplier" &&
-    //   localStorage?.getItem("user_type") !== productData?.product?.supplier_id
+    //    !== productData?.product?.supplier_id
     //   ) {
     //     const newPath = path.replace( "/product-view" , "/product-details");
     //     navigate(newPath);
     //   }
+
+
     if (
       token !== null &&
       path.includes("/product-details") &&
@@ -50,7 +54,7 @@ function ProductDetailView(props) {
       const newPath = path.replace("/product-details", "/product-view");
       navigate(newPath);
     }
-  }, [token]);
+  }, [token, localStorage?.getItem("user_type")]);
 
   const [showpolicy, setshowpolicy] = useState(false);
   const [sidebar, setsidebar] = useState(true);
@@ -58,7 +62,6 @@ function ProductDetailView(props) {
   const [iconChange2, seticonChange2] = useState(false);
   const [thumbshow, setthumbshow] = useState(false);
   const [main, setmain] = useState([]);
-  const slugdata = useParams();
   const [link, setlink] = useState("");
   const [select, setselect] = useState();
   const { state } = useLocation();
@@ -73,6 +76,7 @@ function ProductDetailView(props) {
   const [apiDateFormat, setApiDateFormat] = useState("");
   const [modalState, setModalState] = useState(false);
   const getProductDetails = () => {
+
     /// product view changes
 
     var myHeaders = new Headers();
@@ -92,14 +96,18 @@ function ProductDetailView(props) {
       .then((response) => response.json())
       .then((result) => {
         settextChange(result.data?.favornot);
-        // console.log(result.data.media_files ,result.data?.product?.thumb_index , thumb , "<<<<<<<result.data");
+        console.log(result.data.product?.supplier_id);
+        if (localStorage?.getItem("user_type") == "Supplier" && localStorage?.getItem("user_id") != result.data.product?.supplier_id) {
+          console.log(productData?.product?.supplier_id, "supplier id 2 ");
+          navigate("/product-details/" + slugdata?.id + "/" + slugdata?.name);
+        }
         setthumb(
           result.data?.media_files[
-            Number(
-              result.data?.product?.thumb_index == undefined
-                ? "0"
-                : result.data?.product?.thumb_index
-            )
+          Number(
+            result.data?.product?.thumb_index == undefined
+              ? "0"
+              : result.data?.product?.thumb_index
+          )
           ]
         );
         setProductData(result.data);
@@ -107,6 +115,10 @@ function ProductDetailView(props) {
       .catch((error) => {
         console.log("error", error);
         // navigate("/notfound");
+        if (localStorage.getItem("token") == null && localStorage?.getItem("user_type") == null) {
+          console.log(productData?.product?.supplier_id, "supplier id 2 ");
+          navigate("/product-details/" + slugdata?.id + "/" + slugdata?.name);
+        }
       });
   };
 
@@ -459,7 +471,7 @@ function ProductDetailView(props) {
                       })}
 
                       {productData.product?.youtube_link == "null" ||
-                      productData.product?.youtube_link == "undefined" ? (
+                        productData.product?.youtube_link == "undefined" ? (
                         ""
                       ) : (
                         <div>
@@ -594,23 +606,23 @@ function ProductDetailView(props) {
                             .format("DD MM YYYY")
                             .toLowerCase() === "invalid date"
                             ? productData.product?.date_of_creation.replace(
-                                /\//g,
-                                "-"
-                              )
+                              /\//g,
+                              "-"
+                            )
                             : moment(
-                                productData.product?.date_of_creation?.replace(
-                                  /\//g,
-                                  " "
-                                ),
-                                "DD MM YYYY"
-                              ).format("DD-MM-YYYY")}
+                              productData.product?.date_of_creation?.replace(
+                                /\//g,
+                                " "
+                              ),
+                              "DD MM YYYY"
+                            ).format("DD-MM-YYYY")}
                         </h5>
                       </li>
                     ) : null}
                   </ul>
 
                   {productData?.product?.supplier_id ==
-                  localStorage.getItem("user_id") ? (
+                    localStorage.getItem("user_id") ? (
                     ""
                   ) : (
                     <div
@@ -637,7 +649,7 @@ function ProductDetailView(props) {
                           : "Add your favourites"}
                       </a>
                       {localStorage.getItem("user_type") &&
-                      localStorage.getItem("user_type").toLowerCase() ===
+                        localStorage.getItem("user_type").toLowerCase() ===
                         "supplier" ? null : (
                         <>
                           <button
@@ -682,8 +694,8 @@ function ProductDetailView(props) {
                     productData?.productownerstatus == true
                       ? { display: "contents" }
                       : productData?.requeststatus == 1
-                      ? { display: "contents" }
-                      : {}
+                        ? { display: "contents" }
+                        : {}
                   }
                 >
                   <div className="profile-list profile-brand">
@@ -725,13 +737,13 @@ function ProductDetailView(props) {
                                     __html:
                                       item?.type.toLowerCase() == "checkbox"
                                         ? item?.answer.replace(
-                                            /[\\\n["{}:\]']+/g,
-                                            " "
-                                          )
+                                          /[\\\n["{}:\]']+/g,
+                                          " "
+                                        )
                                         : item?.answer.replace(
-                                            /[\\\n[{}:\]]+/g,
-                                            "<br>"
-                                          ),
+                                          /[\\\n[{}:\]]+/g,
+                                          "<br>"
+                                        ),
                                   }}
                                 />
                                 {/* <p>
@@ -759,8 +771,8 @@ function ProductDetailView(props) {
 
               {/* {console.log(productData?.requeststatus)} */}
               {productData?.requeststatus === null ||
-              (productData?.requeststatus != 1 &&
-                productData?.productownerstatus != true) ? (
+                (productData?.requeststatus != 1 &&
+                  productData?.productownerstatus != true) ? (
                 <div className="request-box-wrapper">
                   <div className="request-box">
                     <h3>Do you want more information?</h3>

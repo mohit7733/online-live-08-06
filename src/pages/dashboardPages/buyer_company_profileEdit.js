@@ -410,19 +410,60 @@ function Company_profile_Edit(props) {
     })?.length;
 
   const onImageChange = (event) => {
+    // if (event.target.files && event.target.files[0]) {
+    //   if (imagelimt2 <= 5) {
+    //     if (event.target.files[0].size < 838000) {
+    //       if (event.target.files[0].name.substr(event.target.files[0].name.lastIndexOf('\\') + 1).split('.')[1] != "jfif") {
+    //         contact.product_file.push(event.target.files[0]);
+    //       } else {
+    //         toast.error("This is not supported!");
+    //       }
+
+    //     } else {
+    //       toast.error("File size must not be more than 800 kB.");
+    //     }
+
+    //     setTimeout(() => {
+    //       setcontact({ ...contact });
+    //     }, 400);
+    //   }
+    // }
+   
     if (event.target.files && event.target.files[0]) {
-      if (imagelimt2 <= 5) {
-        if (event.target.files[0].size < 838000) {
-          if (event.target.files[0].name.substr(event.target.files[0].name.lastIndexOf('\\') + 1).split('.')[1] != "jfif") {
-            contact.product_file.push(event.target.files[0]);
+      if (
+        (contact?.product_file.filter((e) => e.type.split("/")[0] === "image")
+          .length + contact?.product_file2.length) < 5 &&
+        event.target.files[0].type.split("/")[0] === "image"
+      ) {
+        if (
+          contact.product_file?.filter((file) => {
+            return file?.type != "application/pdf";
+          })?.length < 5
+        ) {
+          if (event.target.files[0].size < 838000) {
+            if (
+              event.target.files[0].name
+                .substr(event.target.files[0].name.lastIndexOf("\\") + 1)
+                .split(".")[1] != "jfif"
+            ) {
+              contact.product_file.push(event.target.files[0]);
+            } else {
+              toast.error("This is not supported!");
+            }
           } else {
-            toast.error("This is not supported!");
+            toast.error("File size must not be more than 800 kB.");
           }
-
-        } else {
-          toast.error("File size must not be more than 800 kB.");
+          setTimeout(() => {
+            setcontact({ ...contact });
+          }, 400);
         }
-
+      } else if (
+        contact?.product_file.filter(
+          (e) => e.type.split("/")[0] === "application"
+        ).length < 1 &&
+        event.target.files[0].type.split("/")[0] === "application"
+      ) {
+        contact.product_file.push(event.target.files[0]);
         setTimeout(() => {
           setcontact({ ...contact });
         }, 400);
@@ -966,7 +1007,7 @@ function Company_profile_Edit(props) {
                       <p> Image , Document Size : 800kb </p>
                       <p style={imagelimt >= 6 ? { color: "red" } : {}}>
                         Can upload maximum 5 images and
-                        <span style={{ color: "#999999" }}>1 document.</span>
+                        <span style={{ color: "#999999" }}> 1 document.</span>
                       </p>
                     </h4>
                   </div>
