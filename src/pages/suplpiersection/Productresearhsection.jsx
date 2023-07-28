@@ -572,7 +572,7 @@ function Productresearchsection(props) {
         {
           answer: e.target.value,
           questionId: id,
-          mandatory: mandatory == null ? 0 : mandatory,
+          mandatory: mandatory == null ? 1 : mandatory,
         },
       ]);
     }
