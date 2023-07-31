@@ -28,6 +28,8 @@ function Productview() {
   const [resultshow, setresultshow] = useState(false);
   const [total, settotal] = useState("");
   const [check, setcheck] = useState(true);
+  const [lastPage, setLastPage] = useState(1); // Initialize it with the default value, e.g., 1 for the first page.
+
   const homeproduc_data = () => {
     setloader(false);
     var myHeaders = new Headers();
@@ -104,7 +106,6 @@ function Productview() {
       setcheck(false);
     }
   }, [check]);
-
   const selcetcate = (e) => {
     // console.log(e, "<<<<<");
     setcategoryparams(e);
@@ -136,7 +137,10 @@ function Productview() {
     }
     // window.location.reload();
   }, []);
-
+  const setPaginationAndLastPage = (newPagination) => {
+    setLastPage(pagination); // Store the current page value as the last selected page.
+    setpagination(newPagination); // Update the pagination with the new value.
+  };
   const resetbtnhandle = () => {
     navigate("/product-view");
     setcategoryparams("");
@@ -150,7 +154,7 @@ function Productview() {
 
     // }, 50);
   };
-
+console.log(pagination , lastPage)
   return (
     <>
       <div class="product_wrapper">
@@ -486,7 +490,16 @@ function Productview() {
                       className="hover_remove2 selected"
                       onClick={(e) => {
                         window.scrollTo(0, 200)
-                        setpagination(pagination - 8)}}
+                        setPaginationAndLastPage(page * 25);
+                        setpagination(pagination - 8)
+                        const currentScrollPosition = window.scrollY;
+                                const scrollAmount = currentPage > lastPage ? -70 : 50; // Adjust 2 to any other threshold you want
+                                window.scrollTo(
+                                    0,
+                                    currentScrollPosition + scrollAmount * parseFloat(getComputedStyle(document.documentElement).fontSize)
+                                );
+                      }}
+                        
                     >
                       <a >
                         <img src="images/arrow-right.png" title="" alt="" style={{ transform: "rotateY(180deg)" }} /> Previous
