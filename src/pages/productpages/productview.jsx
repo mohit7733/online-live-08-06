@@ -154,7 +154,7 @@ function Productview() {
 
     // }, 50);
   };
-console.log(pagination , lastPage)
+  console.log(pagination, lastPage)
   return (
     <>
       <div class="product_wrapper">
@@ -367,7 +367,7 @@ console.log(pagination , lastPage)
               id="product"
             >
               {productData?.map((data, i) => {
-                if (i < pagination) {
+                if (i < pagination && i >= (pagination - 8)) {
                   return (
                     <li className="row align-items-center" key={i} data-aos="fade-up">
                       <div
@@ -493,13 +493,13 @@ console.log(pagination , lastPage)
                         setPaginationAndLastPage(page * 25);
                         setpagination(pagination - 8)
                         const currentScrollPosition = window.scrollY;
-                                const scrollAmount = currentPage > lastPage ? -70 : 50; // Adjust 2 to any other threshold you want
-                                window.scrollTo(
-                                    0,
-                                    currentScrollPosition + scrollAmount * parseFloat(getComputedStyle(document.documentElement).fontSize)
-                                );
+                        const scrollAmount = currentPage > lastPage ? -70 : 50; // Adjust 2 to any other threshold you want
+                        window.scrollTo(
+                          0,
+                          currentScrollPosition + scrollAmount * parseFloat(getComputedStyle(document.documentElement).fontSize)
+                        );
                       }}
-                        
+
                     >
                       <a >
                         <img src="images/arrow-right.png" title="" alt="" style={{ transform: "rotateY(180deg)" }} /> Previous
@@ -533,15 +533,12 @@ console.log(pagination , lastPage)
                     i += 1;
                     return (
                       <>
-                        {console.log(pagination)}
                         {
                           i == 1 ?
                             <li
                               className={pagination == i * 8 ? "remove_ho active" : productData?.length <= 8 ? "remove_ho " : ""}
                               onClick={(e) => {
-                                if (i == 1) {
-                                  window.scrollTo(0, 200)
-                                }
+                                window.scrollTo(0, 200)
                                 setpagination(i * 8)
                               }
                               }
@@ -552,7 +549,10 @@ console.log(pagination , lastPage)
                             </li> :
                             <li
                               className={pagination == i * 8 ? " active" : " "}
-                              onClick={(e) => setpagination(i * 8)}
+                              onClick={(e) => {
+                                setpagination(i * 8)
+                                window.scrollTo(0, 200)
+                              }}
                             >
                               <a >{i}</a>
                             </li>

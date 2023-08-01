@@ -75,7 +75,7 @@ function Theytrustedus() {
                     </div>
                     <div className="row grid-5">
                         {theytrusted?.logos?.map((logos, index) => {
-                            if (index < pagination) {
+                            if (index < pagination && index >= (pagination - 25)) {
                                 return (
                                     <div className="grid-col aos-init aos-animate" data-aos="fade-in" key={index}>
                                         <div className="column">
@@ -97,7 +97,7 @@ function Theytrustedus() {
                                 onClick={(e) => {
                                     setpagination(pagination - 25)
                                     const currentScrollPosition = window.scrollY;
-                                    const scrollAmount = currentPage < lastpa? -70 : 50; // Adjust 2 to any other threshold you want
+                                    const scrollAmount = currentPage < lastpa ? -70 : 50; // Adjust 2 to any other threshold you want
                                     window.scrollTo(
                                         0,
                                         currentScrollPosition + scrollAmount * parseFloat(getComputedStyle(document.documentElement).fontSize)
@@ -117,12 +117,8 @@ function Theytrustedus() {
                                         className={pagination === page * 25 ? "active" : ""}
                                         onClick={() => {
                                             setPaginationAndLastPage(page * 25);
-                                            const currentScrollPosition = window.scrollY;
-                                            const scrollAmount = currentPage < lastPage ? -70 : 50; // Adjust 2 to any other threshold you want
-                                            window.scrollTo(
-                                                0,
-                                                currentScrollPosition + scrollAmount * parseFloat(getComputedStyle(document.documentElement).fontSize)
-                                            );
+                                            // Adjust 2 to any other threshold you want
+                                            window.scrollTo(0, 200)
                                         }}
                                         key={i}
                                     >
@@ -133,7 +129,7 @@ function Theytrustedus() {
                             })
                             : ""}
                         {/* Show the Next button only if we are not on the last page */}
-                        {currentPage !== totalPages && theytrusted?.logos?.length > 25 && (
+                        {currentPage !== totalPages && theytrusted?.logos?.length > 75 && (
                             <li className="selected" onClick={(e) => setpagination(pagination + 25)}>
                                 <a>
                                     Next <img src={Right_arrow} title="" alt="" />
