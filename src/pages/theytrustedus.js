@@ -6,6 +6,8 @@ function Theytrustedus() {
     const [theytrusted, settheytrusted] = useState();
     const [check, setcheck] = useState(true);
     const [pagination, setpagination] = useState(25);
+    const [lastPage, setLastPage] = useState(1); // Initialize it with the default value, e.g., 1 for the first page.
+
 
     const theytrusted_data = () => {
         var myHeaders = new Headers();
@@ -31,9 +33,15 @@ function Theytrustedus() {
             setcheck(false);
         }
     }, [check]);
-
     const totalPages = Math.ceil(theytrusted?.logos?.length / 25);
     const currentPage = pagination / 25;
+    const setPaginationAndLastPage = (newPagination) => {
+        setLastPage(pagination / 25); // Store the current page value as the last selected page.
+        setpagination(newPagination); // Update the pagination with the new value.
+    };
+
+    console.log(currentPage, lastPage)
+
 
     return (
         <>
@@ -83,10 +91,18 @@ function Theytrustedus() {
                 </div>
                 <div className="pagination">
                     <ul style={{ marginTop: "1rem" }}>
-                    {currentPage !== 1 && (
+                        {currentPage !== 1 && (
                             <li
                                 className="selected"
-                                onClick={(e) => setpagination(pagination - 25)}
+                                onClick={(e) => {
+                                    setpagination(pagination - 25)
+                                    const currentScrollPosition = window.scrollY;
+                                    const scrollAmount = currentPage < lastpa? -70 : 50; // Adjust 2 to any other threshold you want
+                                    window.scrollTo(
+                                        0,
+                                        currentScrollPosition + scrollAmount * parseFloat(getComputedStyle(document.documentElement).fontSize)
+                                    );
+                                }}
                             >
                                 <a>
                                     <img src={Left_arrow} title="" alt="" /> Previous
@@ -99,11 +115,20 @@ function Theytrustedus() {
                                 return (
                                     <li
                                         className={pagination === page * 25 ? "active" : ""}
-                                        onClick={(e) => setpagination(page * 25)}
+                                        onClick={() => {
+                                            setPaginationAndLastPage(page * 25);
+                                            const currentScrollPosition = window.scrollY;
+                                            const scrollAmount = currentPage < lastPage ? -70 : 50; // Adjust 2 to any other threshold you want
+                                            window.scrollTo(
+                                                0,
+                                                currentScrollPosition + scrollAmount * parseFloat(getComputedStyle(document.documentElement).fontSize)
+                                            );
+                                        }}
                                         key={i}
                                     >
                                         <a>{page}</a>
                                     </li>
+
                                 );
                             })
                             : ""}
@@ -116,7 +141,7 @@ function Theytrustedus() {
                             </li>
                         )}
                         {/* Show the Previous button only if we are not on the first page */}
-                      
+
                     </ul>
                 </div>
             </div>
