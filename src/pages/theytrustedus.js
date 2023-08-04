@@ -96,12 +96,7 @@ function Theytrustedus() {
                                 className="selected"
                                 onClick={(e) => {
                                     setpagination(pagination - 25)
-                                    const currentScrollPosition = window.scrollY;
-                                    const scrollAmount = currentPage < lastpa ? -70 : 50; // Adjust 2 to any other threshold you want
-                                    window.scrollTo(
-                                        0,
-                                        currentScrollPosition + scrollAmount * parseFloat(getComputedStyle(document.documentElement).fontSize)
-                                    );
+                                    window.scrollTo(0, 200)
                                 }}
                             >
                                 <a>
