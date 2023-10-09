@@ -9,10 +9,7 @@ import {
 } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-// <<<<<<< HEAD
-// import { API } from "../backend";
-// import { country } from "../pages/dashboard/country";
-// =======
+
 import { country } from "../pages/dashboard/country";
 import {
   api,
@@ -22,8 +19,7 @@ import {
   vat_rate_api,
 } from "../pages/base_url";
 import Left_menu from "../pages/productpages/left_menu";
-import { useNavigate } from "react-router-dom";
-// >>>>>>> fcff1acc5148440602396167bbe747bb33dfb4f9
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const CheckoutForm2 = (props) => {
   const stripe = useStripe();
@@ -35,9 +31,11 @@ export const CheckoutForm2 = (props) => {
   const [sidebar, setsidebar] = useState(true);
   const [showVat, setshowVat] = useState(false);
   const [vat, setVat] = useState("");
-  const [vatRate, setVatRate] = useState();
+  const [country_name,     setcountry_name] = useState("");
   const [vatError, setVatError] = useState();
+  const { state } = useLocation();
   const navigate = useNavigate();
+  let billingdata = {};
   let e = true;
   const [detail_data, setdetail_data] = React.useState({
     address: {
@@ -88,7 +86,10 @@ export const CheckoutForm2 = (props) => {
     "SE",
     "FR",
   ];
+useEffect(()=>{
 
+  console.log(country_name,detail_data, props, props);
+},[detail_data])
   useEffect(() => {
     axios
       .get(`${Vat_check_api}=${vat}`)
@@ -116,19 +117,6 @@ export const CheckoutForm2 = (props) => {
       });
   }, [vat]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       `${vat_rate_api}=${amount}&country_code=${countryCode}&format=1`
-  //     )
-  //     .then((response) => {
-  //       const vatRate = response.data.vat_rate;
-  //       setVatRate(vatRate);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, [countryCode]);
   const handleSubmit = async (event) => {
     if (vatError === true && showVat === true) {
       event.preventDefault();
@@ -150,11 +138,6 @@ export const CheckoutForm2 = (props) => {
     });
     axios.get();
 
-    // <<<<<<< HEAD
-    // if (props.amount > 100){
-    // =======
-    // >>>>>>> fcff1acc5148440602396167bbe747bb33dfb4f9
-
     if (!error) {
       try {
         const { id } = paymentMethod;
@@ -165,30 +148,30 @@ export const CheckoutForm2 = (props) => {
               // non europe country with vat or non vat number holder
 
               !coutnry_list.includes(detail_data.address.country)
-                ? (texdata.filter(
+                ? texdata.filter(
                     (data) => data.country == detail_data.address.country
                   )[0]
-                    ? amount +
-                      (amount *
-                        texdata.filter(
-                          (data) => data.country == detail_data.address.country
-                        )[0].percentage) /
-                        100
-                    : amount) * 100
+                  ? amount +
+                    (amount *
+                      texdata.filter(
+                        (data) => data.country == detail_data.address.country
+                      )[0].percentage) /
+                      100
+                  : amount
                 : // europe country with vat  number holder
                 vatError === false &&
                   showVat === true &&
                   coutnry_list.includes(detail_data.address.country)
-                ? (texdata.filter(
+                ? texdata.filter(
                     (data) => data.country == detail_data.address.country
                   )[0]
-                    ? amount +
-                      (amount *
-                        texdata.filter(
-                          (data) => data.country == detail_data.address.country
-                        )[0].percentage) /
-                        100
-                    : amount) * 100
+                  ? amount +
+                    (amount *
+                      texdata.filter(
+                        (data) => data.country == detail_data.address.country
+                      )[0].percentage) /
+                      100
+                  : amount
                 : // europe country with no valid vat holder
 
                   (texdata.filter(
@@ -200,10 +183,8 @@ export const CheckoutForm2 = (props) => {
                           (data) => data.country == detail_data.address.country
                         )[0].percentage) /
                         100
-                    : amount) *
-                    100 +
-                  amount * 20,
-
+                    : amount) +
+                  (amount * 20) / 100,
             id: id,
             currency: "EUR",
             description: "All Payments Done by " + detail_data.name,
@@ -211,12 +192,13 @@ export const CheckoutForm2 = (props) => {
           axiosConfig
         );
         if (response.data.success) {
-          // console.log(response.data);
+          billingdata = response.data.payment.charges.data[0].billing_details;
           purchase(response.data.payment);
           toast.success("Payment Successful!");
-          // navigate("/add-new-product");
+          window.scrollTo(0, 0);
+          navigate("/add-new-product");
         } else {
-          toast.success("Payment Failed!");
+          toast.error("Payment Failed!");
         }
       } catch (error) {
         toast.error(error.message);
@@ -224,20 +206,15 @@ export const CheckoutForm2 = (props) => {
     } else {
       toast.error(error.message);
     }
-    // <<<<<<< HEAD
-    // }
-    // else{
-    //   toast.error("Amount to small!")
-    // }
-    // =======
 
-    // >>>>>>> fcff1acc5148440602396167bbe747bb33dfb4f9
     setPaymentLoading(false);
   };
   // function handleVatChange(event) {
   //   setVat(event.target.value);
   //   console.log(event.target.value);
   // }
+
+  // console.log(detail_data.address.country , "hey budy")
   const purchase = (data) => {
     var myHeaders = new Headers();
     myHeaders.append(
@@ -253,9 +230,12 @@ export const CheckoutForm2 = (props) => {
     var raw = JSON.stringify({
       plan_type: props.plan,
       payment_status: data?.status,
+      billing_details: billingdata,
       payment_id: data?.id,
       amount: data?.amount,
       payment_json_data: data,
+      subscription_plan_id: state.subscription_plan_id,
+      address_line :billingdata?.address?.line1
     });
 
     fetch(`${api}/api/v1/addpaymentsdetail`, {
@@ -267,15 +247,28 @@ export const CheckoutForm2 = (props) => {
       .then((res) => res.json())
       .then((result) => {
         // toast.success("Purchase Successful");
-        if (result?.status == "true") {
-          navigate("/add-new-product");
-        } else {
-          toast.error("Purchase Failed !");
-        }
-
         // setTimeout(function () { window.location.reload(false) }, 2000);
       })
       .catch((error) => console.log("error", error));
+  };
+
+  const checkSubscription = () => {
+    return new Promise((resolve, reject) => {
+      var myHeaders = new Headers();
+      myHeaders.append(
+        "Authorization",
+        "Bearer " + localStorage.getItem("token")
+      );
+      var requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow",
+      };
+      fetch(api + "/api/v1/details", requestOptions)
+        .then((response) => response.json())
+        .then((result) => resolve(result.data))
+        .catch((error) => console.log("error", error));
+    });
   };
 
   useEffect(() => {
@@ -283,7 +276,7 @@ export const CheckoutForm2 = (props) => {
       method: "GET",
       headers: {
         Authorization:
-          "Bearer sk_test_51MYmQELa6FsGayAC9LmXsHYeT4qRKmZQThSrWsnZo4duI2lC0ZBaiuCusMA4xInrQ6JZpbQdH5rBw89Kexs2bMfV00TRx3nf1W",
+          `Bearer ${process.env.REACT_APP_STRIPE_SECRET_TEST}`,
         "Content-Type": "application/json",
       },
     })
@@ -296,8 +289,8 @@ export const CheckoutForm2 = (props) => {
   }, []);
 
   useEffect(() => {
-    // console.log(detail_data, texdata);
-  }, [detail_data, texdata]);
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <ToastContainer
@@ -332,13 +325,27 @@ export const CheckoutForm2 = (props) => {
                   </a>
                 </li>
                 <li>
-                  <a href="/add-new-product">
-                    <span> Add New Product </span>
+                  <a
+                    onClick={() => {
+                      checkSubscription().then((response) => {
+                        console.log(response, "<<<<<<<,");
+                        if (response.subscription_status !== 0) {
+                          navigate("/add-new-product");
+                        } else {
+                          navigate("/company-subscription");
+                        }
+                      });
+                    }}
+                  >
+                    <span> Add New Product  </span>
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <span> Payment </span>
+                    <span onClick={() => navigate("/company-subscription")}>
+                      {" "}
+                      Payment{" "}
+                    </span>
                   </a>
                 </li>
                 <li>
@@ -391,6 +398,32 @@ export const CheckoutForm2 = (props) => {
                 />
               </div>
               <div className="row justify-content-between">
+                <div className="column pd-b">
+                  <div className="custom-select">
+                    <select
+                      onChange={(e) =>
+                        setdetail_data({
+                          ...detail_data,
+                          address: {
+                            ...detail_data.address,
+                            country: e.target.value,
+                          },
+                        })
+                      }
+                    >
+                      <option value="" disabled selected>
+                        Country
+                      </option>
+                      {country.data?.map((data, i) => {
+                        return (
+                          <option key={i} onClick={()=>{
+                            setcountry_name( data.country )
+                          }} value={data.code}>{data.country}</option>
+                        );
+                      })}{" "}
+                    </select>
+                  </div>
+                </div>
                 <div className="column">
                   <div className="form-group">
                     <input
@@ -410,30 +443,7 @@ export const CheckoutForm2 = (props) => {
                     />
                   </div>
                 </div>
-                <div className="column pd-b">
-                  <div className="custom-select">
-                    <select
-                      onChange={(e) =>
-                        setdetail_data({
-                          ...detail_data,
-                          address: {
-                            ...detail_data.address,
-                            country: e.target.value,
-                          },
-                        })
-                      }
-                    >
-                      <option value="" disabled selected>
-                        Country
-                      </option>
-                      {country.data.map((data, i) => {
-                        return (
-                          <option value={data.code}>{data.country}</option>
-                        );
-                      })}{" "}
-                    </select>
-                  </div>
-                </div>
+
                 <div className="column">
                   <div className="form-group">
                     <input
@@ -471,6 +481,12 @@ export const CheckoutForm2 = (props) => {
                 </div>
               </div>
               <div className="form-group">
+                {/* <input
+                  type="text"
+                  placeholder="Card Number"
+                  className="form-control"
+                />
+                            <CardNumberElement className="form-control payformd" /> */}
                 <div className="paddCss" style={{ padding: "6px 10px 0" }}>
                   <label>
                     <strong>Card Number</strong>
@@ -486,6 +502,11 @@ export const CheckoutForm2 = (props) => {
               <div className="row justify-content-between">
                 <div className="column">
                   <div className="form-group">
+                    {/* <input
+                      type="text"
+                      placeholder="Expiry Date"
+                      className="form-control"
+                    /> */}
                     <div
                       className="col-sm-12 paddCss"
                       style={{ padding: "6px 10px 0" }}
@@ -503,6 +524,13 @@ export const CheckoutForm2 = (props) => {
                   </div>
                 </div>
                 <div className="column">
+                  {/* <!-- <select>
+                        </select> --> */}
+                  {/* <input
+                    type="text"
+                    placeholder="CVV"
+                    className="form-control"
+                  /> */}
                   <div
                     className="col-sm-12 paddCss"
                     style={{ padding: "6px 10px 0" }}
@@ -533,12 +561,10 @@ export const CheckoutForm2 = (props) => {
                       // console.log(e);
                     }}
                   />
-                  <label for="buyer" className="">
+                  <label htmlFor="buyer" className="">
                     Yes
                   </label>
                 </div>
-
-              
                 <div className="row mb-l align-items-center">
                   <input
                     type="radio"
@@ -550,14 +576,15 @@ export const CheckoutForm2 = (props) => {
                       // console.log(e);
                     }}
                   />
-                  <label for="A supplier" className="removeClass">
+                  <label htmlFor="A supplier" className="removeClass">
                     No
                   </label>
                 </div>
-                <p style={{fontSize:"14px" ,fontWeight :"400"}}>
-                  *VAT, EU without a valid VAT to pay 20% while non-EU and EU
-                  with a valid VAT are exempted.
-                </p>
+
+                <h6>
+                  (-*VAT, EU without a valid VAT to pay 20% while non-EU and EU
+                  with a valid VAT are exempted.)
+                </h6>
               </div>
               <div
                 className="form-group toggle-form-box"
@@ -574,7 +601,8 @@ export const CheckoutForm2 = (props) => {
                 ) : (
                   ""
                 )}
-                {vatError === true && vat !== "" ? (
+                {(vatError === true && vat !== "") ||
+                (countryCode !== detail_data.address.country && vat !== "") ? (
                   <h6 style={{ color: "red" }}>Vat Number is Not Valid</h6>
                 ) : (
                   ""
@@ -587,6 +615,13 @@ export const CheckoutForm2 = (props) => {
                   disabled={isPaymentLoading}
                 >
                   {isPaymentLoading ? "Loading..." : "Pay"}
+                </button>
+                <button
+                  className="btn btn-primary"
+                  style={{ marginLeft: "5rem" }}
+                  onClick={() => navigate("/company-subscription")}
+                >
+                  Cancel
                 </button>
                 {/* <a href="#" className="btn btn-secondary">
                   Pay

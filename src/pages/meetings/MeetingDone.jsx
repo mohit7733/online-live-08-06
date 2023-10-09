@@ -7,8 +7,8 @@ function MeetingDone() {
 
 
             
-            <div class="router-body">
-                <div class="breadcrumbs" data-aos="fade-down">
+            <div className="router-body">
+                <div className="breadcrumbs" data-aos="fade-down">
                     <ul>
                         <li><a href="#">Dashboard </a></li>
                         <li><a href="#">Supplier</a></li>
@@ -17,29 +17,29 @@ function MeetingDone() {
                         <li><a href="#"><span>Buyer A</span></a></li>
                     </ul>
                 </div>
-                <div class="product_detail product_supplier">
-                    <div class="row">
-                        <div class="col_img" data-aos="fade-right">
-                            <div class="holder">
-                                <div class="slides">
+                <div className="product_detail product_supplier">
+                    <div className="row">
+                        <div className="col_img" data-aos="fade-right">
+                            <div className="holder">
+                                <div className="slides">
                                     <img src="images/Accept_meeting.jpg" alt="" />
                                 </div>
-                                <div class="slides">
+                                <div className="slides">
                                     <figure>
                                         <iframe src="https://docs.google.com/document/d/e/2PACX-1vTvq6YC-ShaRBDmn1cybqcBRGDOrmaFk3VHSqM5vigLqTv5ZK54dgOBypaji6ZMaJawvCMQTeUjHFPq/pub?embedded=true" frameborder="0"></iframe>
-                                        <button type="button" class="download_file">
+                                        <button type="button" className="download_file">
                                             <img src="images/download_icon.png" />
                                         </button>
                                     </figure>
                                 </div>
             
                             </div>
-                            <div class="prevContainer"><a class="prev" onclick="plusSlides(1)">
+                            <div className="prevContainer"><a className="prev" onclick="plusSlides(1)">
                                     <svg viewBox="0 0 24 24">
                                         <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path>
                                     </svg></a>
                             </div>
-                            <div class="nextContainer"><a class="next" onclick="plusSlides(-1)">
+                            <div className="nextContainer"><a className="next" onclick="plusSlides(-1)">
                                     <svg viewBox="0 0 24 24">
                                         <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
                                     </svg></a>
@@ -47,52 +47,52 @@ function MeetingDone() {
             
             
                             {/* <!-- thumnails in a row --> */}
-                            <div class="thumb-slider">
-                                <div class="prevContainerx"
+                            <div className="thumb-slider">
+                                <div className="prevContainerx"
                             style={{top: "650px" ,height: "10%"}}
                                  >
-                                    <a class="prev" onclick="plusSlides(-2)">
+                                    <a className="prev" onclick="plusSlides(-2)">
                                         <svg viewBox="0 0 24 24">
                                             <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path>
                                         </svg>
                                     </a>
                                 </div>
 
-                                <div class="column thumbnail">
-                                    <img class="slide-thumbnail"
+                                <div className="column thumbnail">
+                                    <img className="slide-thumbnail"
                                         src="images/buyer_thumb.png" onclick="currentSlide(1)" alt="Caption two"/>
         
                                 </div>
-                                <div class="column thumbnail active">
-                                        <div class="slide-thumbnail pdf-doc-f" onclick="currentSlide(2)">
-                                            <img class="pdf_icon" src="images/pdf_icon.png" alt="Caption one"/>
+                                <div className="column thumbnail active">
+                                        <div className="slide-thumbnail pdf-doc-f" onclick="currentSlide(2)">
+                                            <img className="pdf_icon" src="images/pdf_icon.png" alt="Caption one"/>
                                         </div>
                                 </div>
 
-                                <div class="nextContainery" 
+                                <div className="nextContainery" 
                             style={{top: "650px" ,height: "10%"}}
                             >
-                                    <a class="next" onclick="plusSlides(4)">
+                                    <a className="next" onclick="plusSlides(4)">
                                         <svg viewBox="0 0 24 24">
                                             <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
                                         </svg>
                                     </a>
                                 </div>
                             </div>
-                            <div class="prevContainer"><a class="prev" onclick="plusSlides(-2)">
+                            <div className="prevContainer"><a className="prev" onclick="plusSlides(-2)">
                                 <svg viewBox="0 0 24 24">
                                     <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path>
                                 </svg></a>
                         </div>
-                        <div class="nextContainer"><a class="next" onclick="plusSlides(2)">
+                        <div className="nextContainer"><a className="next" onclick="plusSlides(2)">
                                 <svg viewBox="0 0 24 24">
                                     <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
                                 </svg></a>
                         </div>
                         </div>
-                        <div class="col_text" data-aos="fade-left">
-                            <div class="button">
-                                <button class="btn btn-secondary">Company sector</button>
+                        <div className="col_text" data-aos="fade-left">
+                            <div className="button">
+                                <button className="btn btn-secondary">Company sector</button>
                             </div>
                             <h2>Fullname Company</h2>
                             <h5>Company Country: France</h5>
@@ -107,18 +107,18 @@ function MeetingDone() {
                                 unchanged.
                                 Lorem Ipsum
                             </p>
-                            <div class="button-wrapper remove_hover justify-end">
-                                <a href="#" class="btn btn-secondary"><span><img src="images/check (1).svg"
+                            <div className="button-wrapper remove_hover justify-end">
+                                <a href="#" className="btn btn-secondary"><span><img src="images/check (1).svg"
                                             alt="" /></span>Meeting Done</a>
                             </div>
                         </div>
                     </div>
                 </div>
                
-                <div class="profile-list profile-brand">
+                <div className="profile-list profile-brand">
                     <h2>Company</h2>
-                    <div class="row justify-content-between">
-                        <div class="col_left last-contnt">
+                    <div className="row justify-content-between">
+                        <div className="col_left last-contnt">
                             <ul>
                                 <li>
                                     <h6>Your Brand Belongs To One Of The Following Category?</h6>

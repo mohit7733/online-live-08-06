@@ -7,8 +7,8 @@
 //     console.log(main , media_files);
 //   return (
 //     <>
-//   <div class="col_img" data-aos="fade-right">
-//                                     <div class="slider-for" style={{ minHeight: "500px" }}>
+//   <div className="col_img" data-aos="fade-right">
+//                                     <div className="slider-for" style={{ minHeight: "500px" }}>
 //                                         <Slider {...settings}>
 //                                             {
 //                                                 main?.map((item) => {
@@ -16,7 +16,7 @@
 //                                                         return (
 //                                                             <div>
 //                                                                 <figure>
-//                                                                     <img class="mainimg-display" src={item.file_path} alt="" />
+//                                                                     <img className="mainimg-display" src={item.file_path} alt="" />
 //                                                                 </figure>
 //                                                             </div>
 //                                                         )
@@ -46,14 +46,14 @@
 
 //                                         </Slider>
 //                                     </div>
-//                                     <div class="slider-nav">
+//                                     <div className="slider-nav">
 //                                         <Slider {...settings2}>
 //                                             {
 //                                                 productData.media_files?.map((item,index) => {
 //                                                     if (item.media_type === "image") {
 //                                                         return (
 //                                                             <div>
-//                                                                 <figure className={select == index ? "active":""}><img class="thumbnail" src={item.file_path} alt={item.file_path} onClick={e => {
+//                                                                 <figure className={select == index ? "active":""}><img className="thumbnail" src={item.file_path} alt={item.file_path} onClick={e => {
 //                                                                     setlink("")
 //                                                                     setmain([item])
 //                                                                     setselect(index)
@@ -75,7 +75,7 @@
 //                                                                     setmain([item])
 //                                                                 }}>
 //                                                                     {/* <iframe src={"https://docs.google.com/gview?url=" + item.file_path + "&embedded=true"} ></iframe> */}
-//                                                                     <img class="thumbnail" src={"/images/pdf_icon.png"} alt="" />
+//                                                                     <img className="thumbnail" src={"/images/pdf_icon.png"} alt="" />
 //                                                                 </figure>
 //                                                             </div>
 //                                                         )
@@ -96,7 +96,7 @@
 //                                                             setlink(productData.product?.youtube_link)
 //                                                         }}>
 //                                                             {/* <ReactPlayer url={productData?.product.youtube_link} width={"auto"} height={"300"} /> */}
-//                                                             <i class="fa-brands fa-square-youtube thumbnail" style={{ color: "#E30613", fontSize: "67px",textAlign:"center", cursor: "pointer" }} />
+//                                                             <i className="fa-brands fa-square-youtube thumbnail" style={{ color: "#E30613", fontSize: "67px",textAlign:"center", cursor: "pointer" }} />
 //                                                         </figure>
 //                                                     </div>
 //                                                     : null

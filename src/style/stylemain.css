@@ -2855,11 +2855,11 @@ a.error_icon i {
   font-size: 14px;
 }
 
-.contact_comapny li {
+/* .contact_comapny li {
   display: flex;
   align-items: center;
   padding-bottom: 15px;
-}
+} */
 
 .contact_comapny li img {
   padding-right: 15px;
@@ -4630,11 +4630,6 @@ a.error_icon i {
     margin: 0;
   }
 
-  .header .right .btn.btn-primary.row img {
-    width: 20px !important;
-    height: 20px !important;
-    margin-right: 10px;
-  }
 
   .main .router-body {
     width: calc(100% - 125px);
@@ -7658,7 +7653,8 @@ a.error_icon {
 
 .banner-section .banner-slide .background {
   background-size: cover;
-  padding: 108px 0;
+  padding: 40px 0px;
+  /* background-image: url(../../public/images/banner1.jpg); */
 }
 
 #create-breadcrumbs,
@@ -7771,15 +7767,12 @@ label {
 
   border: 1px solid #ccc;
 }
-
 .form-control.name {
   width: 100%;
 }
-
 .payformd {
   padding-top: 15px;
 }
-
 .card .col-sm-6 {
   flex: 0 0 50%;
   max-width: 50%;

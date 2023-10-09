@@ -50,6 +50,15 @@
   padding: 0 20px;
 }
 
+.Payment_form_Wrapper.Meeting_wrap .custom-select select {
+  font-size: 16px;
+  padding: 0!important;
+  padding-left: 10px !important;
+} 
+
+.Payment_form_Wrapper.Meeting_wrap .col-sm-12.paddCss {
+  padding: 10px 0px !important;
+}
 
 
 
@@ -407,6 +416,9 @@ td.roles span.shared-user {
   color: #19A0DD;
   background-color: #DCF4FFCC;
 }
+/* InputElement.is-empty.Input.Input--empty {
+  border-bottom: 1px solid red !important;
+} */
 
 td.action span {
   height: 30px;
@@ -3665,8 +3677,8 @@ iframe {
 }
 
 .contact_comapny li {
-  display: flex;
-  align-items: center;
+ 
+  
   padding-bottom: 15px;
 }
 
@@ -4322,6 +4334,7 @@ iframe {
 
   .custom-select {
     height: 40px;
+    
   }
 
   .custom-select select {
@@ -5485,8 +5498,11 @@ iframe {
     width: 100% !important;
   }
   .payment_form_wrap .row .column.pd-b {
-    padding-bottom: 15px;
+    padding: 0 10px 15px 10px;
   }
+    .payment_form_wrap .btn {
+      width: 125px;
+    }
   .payment_form_wrap .radio_btn p {
     margin-right: 50px;
     font-size: 16px;
@@ -5497,8 +5513,8 @@ iframe {
   .payment_form_wrap .radio_btn {
     margin-bottom: 15px;
   }
-  .payment_form_wrap .form-group {
-    padding-bottom: 0px;
+  .Payment_form_Wrapper .payment_form_wrap .form-group {
+    padding: 10px;
   }
 
 
@@ -5520,9 +5536,11 @@ iframe {
   }
 
   .header .right .btn.btn-primary.row img {
-    width: 20px !important;
-    height: 20px !important;
+    height: 30px;
+    margin-left: -10px;
     margin-right: 10px;
+    object-fit: cover;
+    width: 30px;
   }
 
   .main .router-body {

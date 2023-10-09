@@ -10,437 +10,437 @@ function Company_information_first() {
             <div className='company_wrapper product_section container'>
                 {
                     editcompany == true ?
-                        <div class={"router-body"}>
+                        <div className={"router-body"}>
 
-                            <div class="remark_wrap company_wrap row justify-content-between">
-                                <div class="column">
+                            <div className="remark_wrap company_wrap row justify-content-between">
+                                <div className="column">
                                     <h2>Company Information</h2>
                                 </div>
-                                <div class="column">
+                                <div className="column">
                                     {/* <p onClick={()=> seteditcompany(true)} >Edit Company Information<img src="images/edit (1).svg" alt="" /></p> */}
                                 </div>
                             </div>
-                            <div class="form-section">
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                            <div className="form-section">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Company Name</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Beauty Meetings" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="Beauty Meetings" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Company Website</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="www.beautymeetings.co.uk" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="www.beautymeetings.co.uk" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Industry Name</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Beauty Meetings" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="Beauty Meetings" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Registration Number</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="1245627561" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="1245627561" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Main Office Address</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="123, Lorem ipsum dolor sit amet" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="123, Lorem ipsum dolor sit amet" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-start">
-                                    <div class="left">
+                                <div className="form-row align-items-start">
+                                    <div className="left">
                                         <label>Contact 1</label>
                                     </div>
-                                    <div class="right pd-bt">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Richard D." />
+                                    <div className="right pd-bt">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="Richard D." />
                                         </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Job Title" />
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="Job Title" />
                                         </div>
-                                        <div class="column">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="12456789451" />
+                                        <div className="column">
+                                            <div className="form-group">
+                                                <input type="text" className="form-control" placeholder="12456789451" />
                                             </div>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="tomallen@gmail.com" />
+                                            <div className="form-group">
+                                                <input type="text" className="form-control" placeholder="tomallen@gmail.com" />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Upload Avtar</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="No File Choosen" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="No File Choosen" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-start">
-                                    <div class="left">
+                                <div className="form-row align-items-start">
+                                    <div className="left">
                                         <label>Contact 2</label>
                                     </div>
-                                    <div class="right pd-bt">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Richard D." />
+                                    <div className="right pd-bt">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="Richard D." />
                                         </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Job Title" />
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="Job Title" />
                                         </div>
-                                        <div class="column">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="12456789451" />
+                                        <div className="column">
+                                            <div className="form-group">
+                                                <input type="text" className="form-control" placeholder="12456789451" />
                                             </div>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="richardd22@gmail.com" />
+                                            <div className="form-group">
+                                                <input type="text" className="form-control" placeholder="richardd22@gmail.com" />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Upload Avtar</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="No File Choosen" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="No File Choosen" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-start">
-                                    <div class="left">
+                                <div className="form-row align-items-start">
+                                    <div className="left">
                                         <label>About Company</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <textarea name="" class="form-control">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.</textarea>
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <textarea name="" className="form-control">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.</textarea>
                                             <p
                                                 style={{ textAlign: "right", color: "#999999" }}
                                             >0/250</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Facebook</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="link here" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="link here" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Twitter</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="link here" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="link here" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Instagram</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="link here" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="link here" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Linkedin</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="link here" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="link here" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Youtube</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="link here" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="link here" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Tiktok</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="link here" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="link here" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Wechat</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="link here" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="link here" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="btn_wrapper row">
-                                    <Link to="/login" class="btn btn-secondary"
+                                <div className="btn_wrapper row">
+                                    <Link to="/login" className="btn btn-secondary"
                                     // onClick={e => {
                                     //     navigate("/login")
                                     // }}
                                     >Submit</Link>
-                                    <a href="" class="btn btn-primary">Cancel</a>
+                                    <a href="" className="btn btn-primary">Cancel</a>
                                 </div>
                             </div>
                         </div> :
 
 
-                        <div class={"router-body"}>
+                        <div className={"router-body"}>
 
-                            <div class="company_wrap2 remark_wrap company_wrap row justify-content-between">
-                                <div class="column">
+                            <div className="company_wrap2 remark_wrap company_wrap row justify-content-between">
+                                <div className="column">
                                     <h2>Company Information</h2>
                                 </div>
-                                <div class="column">
+                                <div className="column">
                                     <p onClick={() => seteditcompany(true)} style={{ cursor: "pointer" }} >Edit Company Information<img src="images/edit (1).svg" alt="" /></p>
                                 </div>
                             </div>
-                            <div class="form-section">
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                            <div className="form-section">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Company Name</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Beauty Meetings" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="Beauty Meetings" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Company Website</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="www.beautymeetings.co.uk" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="www.beautymeetings.co.uk" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Industry Name</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Beauty Meetings" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="Beauty Meetings" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Registration Number</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="1245627561" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="1245627561" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Main Office Address</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="123, Lorem ipsum dolor sit amet" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="123, Lorem ipsum dolor sit amet" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-start">
-                                    <div class="left">
+                                <div className="form-row align-items-start">
+                                    <div className="left">
                                         <label>Contact 1</label>
                                     </div>
-                                    <div class="right pd-bt">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Richard D." />
+                                    <div className="right pd-bt">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="Richard D." />
                                         </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Job Title" />
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="Job Title" />
                                         </div>
-                                        <div class="column">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="12456789451" />
+                                        <div className="column">
+                                            <div className="form-group">
+                                                <input type="text" className="form-control" placeholder="12456789451" />
                                             </div>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="tomallen@gmail.com" />
+                                            <div className="form-group">
+                                                <input type="text" className="form-control" placeholder="tomallen@gmail.com" />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Upload Avtar</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="No File Choosen" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="No File Choosen" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-start">
-                                    <div class="left">
+                                <div className="form-row align-items-start">
+                                    <div className="left">
                                         <label>Contact 2</label>
                                     </div>
-                                    <div class="right pd-bt">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Richard D." />
+                                    <div className="right pd-bt">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="Richard D." />
                                         </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Job Title" />
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="Job Title" />
                                         </div>
-                                        <div class="column">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="12456789451" />
+                                        <div className="column">
+                                            <div className="form-group">
+                                                <input type="text" className="form-control" placeholder="12456789451" />
                                             </div>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="richardd22@gmail.com" />
+                                            <div className="form-group">
+                                                <input type="text" className="form-control" placeholder="richardd22@gmail.com" />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Upload Avtar</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="No File Choosen" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="No File Choosen" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-start">
-                                    <div class="left">
+                                <div className="form-row align-items-start">
+                                    <div className="left">
                                         <label>About Company</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <textarea name="" class="form-control">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.</textarea>
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <textarea name="" className="form-control">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.</textarea>
                                             <p
                                                 style={{ textAlign: "right", color: "#999999" }}
                                             >0/250</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Facebook</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="link here" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="link here" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Twitter</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="link here" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="link here" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Instagram</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="link here" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="link here" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Linkedin</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="link here" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="link here" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Youtube</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="link here" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="link here" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Tiktok</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="link here" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="link here" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row align-items-center">
-                                    <div class="left">
+                                <div className="form-row align-items-center">
+                                    <div className="left">
                                         <label>Wechat</label>
                                     </div>
-                                    <div class="right">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="link here" />
+                                    <div className="right">
+                                        <div className="form-group">
+                                            <input type="text" className="form-control" placeholder="link here" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="btn_wrapper row">
-                                    <Link to="/login" class="btn btn-secondary"
+                                <div className="btn_wrapper row">
+                                    <Link to="/login" className="btn btn-secondary"
                                     // onClick={e => {
                                     //     navigate("/login")
                                     // }}
                                     >Submit</Link>
-                                    <a href="" class="btn btn-primary">Cancel</a>
+                                    <a href="" className="btn btn-primary">Cancel</a>
                                 </div>
                             </div>
                         </div>

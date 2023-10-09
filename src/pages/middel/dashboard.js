@@ -8,18 +8,18 @@ function Dashboard() {
 
   return (
     <>
-      <div class="main">
+      <div className="main">
         <div
-          class={"left_wrapper left_desktop" + (sidebar ? " active" : "")}
+          className={"left_wrapper left_desktop" + (sidebar ? " active" : "")}
           id="left_wrapper"
         >
-          <div class="left_sidebar">
-            <div class="box">
-              <div class="sidebar_toggle" onClick={(e) => setsidebar(!sidebar)}>
+          <div className="left_sidebar">
+            <div className="box">
+              <div className="sidebar_toggle" onClick={(e) => setsidebar(!sidebar)}>
                 <span></span>
                 <span></span>
                 <span></span>
-                <i class="fa fa-angle-left" aria-hidden="true"></i>
+                <i className="fa fa-angle-left" aria-hidden="true"></i>
               </div>
               {localStorage.getItem("user_type") == "Supplier" ? (
                 <>
@@ -37,27 +37,27 @@ function Dashboard() {
                         Products Showcase
                       </a>
                     </li>
-                    <li class={submenu ? "backdrop" : ""}>
+                    <li className={submenu ? "backdrop" : ""}>
                       <a
-                        class="menu_submenu supplier"
+                        className="menu_submenu supplier"
                         onClick={(e) => setsubmenu(!submenu)}
                       >
                         <img
-                          class="bgdrop-icon-hide"
+                          className="bgdrop-icon-hide"
                           src="images/Meeting Schedule.svg"
                           alt=""
                         />
                         <img
-                          class="bgdrop-icon"
+                          className="bgdrop-icon"
                           src="images/calender_blue.png"
                           alt=""
                           style={{ display: "none" }}
                         />
                         My Meetings
-                        <i class="fa fa-angle-down drop" aria-hidden="true"></i>
+                        <i className="fa fa-angle-down drop" aria-hidden="true"></i>
                       </a>
                       <ul
-                        class="sub__menu supplier-meetings"
+                        className="sub__menu supplier-meetings"
                         style={
                           submenu ? { display: "block" } : { display: "none" }
                         }
@@ -68,12 +68,12 @@ function Dashboard() {
                         <li>
                           <a href="#">Confirmed Meetings</a>
                         </li>
-                        <li class="active">
+                        <li className="active">
                           <a href="#">Passed Meetings</a>
                         </li>
                       </ul>
 
-                      {/* <!-- <span class="icon-drop"></span> --> */}
+                      {/* <!-- <span className="icon-drop"></span> --> */}
                     </li>
                   </ul>
                 </>
@@ -96,27 +96,27 @@ function Dashboard() {
                         Products Research Profile
                       </a>
                     </li>
-                    <li class={submenu ? "backdrop" : ""}>
+                    <li className={submenu ? "backdrop" : ""}>
                       <a
-                        class="menu_submenu buyer"
+                        className="menu_submenu buyer"
                         onClick={(e) => setsubmenu(!submenu)}
                       >
                         <img
-                          class="bgdrop-icon-hide"
+                          className="bgdrop-icon-hide"
                           src="images/Meeting Schedule.svg"
                           alt=""
                         />
                         <img
-                          class="bgdrop-icon"
+                          className="bgdrop-icon"
                           src="images/calender_blue.png"
                           alt=""
                           style={{ display: "none" }}
                         />
                         My Meetings
-                        <i class="fa fa-angle-down drop" aria-hidden="true"></i>
+                        <i className="fa fa-angle-down drop" aria-hidden="true"></i>
                       </a>
                       <ul
-                        class="sub__menu buyer-meeting"
+                        className="sub__menu buyer-meeting"
                         style={
                           submenu ? { display: "block" } : { display: "none" }
                         }
@@ -132,12 +132,12 @@ function Dashboard() {
                         <li>
                           <a href="#">Confirmed Meetings</a>
                         </li>
-                        <li class="active">
+                        <li className="active">
                           <a href="#">Passed Meetings</a>
                         </li>
                       </ul>
                     </li>
-                    <li class="border">
+                    <li className="border">
                       <a href="https://onlinebeautymeeting.sdsstaging.co.uk/contact.html">
                         <img src="images/CONTACT.png" alt="" />
                         Contact Us
@@ -154,7 +154,7 @@ function Dashboard() {
       
 
         <div className={"router-body" + (sidebar ? " active" : "")}>
-          <div class="breadcrumbs" data-aos="fade-down">
+          <div className="breadcrumbs" data-aos="fade-down">
             <ul>
               <li>
                 <a href="#">Dashboard </a>
@@ -175,14 +175,14 @@ function Dashboard() {
               </li>
             </ul>
           </div>
-          <div class="product_detail product_supplier">
-            <div class="row">
-              <div class="col_img">
-                <div class="slider-for">
+          <div className="product_detail product_supplier">
+            <div className="row">
+              <div className="col_img">
+                <div className="slider-for">
                   <div>
                     <figure>
                       <img
-                        class="mainimg-display"
+                        className="mainimg-display"
                         src="images/banner_supplier.jpg"
                         alt=""
                       />
@@ -190,10 +190,10 @@ function Dashboard() {
                   </div>
                 </div>
               </div>
-              <div class="col_text">
-                <div class="button">
-                  <button class="btn btn-secondary">Category 1</button>
-                  <button class="btn btn-secondary btn-default">
+              <div className="col_text">
+                <div className="button">
+                  <button className="btn btn-secondary">Category 1</button>
+                  <button className="btn btn-secondary btn-default">
                     Sub Category 1
                   </button>
                 </div>
@@ -212,8 +212,8 @@ function Dashboard() {
                     <h5>Training:</h5>
                   </li>
                 </ul>
-                <div class="button-wrapper">
-                  <a href="#" class="btn btn-secondary">
+                <div style={{display: 'none'}} className="button-wrapper">
+                  <a href="#" className="btn btn-secondary">
                     <span>
                       <img src="images/favourite.svg" alt="" />
                     </span>
@@ -223,7 +223,7 @@ function Dashboard() {
                   {requestMeeting == 2 ? (
                     <a
                       onClick={() => setrequestMeeting(3)}
-                      class="btn btn-primary"
+                      className="btn btn-primary"
                     >
                       <span>
                         {/* <img src="images/Meeting Schedule.svg"
@@ -234,7 +234,7 @@ function Dashboard() {
                   ) : (
                     <a
                       onClick={() => setrequestMeeting(2)}
-                      class="btn btn-primary"
+                      className="btn btn-primary"
                     >
                       <span>
                         <img src="images/Meeting Schedule.svg" alt="" />
@@ -246,9 +246,9 @@ function Dashboard() {
               </div>
             </div>
           </div>
-          <div class="product_supplier_inner">
+          <div className="product_supplier_inner">
             <h2>Product Details</h2>
-            <p class="justify-para">
+            <p className="justify-para">
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text
               ever since the 1500s, when an unknown printer took a galley of
@@ -261,11 +261,11 @@ function Dashboard() {
               Lorem Ipsum.
             </p>
           </div>
-          <div class="product_supplir_profile">
-            <div class="profile-list">
+          <div className="product_supplir_profile">
+            <div className="profile-list">
               <h2>Profile</h2>
-              <div class="row justify-content-between">
-                <div class="col_left">
+              <div className="row justify-content-between">
+                <div className="col_left">
                   <ul>
                     <li>
                       <h6>
@@ -303,14 +303,14 @@ function Dashboard() {
                     </li>
                   </ul>
                 </div>
-                <div class="col_right">
-                  <div class="information">
+                <div className="col_right">
+                  <div className="information">
                     <a href="#">
                       <h3>Do you want more information?</h3>
                     </a>
                     <a
                       href="/product-buyer3"
-                      class="btn btn-secondary"
+                      className="btn btn-secondary"
                       style={{ marginRight: "0" }}
                     >
                       Request to Admin
@@ -322,55 +322,55 @@ function Dashboard() {
           </div>
         </div>
       </div>
-      <div class="popup_box">
-        <div class="img-content-box row">
-          <div class="img-box">
+      <div className="popup_box">
+        <div className="img-content-box row">
+          <div className="img-box">
             <figure>
               <img src="images/profile.svg" alt="" />
             </figure>
           </div>
-          <div class="content-box">
+          <div className="content-box">
             <h6>Mia Khanh</h6>
             <span>Super Admin</span>
           </div>
         </div>
-        <div class="nav">
-          <li class="profile">
+        <div className="nav">
+          <li className="profile">
             <a>
-              My Profile <i class="fa fa-angle-up" aria-hidden="true"></i>
+              My Profile <i className="fa fa-angle-up" aria-hidden="true"></i>
             </a>
           </li>
-          <ul class="sub__menu profile_sub">
+          <ul className="sub__menu profile_sub">
             <li>
               <a href="#">Company Information</a>
             </li>
             <li>
               <a href="#">User Management </a>
             </li>
-            <li class="information">
+            <li className="information">
               <a>
                 <span>Administrative Informations</span>
-                <i class="fa fa-angle-up" aria-hidden="true"></i>
+                <i className="fa fa-angle-up" aria-hidden="true"></i>
               </a>
             </li>
-            <ul class="sub__menu information_sub">
+            <ul className="sub__menu information_sub">
               <li>
                 <a href="#">Contract Info </a>
               </li>
               <li>
                 <a href="#">Billing</a>
               </li>
-              <li>
+              <li style={{display:'none'}}>
                 <a href="#">Credit Card Info</a>
               </li>
             </ul>
           </ul>
-          <li class="logout">
+          <li className="logout">
             <a>
-              Logout<i class="fa fa-sign-out" aria-hidden="true"></i>
+              Logout<i className="fa fa-sign-out" aria-hidden="true"></i>
             </a>
           </li>
-          <ul class="sub__menu term">
+          <ul className="sub__menu term">
             <li>
               <a href="#"> Privacy and Terms</a>
             </li>

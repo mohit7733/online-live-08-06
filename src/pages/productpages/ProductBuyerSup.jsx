@@ -24,7 +24,7 @@ function ProductBuyerSup(props) {
       <div className={"router-body" + (props.sidebar ? " active" : "")}>
 
         
-        <div class="breadcrumbs" data-aos="fade-down">
+        <div className="breadcrumbs" data-aos="fade-down">
           {localStorage.getItem("user_type") == "Buyer" ? (
             <ul>
               <li>
@@ -91,14 +91,14 @@ function ProductBuyerSup(props) {
         </div>
         {localStorage.getItem("user_type") == "Buyer" ? (
           <>
-            <div class="product_detail product_supplier">
-              <div class="row">
-                <div class="col_img">
-                  <div class="slider-for">
+            <div className="product_detail product_supplier">
+              <div className="row">
+                <div className="col_img">
+                  <div className="slider-for">
                     <div>
                       <figure>
                         <img
-                          class="mainimg-display"
+                          className="mainimg-display"
                           src="images/banner_supplier.jpg"
                           alt=""
                         />
@@ -107,19 +107,19 @@ function ProductBuyerSup(props) {
                   </div>
                 </div>
                 {meetingdone == true ? (
-                  <div class="col_text">
-                    <div class="button">
-                      <button class="btn btn-secondary">Category 1</button>
-                      <button class="btn btn-secondary btn-default">
+                  <div className="col_text">
+                    <div className="button">
+                      <button className="btn btn-secondary">Category 1</button>
+                      <button className="btn btn-secondary btn-default">
                         Sub Category 1
                       </button>
                     </div>
                     <h2>Product Name (Full)</h2>
                     <ul>
-                      <li class="after_meeting_li">
+                      <li className="after_meeting_li">
                         <h5>Made In:</h5>
                       </li>
-                      <li class="after_meeting_li">
+                      <li className="after_meeting_li">
                         <h5>
                           Price Range: : € 10.000{" "}
                           <a href="">
@@ -157,27 +157,27 @@ function ProductBuyerSup(props) {
                           
                         </h5>
                       </li>
-                      <li class="after_meeting_li">
+                      <li className="after_meeting_li">
                         <h5>Minimum Quantity:</h5>
                       </li>
-                      <li class="after_meeting_li">
+                      <li className="after_meeting_li">
                         <h5>Guarantee:</h5>
                       </li>
-                      <li class="after_meeting_li">
+                      <li className="after_meeting_li">
                         <h5>Date Of Creation:</h5>
                       </li>
-                      <li class="after_meeting_li">
+                      <li className="after_meeting_li">
                         <h5>Training:</h5>
                       </li>
                     </ul>
-                    <div class="button-wrapper">
-                      <a href="#" class="btn btn-secondary">
+                    <div className="button-wrapper">
+                      <a href="#" className="btn btn-secondary">
                         <span>
                           <img src="images/favourite.svg" alt="" />
                         </span>
                         Add your favourites
                       </a>
-                      <a href="#" class="btn btn-primary">
+                      <a href="#" className="btn btn-primary">
                         <span>
                           <img src="images/check.svg" alt="" />
                         </span>
@@ -186,10 +186,10 @@ function ProductBuyerSup(props) {
                     </div>
                   </div>
                 ) : (
-                  <div class="col_text">
-                    <div class="button">
-                      <button class="btn btn-secondary">Category 1</button>
-                      <button class="btn btn-secondary btn-default">
+                  <div className="col_text">
+                    <div className="button">
+                      <button className="btn btn-secondary">Category 1</button>
+                      <button className="btn btn-secondary btn-default">
                         Sub Category 1
                       </button>
                     </div>
@@ -208,8 +208,8 @@ function ProductBuyerSup(props) {
                         <h5>Training:</h5>
                       </li>
                     </ul>
-                    <div class="button-wrapper">
-                      <a href="#" class="btn btn-secondary">
+                    <div style={{display: 'none'}} className="button-wrapper">
+                      <a href="#" className="btn btn-secondary">
                         <span>
                           <img src="images/favourite.svg" alt="" />
                         </span>
@@ -219,7 +219,7 @@ function ProductBuyerSup(props) {
                       {requestMeeting == 2 ? (
                         <>
                           {meetingdone == true ? (
-                            <a href="#" class="btn btn-primary">
+                            <a href="#" className="btn btn-primary">
                               <span>
                                 <img src="images/check.svg" alt="" />
                               </span>
@@ -228,7 +228,7 @@ function ProductBuyerSup(props) {
                           ) : (
                             <a
                               onClick={() => setmeetingdone(true)}
-                              class="btn btn-primary"
+                              className="btn btn-primary"
                             >
                               <span>
                                 <img src="images/Meeting Schedule.svg" alt="" />
@@ -240,7 +240,7 @@ function ProductBuyerSup(props) {
                       ) : (
                         <a
                           onClick={() => setrequestMeeting(2)}
-                          class="btn btn-primary"
+                          className="btn btn-primary"
                         >
                           <span>
                             <img src="images/Meeting Schedule.svg" alt="" />
@@ -260,9 +260,9 @@ function ProductBuyerSup(props) {
               <ProductDescription />
             ) : (
               <>
-                <div class="product_supplier_inner">
+                <div className="product_supplier_inner">
                   <h2>Product Details</h2>
-                  <p class="justify-para">
+                  <p className="justify-para">
                     Lorem Ipsum is simply dummy text of the printing and
                     typesetting industry. Lorem Ipsum has been the industry's
                     standard dummy text ever since the 1500s, when an unknown
@@ -275,11 +275,11 @@ function ProductBuyerSup(props) {
                     like Aldus PageMaker including versions of Lorem Ipsum.
                   </p>
                 </div>
-                <div class="product_supplir_profile">
-                  <div class="profile-list">
+                <div className="product_supplir_profile">
+                  <div className="profile-list">
                     <h2>Profile</h2>
-                    <div class="row justify-content-between">
-                      <div class="col_left">
+                    <div className="row justify-content-between">
+                      <div className="col_left">
                         <ul>
                           <li>
                             <h6>
@@ -319,14 +319,14 @@ function ProductBuyerSup(props) {
                           </li>
                         </ul>
                       </div>
-                      <div class="col_right">
-                        <div class="information">
+                      <div className="col_right">
+                        <div className="information">
                           <a href="#">
                             <h3>Do you want more information?</h3>
                           </a>
                           <a
                             onClick={() => setshowdetails(true)}
-                            class="btn btn-secondary"
+                            className="btn btn-secondary"
                             style={{ marginRight: "0" }}
                           >
                             Request to Admin

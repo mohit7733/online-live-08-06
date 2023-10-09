@@ -3,9 +3,9 @@ import React from 'react'
 const ProductDescription=()=> {
   return (
     <>
-  <div class="product_supplier_inner">
+  <div className="product_supplier_inner">
               <h2>Product Details</h2>
-              <p class="justify-para">
+              <p className="justify-para">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem Ipsum has been the industry's standard dummy
                 text ever since the 1500s, when an unknown printer took a galley
@@ -18,12 +18,12 @@ const ProductDescription=()=> {
                 Lorem Ipsum.
               </p>
             </div>
-            <div class="product_supplir_profile">
-              <div class="d-flex">
-                <div class="profile-list profile-brand">
+            <div className="product_supplir_profile">
+              <div className="d-flex">
+                <div className="profile-list profile-brand">
                   <h2>Profile</h2>
-                  <div class="row justify-content-between">
-                    <div class="col_left">
+                  <div className="row justify-content-between">
+                    <div className="col_left">
                       <ul>
                         <li>
                           <h6>

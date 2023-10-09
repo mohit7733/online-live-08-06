@@ -4,7 +4,7 @@ import EditRemark from "../meetings/EditRemark";
 import Left_menu from "../productpages/left_menu";
 
 function Edit_remarkboth(props) {
-  const [sidebar, setsidebar] = useState(false);
+  const [sidebar, setsidebar] = useState(true);
 const {usertype} = useParams()
   return (
     <>

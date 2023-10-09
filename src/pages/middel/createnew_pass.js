@@ -30,6 +30,10 @@ function Create_password() {
   console.log(contact?.email);
 
   const createNewpass = async () => {
+    if (contact.newpass === "" || contact.newpassconfirm === "") {
+      toast.error("Please enter a new password and confirm it.");
+      return;
+    }
     let data = JSON.stringify({
       password: contact?.newpass,
       verify_token: verify_token,

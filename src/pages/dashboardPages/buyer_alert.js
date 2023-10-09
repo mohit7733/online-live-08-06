@@ -76,7 +76,7 @@ function Alert_Buyer(props) {
           >
             <ul>
               <li>
-                <a href="/dashboard/user-manegment"> Dashboard </a>
+                <a href="/dashboard/user-management"> Dashboard </a>
               </li>
               <li>
                 <a href="#">{usertype == "buyer" ? "Buyer" : "Supplier"}</a>

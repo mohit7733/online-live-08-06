@@ -15,3 +15,35 @@
     border: solid 1px #19A0DD;
     background-color: #ccc;
 }
+
+/* .StripeElement--empty{
+    border-bottom: 1px solid red !important;
+  } */
+
+  .StripeElement--invalid{
+    border-bottom: 1px solid red !important;
+    
+    
+}
+.error-active{
+  border-bottom: 1px solid red !important;
+  
+  
+}
+
+body .StripeElement--focus{
+  border-bottom: 1px solid #ccc !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+  

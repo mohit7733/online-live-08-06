@@ -103,7 +103,7 @@ export default function EditUserSection(props) {
       .then(function (response) {
         if (response.status == 200) {
             console.log(response.data);
-          navigate("/dashboard/user-manegment");
+          navigate("/dashboard/user-management");
         }
       })
       .catch(function (error) {

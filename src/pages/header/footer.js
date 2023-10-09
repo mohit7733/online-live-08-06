@@ -65,7 +65,7 @@ function Footer() {
                       href="https://www.youtube.com/channel/UCuyOz-rngJLZexMzoutHSbw?app=desktop"
                       target="_blank"
                     >
-                      <i class="fa-brands fa-square-youtube"></i>
+                      <i className="fa-brands fa-square-youtube"></i>
                     </a>
                   </li>
                   <li>

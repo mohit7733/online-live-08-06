@@ -20,10 +20,10 @@ function RequestMeeting() {
   return (
     <>
       <div className="Accept_meeting_wrap Meeting_wrap profile_popup">
-        <div class="main">
+        <div className="main">
           <Left_menu2 sidebar={sidebar} setsidebar={setsidebar} />
-          <div class={ sidebar ? "router-body active add_hover":"router-body add_hover"}>
-            <div class="breadcrumbs" data-aos="fade-down">
+          <div className={ sidebar ? "router-body active add_hover":"router-body add_hover"}>
+            <div className="breadcrumbs" data-aos="fade-down">
               <ul>
                 <li>
                   <a href="/dashboard">Dashboard</a>
@@ -38,28 +38,28 @@ function RequestMeeting() {
                 </li>
               </ul>
             </div>
-            <div class="product_detail product_supplier">
-              <div class="row">
-                <div class="col_img" data-aos="fade-right">
-                  <div class="holder">
-                    <div class="slides">
+            <div className="product_detail product_supplier">
+              <div className="row">
+                <div className="col_img" data-aos="fade-right">
+                  <div className="holder">
+                    <div className="slides">
                       <img src={a4} alt="" />
                     </div>
-                    <div class="slides">
+                    <div className="slides">
                       <figure>
                       <img src={a3} alt="" />
                       </figure>
                     </div>
                   </div>
-                  <div class="prevContainer">
-                    <a class="prev" onclick="plusSlides(-1)">
+                  <div className="prevContainer">
+                    <a className="prev" onclick="plusSlides(-1)">
                       <svg viewBox="0 0 24 24">
                         <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path>
                       </svg>
                     </a>
                   </div>
-                  <div class="nextContainer">
-                    <a class="next" onclick="plusSlides(1)">
+                  <div className="nextContainer">
+                    <a className="next" onclick="plusSlides(1)">
                       <svg viewBox="0 0 24 24">
                         <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
                       </svg>
@@ -67,64 +67,64 @@ function RequestMeeting() {
                   </div>
 
                   {/* <!-- thumnails in a row --> */}
-                  <div class="thumb-slider">
+                  <div className="thumb-slider">
                     <div
-                      class="prevContainerx"
+                      className="prevContainerx"
                        style={{top: "650px", height: "10%"}}
                     >
-                      <a class="prev" onclick="plusSlides(-2)">
+                      <a className="prev" onclick="plusSlides(-2)">
                         <svg viewBox="0 0 24 24">
                           <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path>
                         </svg>
                       </a>
                     </div>
-                    <div class="product-img active thumbnail">
-                      <div class="slide-thumbnail" onclick="currentSlide(1)">
+                    <div className="product-img active thumbnail">
+                      <div className="slide-thumbnail" onclick="currentSlide(1)">
                         <img src={buyer_thumb} alt="Caption one" />
                       </div>
-                      <div class="video-cercile">
+                      <div className="video-cercile">
                         <figure>
                           <img src={videoicon} alt="" />
                         </figure>
                       </div>
                     </div>
-                    <div class="column thumbnail">
+                    <div className="column thumbnail">
                       <img
-                        class="slide-thumbnail"
+                        className="slide-thumbnail"
                         src={a3}
                         onclick="currentSlide(2)"
                         alt="Caption two"
                       />
                     </div>
                     <div
-                      class="nextContainery"
+                      className="nextContainery"
                       style={{top: "650px", height: "10%"}}
                       >
-                      <a class="next" onclick="plusSlides(4)">
+                      <a className="next" onclick="plusSlides(4)">
                         <svg viewBox="0 0 24 24">
                           <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
                         </svg>
                       </a>
                     </div>
                   </div>
-                  <div class="prevContainer">
-                    <a class="prev" onclick="plusSlides(2)">
+                  <div className="prevContainer">
+                    <a className="prev" onclick="plusSlides(2)">
                       <svg viewBox="0 0 24 24">
                         <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path>
                       </svg>
                     </a>
                   </div>
-                  <div class="nextContainer">
-                    <a class="next" onclick="plusSlides(-2)">
+                  <div className="nextContainer">
+                    <a className="next" onclick="plusSlides(-2)">
                       <svg viewBox="0 0 24 24">
                         <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
                       </svg>
                     </a>
                   </div>
                 </div>
-                <div class="col_text" data-aos="fade-left">
-                  <div class="button">
-                    <button class="btn btn-secondary">Company sector</button>
+                <div className="col_text" data-aos="fade-left">
+                  <div className="button">
+                    <button className="btn btn-secondary">Company sector</button>
                   </div>
                   <h2>Fullname Company</h2>
                   <h5>Company Country: France</h5>
@@ -138,14 +138,14 @@ function RequestMeeting() {
                     but also the leap into electronic typesetting, remaining
                     essentially unchanged. Lorem Ipsum
                   </p>
-                  <div class="button-wrapper m-lft">
-                    <a href="#" class="btn btn-primary">
+                  <div className="button-wrapper m-lft">
+                    <a href="#" className="btn btn-primary">
                       <span>
                       <img src={favicon} alt="" />
                       </span>
                       Add your favourites
                     </a>
-                    <a href={`/panding-accept/${id}`} class="btn btn-secondary">
+                    <a href={`/panding-accept/${id}`} className="btn btn-secondary">
                       <span>
                         <img src={favicon2} alt="" />
                       </span>
@@ -155,11 +155,11 @@ function RequestMeeting() {
                 </div>
               </div>
             </div>
-            <div class="product_supplir_profile">
-              <div class="profile-list profile-brand">
+            <div className="product_supplir_profile">
+              <div className="profile-list profile-brand">
                 <h2>Company</h2>
-                <div class="row justify-content-between">
-                  <div class="col_left last-contnt">
+                <div className="row justify-content-between">
+                  <div className="col_left last-contnt">
                     <ul>
                       <li>
                         <h6>

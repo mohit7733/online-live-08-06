@@ -19,16 +19,16 @@ function Productbeforemeeting() {
       };
   return (
     <>
-    <div class="product_before_meeting profile_popup">
-    <div class="main">
-            <div class={desktopActive  == true ? "left_wrapper left_desktop active" : "left_wrapper left_desktop" } id="left_wrapper">
-                <div class="left_sidebar">
-                    <div class="box">
-                        <div class="sidebar_toggle" onClick={()=>setdesktopActive(!desktopActive)}>
+    <div className="product_before_meeting profile_popup">
+    <div className="main">
+            <div className={desktopActive  == true ? "left_wrapper left_desktop active" : "left_wrapper left_desktop" } id="left_wrapper">
+                <div className="left_sidebar">
+                    <div className="box">
+                        <div className="sidebar_toggle" onClick={()=>setdesktopActive(!desktopActive)}>
                             <span></span>
                             <span></span>
                             <span></span>
-                            <i class="fa fa-angle-left" aria-hidden="true"></i>
+                            <i className="fa fa-angle-left" aria-hidden="true"></i>
                         </div>
                         <h4>SUPPLIER</h4>
                         <ul>
@@ -38,23 +38,23 @@ function Productbeforemeeting() {
                             </li>
                             <li><a  href="/dashboard"
                 onClick={(e) => localStorage.setItem("sect", 3)}><img src="images/edit.svg" alt="" />Products Showcase</a></li>
-                            <li class={submenu ? "backdrop" : ""}>
+                            <li className={submenu ? "backdrop" : ""}>
                                 <a onClick={(e) => setsubmenu(!submenu)}
- class="menu_submenu supplier">
-                                    <img class="bgdrop-icon-hide" src="images/Meeting Schedule.svg" alt="" />
-                                    <img class="bgdrop-icon" src="images/calender_blue.png" alt="" 
+ className="menu_submenu supplier">
+                                    <img className="bgdrop-icon-hide" src="images/Meeting Schedule.svg" alt="" />
+                                    <img className="bgdrop-icon" src="images/calender_blue.png" alt="" 
                                     //  style="display:none;"
                                      />My Meetings
-                                    <i class="fa fa-angle-down drop" aria-hidden="true"></i></a>
+                                    <i className="fa fa-angle-down drop" aria-hidden="true"></i></a>
                                 <ul  style={
                                             submenu ? { display: "block" } : { display: "none" }
-                                        } class="sub__menu supplier-meetings">
+                                        } className="sub__menu supplier-meetings">
                                     <li><a href="#">Pending Meetings</a></li>
                                     <li><a href="#">Confirmed Meetings</a></li>
-                                    <li class="active"><a href="#">Passed Meetings</a></li>
+                                    <li className="active"><a href="#">Passed Meetings</a></li>
                                 </ul>
                                 
-                                {/* <!-- <span class="icon-drop"></span> --> */}
+                                {/* <!-- <span className="icon-drop"></span> --> */}
                             </li>
 
                         </ul>
@@ -63,66 +63,66 @@ function Productbeforemeeting() {
                             <li><a href="#"><img src="images/bell.svg" alt="" />Alert Notification</a></li>
                             <li><a href="#"><img src="images/edit.svg" alt="" />Products Research Profile</a></li>
                             <li>
-                                <a class="menu_submenu buyer">
-                                    <img class="bgdrop-icon-hide" src="images/Meeting Schedule.svg" alt="" />
-                                    <img class="bgdrop-icon" src="images/calender_blue.png" alt="" 
+                                <a className="menu_submenu buyer">
+                                    <img className="bgdrop-icon-hide" src="images/Meeting Schedule.svg" alt="" />
+                                    <img className="bgdrop-icon" src="images/calender_blue.png" alt="" 
                                     //  style="display:none;"
                                      />My Meetings
-                                    <i class="fa fa-angle-down drop" aria-hidden="true"></i></a>
-                                <ul class="sub__menu buyer-meeting">
+                                    <i className="fa fa-angle-down drop" aria-hidden="true"></i></a>
+                                <ul className="sub__menu buyer-meeting">
                                     <li><a href="/product-view">View All Products</a></li>
                                     <li><a href="/dashboard">Favourite List</a></li>
                                     <li><a href="#">Confirmed Meetings</a></li>
-                                    <li class="active"><a href="#">Passed Meetings</a></li>
+                                    <li className="active"><a href="#">Passed Meetings</a></li>
                                 </ul>
                             </li>
-                            <li class="border"><a href="https://onlinebeautymeeting.sdsstaging.co.uk/contact.html"><img src="images/CONTACT.png" alt="" />Contact Us</a>
+                            <li className="border"><a href="https://onlinebeautymeeting.sdsstaging.co.uk/contact.html"><img src="images/CONTACT.png" alt="" />Contact Us</a>
                             </li>
                         </ul>
                     </div>
                 </div>
 
             </div>
-            <div class="bg-light supplier-meetings dropdown-container" tabindex="-1">
+            <div className="bg-light supplier-meetings dropdown-container" tabindex="-1">
                 <h4>My Meetings
-                    {/* <!-- <i class="fa fa-angle-up" aria-hidden="true"></i> --> */}
+                    {/* <!-- <i className="fa fa-angle-up" aria-hidden="true"></i> --> */}
                 </h4>
-                <div class="dropdown-item-div">
-                    <a class="dropdown-item" href="#"> 
+                <div className="dropdown-item-div">
+                    <a className="dropdown-item" href="#"> 
                         Pending Meetings
                     </a>
-                    <a class="dropdown-item" href="#"> 
+                    <a className="dropdown-item" href="#"> 
                         Confirmed Meetings
                     </a>
-                    <a class="dropdown-item" href="#"> 
+                    <a className="dropdown-item" href="#"> 
                         Passed Meetings
                     </a>
                 </div>
             </div>
 
-            <div class="bg-light buyer-meetings dropdown-container" tabindex="-1">
+            <div className="bg-light buyer-meetings dropdown-container" tabindex="-1">
                 <h4>My Meetings
-                    {/* <!-- <i class="fa fa-angle-up" aria-hidden="true"></i> --> */}
+                    {/* <!-- <i className="fa fa-angle-up" aria-hidden="true"></i> --> */}
                 </h4>
-                <div class="dropdown-item-div">
-                    <a class="dropdown-item" href="/product-view"> 
+                <div className="dropdown-item-div">
+                    <a className="dropdown-item" href="/product-view"> 
                         View All Products
                     </a>
-                    <a class="dropdown-item" href="/favourite"> 
+                    <a className="dropdown-item" href="/favourite"> 
                         Favourite List
                     </a>
-                    <a class="dropdown-item" href="#"> 
+                    <a className="dropdown-item" href="#"> 
                         Confirmed Meetings
                     </a>
-                    <a class="dropdown-item" href="#"> 
+                    <a className="dropdown-item" href="#"> 
                         Passed Meetings
                     </a>
                 </div>
             </div>
-            <div class={desktopActive == true ? "router-body active" :"router-body " }>
-                <div class="breadcrumbs" data-aos="fade-down">
+            <div className={desktopActive == true ? "router-body active" :"router-body " }>
+                <div className="breadcrumbs" data-aos="fade-down">
 
-                    <div class="head">
+                    <div className="head">
                         <ul>
                             <li><a href="#">Dashboard </a></li>
                             <li><a href="#">Buyer </a></li>
@@ -132,72 +132,72 @@ function Productbeforemeeting() {
                         </ul>
                     </div>
                 </div>
-                <div class="product_detail product_supplier">
-                    <div class="row">
-                        <div class="col_img" data-aos="fade-right">
-                            <div class="slider-for">
+                <div className="product_detail product_supplier">
+                    <div className="row">
+                        <div className="col_img" data-aos="fade-right">
+                            <div className="slider-for">
                             <Slider {...settings}>
 
                                 <div>
                                     <figure>
-                                        <img class="mainimg-display" src={img2} alt="" />
+                                        <img className="mainimg-display" src={img2} alt="" />
                                     </figure>
                                 </div>
                                 <div>
                                     <figure>
-                                    <img class="mainimg-display" src={img2} alt="" />
+                                    <img className="mainimg-display" src={img2} alt="" />
                                     </figure>
                                 </div>
                                 <div>
                                     <figure>
-                                    <img class="mainimg-display" src={img3} alt="" />
+                                    <img className="mainimg-display" src={img3} alt="" />
                                     </figure>
                                 </div>
                                 <div>
                                     <figure>
-                                    <img class="mainimg-display" src={img3} alt="" />
+                                    <img className="mainimg-display" src={img3} alt="" />
                                     </figure>
                                 </div>
                                 </Slider>
                             </div>
-                            <div class="slider-nav">
+                            <div className="slider-nav">
                                 <div>
-                                    <figure><img class="thumbnail" src="images/images-slider/image_slider_1.png" alt="" /></figure>
+                                    <figure><img className="thumbnail" src="images/images-slider/image_slider_1.png" alt="" /></figure>
                                 </div>
                                 <div>
-                                    <figure><img class="thumbnail" src="images/images-slider/A2.png" alt="" /></figure>
+                                    <figure><img className="thumbnail" src="images/images-slider/A2.png" alt="" /></figure>
                                 </div>
                                 <div>
-                                    <figure><img class="thumbnail" src="images/images-slider/A3.png" alt="" /></figure>
+                                    <figure><img className="thumbnail" src="images/images-slider/A3.png" alt="" /></figure>
                                 </div>
                                 {/* <!-- <div>
-                                    <figure><img class="thumbnail" src="images/images-slider/A4.png" alt="" /></figure>
+                                    <figure><img className="thumbnail" src="images/images-slider/A4.png" alt="" /></figure>
                                 </div> --> */}
-                                <div class="product-img">
+                                <div className="product-img">
                                     <div>
-                                        <figure><img class="thumbnail" src="images/images-slider/A4.png" alt="" /></figure>
+                                        <figure><img className="thumbnail" src="images/images-slider/A4.png" alt="" /></figure>
                                     </div>
-                                    <div class="video-cercile">
+                                    <div className="video-cercile">
                                         <figure><img src="images/video-icon.svg" alt="" /></figure>
                                     </div>
                                    
                                 </div>
                                 <div>
-                                    <figure><img class="thumbnail" src="images/images-slider/image_slider_1.png" alt="" /></figure>
+                                    <figure><img className="thumbnail" src="images/images-slider/image_slider_1.png" alt="" /></figure>
                                 </div>
                             </div>
                         </div>
-                        <div class="col_text" data-aos="fade-left">
-                            <div class="button">
-                                <button class="btn btn-secondary">Category 1</button>
-                                <button class="btn btn-secondary btn-default">Sub Category 1</button>
+                        <div className="col_text" data-aos="fade-left">
+                            <div className="button">
+                                <button className="btn btn-secondary">Category 1</button>
+                                <button className="btn btn-secondary btn-default">Sub Category 1</button>
                             </div>
                             <h2>Product Name (Full)</h2>
                             <ul>
-                                <li class="before_meeting_li">
+                                <li className="before_meeting_li">
                                     <h5>Made In:</h5>
                                 </li>
-                                <li class="before_meeting_li">
+                                <li className="before_meeting_li">
                                     <h5>Price Range: : € 10.000 <a href="#">
                                         {/* <span>(See Price Policy)</span> */}
                                         </a>
@@ -215,33 +215,33 @@ Lorem Ipsum is simply dummy text of the printing and typesetting
                                     
                                     
                                 </li>
-                                <li class="before_meeting_li">
+                                <li className="before_meeting_li">
                                     <h5>Minimum Quantity:</h5>
                                 </li>
-                                <li class="before_meeting_li">
+                                <li className="before_meeting_li">
                                     <h5>Guarantee:</h5>
                                 </li>
-                                <li class="before_meeting_li">
+                                <li className="before_meeting_li">
                                     <h5>Date Of Creation:</h5>
                                 </li>
-                                <li class="before_meeting_li">
+                                <li className="before_meeting_li">
                                     <h5>Training:</h5>
                                 </li>
                             </ul>
-                            <div class="button-wrapper m-t">
-                                <a href="#" class="btn btn-secondary"><span><img src="images/favourite.svg"
+                            <div className="button-wrapper m-t">
+                                <a href="#" className="btn btn-secondary"><span><img src="images/favourite.svg"
                                             alt="" /></span>Add
                                     your favourites</a>
-                                <a href='/product-meetings' onClick={(e) => localStorage.setItem("sect", 24)} class="btn btn-primary"><span><img src="images/meeting.svg"
+                                <a href='/product-meetings' onClick={(e) => localStorage.setItem("sect", 24)} className="btn btn-primary"><span><img src="images/meeting.svg"
                                             alt="" /></span>Request a meeting?</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="product_supplier_inner">
+                <div className="product_supplier_inner">
 
                     <h2>Product Details</h2>
-                    <p class="justify-para">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                    <p className="justify-para">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
                         the
                         industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
                         type and
@@ -254,11 +254,11 @@ Lorem Ipsum is simply dummy text of the printing and typesetting
                         software like Aldus PageMaker including versions of Lorem Ipsum.
                     </p>
                 </div>
-                <div class="product_supplir_profile">
-                    <div class="profile-list profile-brand">
+                <div className="product_supplir_profile">
+                    <div className="profile-list profile-brand">
                         <h2>Profile</h2>
-                        <div class="row justify-content-between">
-                            <div class="col_left last-contnt">
+                        <div className="row justify-content-between">
+                            <div className="col_left last-contnt">
                                 <ul>
                                     <li>
                                         <h6>Your Brand Belongs To One Of The Following Category?</h6>
@@ -329,42 +329,42 @@ Lorem Ipsum is simply dummy text of the printing and typesetting
                 </div>
             </div>
         </div>
-        <div class="popup_box">
-            <div class="img-content-box row">
-                <div class="img-box">
+        <div className="popup_box">
+            <div className="img-content-box row">
+                <div className="img-box">
                     <figure>
                         <img src="images/profile.svg" alt="" />
                     </figure>
                 </div>
-                <div class="content-box">
+                <div className="content-box">
                     <h6>Mia Khanh</h6>
                     <span>Super Admin</span>
                 </div>
             </div>
-            <div class="nav">
-                <li class="profile"><a>My Profile <i class="fa fa-angle-up" aria-hidden="true"></i></a></li>
-                <ul class="sub__menu profile_sub">
+            <div className="nav">
+                <li className="profile"><a>My Profile <i className="fa fa-angle-up" aria-hidden="true"></i></a></li>
+                <ul className="sub__menu profile_sub">
                     <li><a href="#">Company Information</a></li>
                     <li><a href="#">User Management </a></li>
-                    <li class="information">
+                    <li className="information">
                         <a><span>Administrative Informations</span>
-                            <i class="fa fa-angle-up" aria-hidden="true"></i>
+                            <i className="fa fa-angle-up" aria-hidden="true"></i>
                         </a>
                     </li>
-                    <ul class="sub__menu information_sub">
+                    <ul className="sub__menu information_sub">
                         <li><a href="#">Contract Info </a></li>
                         <li><a href="#">Billing</a></li>
-                        <li><a href="#">Credit Card Info</a></li>
+                        <li><a href="#" style={{display:'none'}}>Credit Card Info</a></li>
                     </ul>
                 </ul>
-                <li class="logout"><a>Logout<i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
-                <ul class="sub__menu term">
+                <li className="logout"><a>Logout<i className="fa fa-sign-out" aria-hidden="true"></i></a></li>
+                <ul className="sub__menu term">
                     <li><a href="#"> Privacy and Terms</a></li>
                     <li><a href="#">Cookies Preferences</a></li>
                 </ul>
             </div>
         </div>
-        <span class="scroll-up"><i class="fa fa-chevron-up" aria-hidden="true"></i></span>
+        <span className="scroll-up"><i className="fa fa-chevron-up" aria-hidden="true"></i></span>
       
 
 </div>

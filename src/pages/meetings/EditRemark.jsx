@@ -1,21 +1,31 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Navigate, useLocation, useParams } from "react-router-dom";
+import { api } from "../../pages/base_url";
+import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function EditRemark(props) {
-  const { usertype } = useParams();
+	const { state } = useLocation();
+  const navigate = useNavigate();
+  // const { usertype } = useParams();
   const path = window.location.pathname;
   const remarkid = path.substring(path.lastIndexOf("/") + 1);
-  
+  // const state?.usertype = localStorage.getItem("user_type");
   const [formdata, setFormData] = useState({
     title: "",
     description: "",
     id: remarkid,
   });
+  
 
   useEffect(() => {
     const token = "Bearer " + localStorage.getItem("token");
-    const apiUrl = `https://adminbm.health-and-beauty.fr/api/v1/supplier-view-remark?id=${remarkid}`;
+    const apiUrl =
+      `${api}/api/v1/` +
+      (state?.usertype == "Buyer"
+        ? `buyer-view-remark?id=${remarkid}`
+        : `supplier-view-remark?id=${remarkid}`);
 
     axios
       .get(apiUrl, {
@@ -27,7 +37,9 @@ function EditRemark(props) {
         const { data } = response?.data;
         const { remark } = data;
 
-        const supplierRemark = JSON.parse(remark?.supplier_remark);
+        const supplierRemark = JSON.parse(
+          state?.usertype != "Buyer" ? remark?.supplier_remark : remark?.buyer_remark
+        );
         const title = supplierRemark?.title;
         const description = supplierRemark?.description;
 
@@ -38,8 +50,6 @@ function EditRemark(props) {
         };
 
         setFormData(updatedFormData);
-        console.log(updatedFormData, "this is what we get");
-        console.log(remarkid);
       })
       .catch((error) => {
         console.error(error);
@@ -48,13 +58,22 @@ function EditRemark(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Check if any of the form fields are empty
+    if (formdata.title.trim() === "" || formdata.description.trim() === "") {
+      toast.error("Please fill in all the fields.");
+      return;
+    }
+    
     const token = "Bearer " + localStorage.getItem("token");
-    const apiUrl = "https://adminbm.health-and-beauty.fr/api/v1/supplier-add-remark";
+    const apiUrl =
+      `${api}/api/v1/` +
+      (state?.usertype == "Buyer" ? "buyer-add-remark" : "supplier-add-remark");
 
     const requestData = new FormData();
     requestData.append("id", formdata.id);
     requestData.append("title", formdata.title);
-    requestData.append("desc", formdata.description);
+    requestData.append("description", formdata.description);
 
     axios
       .post(apiUrl, requestData, {
@@ -64,16 +83,23 @@ function EditRemark(props) {
         },
       })
       .then((response) => {
+        toast.success("Remark Edited Successfully");
         console.log(response.data);
+        setTimeout(() => {
+          navigate(
+            "/passed-meeting/" + (state?.usertype == "Buyer" ? "buyer" : "supplier")
+          );
+        }, 3000);
       })
       .catch((error) => {
+        toast.error("something went wrong !");
         console.error(error);
       });
   };
-
+  // console.log(props , "this is")
   return (
     <>
-      <div className={(props.sidebar ? "active " : " ") + "router-body"}>
+      <div className={(props.sidebar ? " active router-body " : " ") + "router-body"}>
         <div className="breadcrumbs" data-aos="fade-down">
           <ul>
             <li>
@@ -82,8 +108,8 @@ function EditRemark(props) {
             <li>
               <a href="#">
                 {" "}
-                Supplier
-                {/* {localStorage.getItem("user_type") == "Both" ? props.supplier : localStorage.getItem("user_type")} */}
+                {/* Supplier */}
+               {state?.usertype === "Buyer" ? "Buyer" : "Supplier" }
               </a>
             </li>
             <li>
@@ -92,12 +118,17 @@ function EditRemark(props) {
               </a>
             </li>
             <li>
-              <a onClick={() => props.setsection(21)}>
+              <a
+                onClick={() => props.setsection(21)}
+                href={`/passed-meeting/${
+                  state?.usertype === "Both" ? "supplier" : state?.usertype.toLowerCase()
+                }`}
+              >
                 <span> Passed Meetings </span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a >
                 <span> Edit Remark</span>
               </a>
             </li>
@@ -131,7 +162,15 @@ function EditRemark(props) {
             <button type="submit" className="btn btn-secondary">
               Resubmit
             </button>
-            <a href="" className="btn btn-primary">
+            <a
+              href=""
+              className="btn btn-primary"
+              onClick={() => {
+                navigate(`/passed-meeting/${
+                  state?.usertype === "Both" ? "supplier" : state?.usertype.toLowerCase()
+                }`);
+              }}
+            >
               Cancel
             </a>
           </div>

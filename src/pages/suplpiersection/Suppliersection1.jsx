@@ -7,14 +7,14 @@ function Suppliersection1(props) {
 
   return (
     <>
-      <div class="product_detail product_supplier">
-        <div class="row">
-          <div class="col_img" data-aos="fade-right">
-            <div class="slider-for">
+      <div className="product_detail product_supplier">
+        <div className="row">
+          <div className="col_img" data-aos="fade-right">
+            <div className="slider-for">
               <div>
                 <figure>
                   <img
-                    class="mainimg-display"
+                    className="mainimg-display"
                     src="images/banner_supplier.jpg"
                     alt=""
                   />
@@ -24,9 +24,9 @@ function Suppliersection1(props) {
 
             {/* <!-- thumnails in a row --> */}
           </div>
-          <div class="col_text" data-aos="fade-left">
-            <div class="button">
-              <button class="btn btn-secondary"   style={{backgroundColor:"#19a0dd",color:"#fff",cursor:"default !important"}}>Company sector</button>
+          <div className="col_text" data-aos="fade-left">
+            <div className="button">
+              <button className="btn btn-secondary"   style={{backgroundColor:"#19a0dd",color:"#fff",cursor:"default !important"}}>Company sector</button>
             </div>
             <h2>Fullname Company</h2>
             <h5>Company Country: France</h5>
@@ -40,11 +40,11 @@ function Suppliersection1(props) {
               electronic typesetting, remaining essentially unchanged. Lorem
               Ipsum
             </p>
-            <div class="button-wrapper m-lft">
+            <div className="button-wrapper m-lft">
               {props.completpayment == true ? (
                 ""
               ) : (
-                <a href="#" class="btn btn-primary">
+                <a href="#" className="btn btn-primary">
                   <span>
                     <img src="images/thumbs-down.svg" alt="" />
                   </span>
@@ -56,7 +56,7 @@ function Suppliersection1(props) {
                   {props.completpayment == true ? (
                     <>
                       {props.meetingdone2 == true ? (
-                        <a class="btn btn-secondary">
+                        <a className="btn btn-secondary">
                           <span>
                             <img src="images/Payment.svg" alt="" />
                           </span>
@@ -65,7 +65,7 @@ function Suppliersection1(props) {
                       ) : props.meetingdone2 == false ? (
                         <a
                           onClick={props.setmeetingdone2(true)}
-                          class="btn btn-secondary"
+                          className="btn btn-secondary"
                         >
                           <span>
                             <img src="images/Payment.svg" alt="" />
@@ -77,7 +77,7 @@ function Suppliersection1(props) {
                   ) : (
                     <a
                       onClick={() => props.setcompletpayment(true)}
-                      class="btn btn-secondary"
+                      className="btn btn-secondary"
                     >
                       <span>
                         <img src="images/Payment.svg" alt="" />
@@ -87,7 +87,7 @@ function Suppliersection1(props) {
                   )}
                 </>
               ) : (
-                <a onClick={() => setiaccept(true)} class="btn btn-secondary">
+                <a onClick={() => setiaccept(true)} className="btn btn-secondary">
                   <span>
                     <img src="images/Payment.svg" alt="" />
                   </span>
@@ -98,11 +98,11 @@ function Suppliersection1(props) {
           </div>
         </div>
       </div>
-      <div class="product_supplir_profile">
-        <div class="profile-list profile-brand">
+      <div className="product_supplir_profile">
+        <div className="profile-list profile-brand">
           <h2>Company</h2>
-          <div class="row justify-content-between">
-            <div class="col_left last-contnt">
+          <div className="row justify-content-between">
+            <div className="col_left last-contnt">
               <ul>
                 <li>
                   <h6>Your Brand Belongs To One Of The Following Category?</h6>

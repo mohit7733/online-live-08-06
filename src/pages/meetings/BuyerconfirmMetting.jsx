@@ -4,8 +4,8 @@ function BuyerconfirmMetting(props) {
   return (
     <>
 
-<div class={(props.sidebar ? "active " : " ") + "router-body"}>
-                <div class="breadcrumbs" data-aos="fade-down">
+<div className={(props.sidebar ? "active " : " ") + "router-body"}>
+                <div className="breadcrumbs" data-aos="fade-down">
                     <ul>
                         <li><a href="#" > Dashboard </a></li>
                         <li><a href="#" > Buyer </a></li>
@@ -13,22 +13,22 @@ function BuyerconfirmMetting(props) {
                         <li><a href="#"><span > Confirmed Meetings </span></a></li>
                     </ul>
                 </div>
-                <div class="add_product_wrap row justify-content-between">
-                    <div class="column">
-                        <div class="search">
-                            <input type="text" class="form-control" placeholder="Type here"/>
+                <div className="add_product_wrap row justify-content-between">
+                    <div className="column">
+                        <div className="search">
+                            <input type="text" className="form-control" placeholder="Type here"/>
                         </div>
-                        <button type="submit" class="btn btn-block btn-secondary">Search</button>
+                        <button type="submit" className="btn btn-block btn-secondary">Search</button>
                     </div>
-                    <div class="column justify-end">
-                        <div class="custom-select">
+                    <div className="column justify-end">
+                        <div className="custom-select">
                             <select>
                                 <option>Sorted by</option>
                             </select>
                         </div>
                     </div>
                 </div>
-                <div class="table_form">
+                <div className="table_form">
                     <table>
                         <thead>
                             <tr>
@@ -49,12 +49,12 @@ function BuyerconfirmMetting(props) {
                                 <td>17/1/2023</td>
                                 <td>16h00  17h00</td>
                                 <td>Korean Time A <br/> Korean Time A1</td>
-                                <td class="roles">
-                                    <a href="#" class="btn btn-success">View More</a>
+                                <td className="roles">
+                                    <a href="#" className="btn btn-success">View More</a>
                                 </td>
                                 <td>
-                                    <div class="button_wrap row">
-                                        <a href="" class="btn btn-secondary">Meeting Accepted</a>
+                                    <div className="button_wrap row">
+                                        <a href="" className="btn btn-secondary">Meeting Accepted</a>
                                     </div>
                                 </td>
                                 <td><img src={downloadicon} alt="" /></td>
@@ -66,12 +66,12 @@ function BuyerconfirmMetting(props) {
                                 <td>14/1/2023</td>
                                 <td>16h00 </td>
                                 <td>IST</td>
-                                <td class="roles">
-                                    <a href="#" class="btn btn-success">View More</a>
+                                <td className="roles">
+                                    <a href="#" className="btn btn-success">View More</a>
                                 </td>
                                 <td>
-                                    <div class="button_wrap row">
-                                        <a href="" class="btn btn-primary">Meeting Refused</a>
+                                    <div className="button_wrap row">
+                                        <a href="" className="btn btn-primary">Meeting Refused</a>
                                     </div>
                                 </td>
                             </tr>
@@ -81,12 +81,12 @@ function BuyerconfirmMetting(props) {
                                 <td>13/1/2023</td>
                                 <td>9h30 - 11h30 </td>
                                 <td>VN : 3pm - 5:30pm</td>
-                                <td class="roles">
-                                    <a href="#" class="btn btn-success">View More</a>
+                                <td className="roles">
+                                    <a href="#" className="btn btn-success">View More</a>
                                 </td>
                                 <td>
-                                    <div class="button_wrap row">
-                                        <a href="" class="btn btn-secondary">Meeting Accepted</a>
+                                    <div className="button_wrap row">
+                                        <a href="" className="btn btn-secondary">Meeting Accepted</a>
                                     </div>
                                 </td>
                                 <td><img src={downloadicon} alt="" /></td>
@@ -99,12 +99,12 @@ function BuyerconfirmMetting(props) {
                                     17h30 </td>
                                 <td>Japan : 9am
                                     </td>
-                                <td class="roles">
-                                    <a href="#" class="btn btn-success">View More</a>
+                                <td className="roles">
+                                    <a href="#" className="btn btn-success">View More</a>
                                 </td>
                                 <td>
-                                    <div class="button_wrap row">
-                                        <a href="" class="btn btn-secondary">Meeting Accepted</a>
+                                    <div className="button_wrap row">
+                                        <a href="" className="btn btn-secondary">Meeting Accepted</a>
                                     </div>
                                 </td>
                                 <td><img src={downloadicon} alt="" /></td>

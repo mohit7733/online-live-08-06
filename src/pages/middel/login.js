@@ -137,6 +137,9 @@ function Login() {
               localStorage.setItem("user_id", result.data?.user_id);
               localStorage.setItem("profile_pic", result.data?.profile_img);
               localStorage.setItem("manage_type", result.data?.manage_type);
+              if(result.data?.created_from == "Superadmin") {
+                localStorage.setItem('created_from', result.data?.created_from)
+              }
               navigate("/contract");
 
               // navigate("/dashboard")
@@ -169,37 +172,34 @@ function Login() {
     fetch(api + "/api/login", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        // console.log(result);
         localStorage.setItem("token", result.data.token);
         localStorage.setItem("user_type", result.data.user_type);
         localStorage.setItem("username", result.data.username);
         localStorage.setItem("user_id", result.data?.user_id);
         localStorage.setItem("profile_pic", result.data?.profile_img);
         localStorage.setItem("manage_type", result.data?.manage_type);
-
+        if(result.data?.created_from == "Superadmin") {
+          localStorage.setItem('created_from', result.data?.created_from)
+        }
         seterrorhow(result);
         settheytrusted(result.message);
-        if (result?.success == false) {
-          toast.error(
-            result.message + " Please Check Your email and password !"
-          );
+        if (result?.success === false) {
+          toast.error(result.message + " Please Check Your email and password !");
         }
-        // console.log(result);
-        if (result?.data?.created_by?.toLowerCase() == "admin") {
+
+        if (result?.data?.created_by?.toLowerCase() === "admin") {
           var myHeaders2 = new Headers();
           myHeaders2.append("Authorization", "Bearer " + result.data?.token);
           var requestOptions2 = {
             method: "GET",
             headers: myHeaders2,
           };
+
           fetch(api + "/api/first-time-login", requestOptions2)
             .then((response) => response.json())
             .then((res) => {
-              // console.log(res);
-
-              if (res?.status == "success") {
-                // console.log("workin fine");
-                navigate("/contract");
+              if (res?.status === "success") {
+                navigate("/contract", { state: { send_status: 1 } });
               }
             })
             .catch((error) => {
@@ -207,14 +207,58 @@ function Login() {
             });
         } else {
           setTimeout(() => {
-            if (result.data?.user_type?.toLowerCase() == "buyer") {
-              // navigate("/dashboard/user-manegment/buyer");
+            if (result.data?.user_type?.toLowerCase() === "buyer") {
               navigate("/buyer-company-profile");
             } else {
-              navigate("/dashboard");
+              // navigate("/dashboard");
             }
           }, 3000);
         }
+
+        // Retrieve user data using Axios GET request
+        axios
+          .get(api + `/api/checkContracts?user_id=${result.data?.user_id}`)
+          .then((response) => {
+            // Process the response here
+            console.log(response?.data?.data);
+            if (response?.data?.data === 0) {
+              navigate("/contract", { state: { userid: result.data?.user_id, send_status: 1 } });
+            }
+
+            else {
+              if(result.data?.created_from == "Superadmin") {
+                var myHeaders2 = new Headers();
+                myHeaders2.append("Authorization", "Bearer " + result.data?.token);
+                var requestOptions2 = {
+                  method: "GET",
+                  headers: myHeaders2,
+                };
+      
+                fetch(api + "/api/shared-user-login", requestOptions2)
+                  .then((response) => response.json())
+                  .then((res) => {
+                    if (res?.status === "true") {
+                      localStorage.removeItem("created_from")
+                      navigate(`/dashboard/user-management/${localStorage.getItem(
+                        "user_type"
+                      )}`);
+                    }
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  });
+              }else {
+                if (result.data?.user_type?.toLowerCase() === "buyer") {
+                  navigate("/buyer-company-profile");
+                } else {
+                  navigate("/dashboard");
+                }
+              }
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
       .catch((error) => {
         if (error) {
@@ -222,6 +266,7 @@ function Login() {
         }
       });
   };
+
   const check_data = [
     { name: "f_name" },
     { name: "l_name" },
@@ -393,7 +438,7 @@ function Login() {
                             });
                           } else {
                             theytrusted_data2();
-                            window.scrollBy(0, 100);
+                            // window.scrollBy(0, 100);
                           }
                         }}
                       >
@@ -531,7 +576,7 @@ function Login() {
                           value="Buyer"
                           onClick={(e) => logins_field2(e)}
                         />
-                        <label for="buyer">A buyer</label>
+                        <label htmlFor="buyer">A buyer</label>
                       </div>
                       <div className="row align-items-center">
                         <input
@@ -541,7 +586,7 @@ function Login() {
                           value="Supplier"
                           onClick={(e) => logins_field2(e)}
                         />
-                        <label for="A supplier">A supplier</label>
+                        <label htmlFor="A supplier">A supplier</label>
                       </div>
                       <div className="row align-items-center">
                         <input
@@ -551,7 +596,7 @@ function Login() {
                           value="Both"
                           onClick={(e) => logins_field2(e)}
                         />
-                        <label for="javascript">Both</label>
+                        <label htmlFor="javascript">Both</label>
                       </div>
                     </div>
 
@@ -642,7 +687,7 @@ function Login() {
                               logins_field(data.name);
                             });
                           } else {
-                            window.scrollBy(0, 100);
+                            // window.scrollBy(0, 100);
                             theytrusted_data();
                           }
                         }}

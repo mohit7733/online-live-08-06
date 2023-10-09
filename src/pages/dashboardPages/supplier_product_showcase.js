@@ -9,7 +9,7 @@ function Supplier_product_showcase(props) {
 
   return (
     <div className="product_showcase product_showcase Meeting_wrap  Meeting_wrap">
-      <div className="main">
+      <div className="main table_management">
         <Left_menu sidebar={sidebar} setsidebar={setsidebar} />
        <Product_showcase sidebar={sidebar}/>
       </div>

@@ -1,147 +1,203 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";import { useLocation, useNavigate } from "react-router-dom";
 import { api } from "../base_url";
+import { toast } from "react-toastify";
 
 export default function Subscriptions(props) {
-  const [subscriptions, setSubscriptions] = useState({});
-  const navigate = useNavigate();
-  const getSubcriptions = () => {
-    var myHeaders = new Headers();
-    var requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow",
-    };
-    fetch(api + "/api/subscription", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        setSubscriptions(result.data);
-      })
-      .catch((error) => console.log("error", error));
-  };
-  useEffect(() => {
-    getSubcriptions();
-  }, []);
+	const [subscriptions, setSubscriptions] = useState([]);
+	const navigate = useNavigate();
+	const { state } = useLocation();
 
-  const checkSubscription = () => {
-    return new Promise((resolve, reject) => {
-      var myHeaders = new Headers();
-      myHeaders.append(
-        "Authorization",
-        "Bearer " + localStorage.getItem("token")
-      );
-      var requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow",
-      };
-      fetch(api + "/api/v1/details", requestOptions)
-        .then((response) => response.json())
-        .then((result) => resolve(result.data))
-        .catch((error) => console.log("error", error));
-    });
-  };
+	const getSubscriptions = () => {
+		var myHeaders = new Headers();
+		var requestOptions = {
+			method: "GET",
+			headers: myHeaders,
+			redirect: "follow",
+		};
+		fetch(api + "/api/subscription", requestOptions)
+			.then((response) => response.json())
+			.then((result) => {
+				const meetingSubscriptions = result.data.filter(
+					(subscription) => subscription.type === "Product"
+				);
 
-  // console.log(props.sidebar,subscriptions );
+				setSubscriptions(meetingSubscriptions);
+			})
+			.catch((error) => console.log("error", error));
+	};
 
-  return (
-    <div class={props.sidebar ? "router-body active " : "router-body"}>
-      <div class="breadcrumbs aos-init aos-animate" data-aos="fade-down">
-        <ul>
-          <li>
-            <a href="/dashboard">Dashboard </a>
-          </li>
-          <li>
-            <a href="#">Supplier </a>
-          </li>
-          <li>
-            <a href="/supplier-product-showcase">
-              <span> Product Showcase </span>
-            </a>
-          </li>
-          <li>
-            <a
-              onClick={() => {
-                checkSubscription().then((response) => {
-                  // console.log(response, "<<<<<<<,");
-                  if (response.subscription_status !== 0) {
-                    navigate("/add-new-product");
-                  } else {
-                    navigate("/company-subscription");
-                  }
-                });
-              }}
-            >
-              <span> Add New Product </span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span> Payment </span>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <h2>Payment</h2>
+	useEffect(() => {
+		getSubscriptions();
+	}, []);
 
-      <p style={{ lineHeight: "normal" }}>
-        We warmly thank you for your trust.
-        <span style={{ display: "block" }}>To go ahead and discover more about our coming steps write us at {"   "}
-          <a style={{ paddingLeft: "4px", color: "#19a0dd" }} href="mailto:contact@beauty-meetings">
-            {"   "} contact@beauty-meetings.
-          </a></span>
-      </p>
-      <br />
-      <br />
-      <div class="payment_wrapper row justify-content-center">
-        <div class="column">
-          <div className="button">Monthly</div>
-          <p>
-            <span>{subscriptions?.monthlyTitle}</span>
-          </p>
-          <h3>{subscriptions?.monthlyprice}</h3>
-          <p>{subscriptions?.montlysubtitle}</p>
-          <button
-            class="btn11 btn btn-secondar"
-            style={{ background: "#9f9f9f", color: "white", lineHeight: "40px", minWidth: "200px" }}
+	const checkSubscription = () => {
+		return new Promise((resolve, reject) => {
+			var myHeaders = new Headers();
+			myHeaders.append(
+				"Authorization",
+				"Bearer " + localStorage.getItem("token")
+			);
+			var requestOptions = {
+				method: "GET",
+				headers: myHeaders,
+				redirect: "follow",
+			};
+			fetch(api + "/api/v1/details", requestOptions)
+				.then((response) => response.json())
+				.then((result) => resolve(result.data))
+				.catch((error) => console.log("error", error));
+		});
+	};
 
-          //  onClick={() => {
-          //     navigate('/payment', {
-          //         state: {
-          //             amount: parseInt(subscriptions.monthlyprice?.substring(1)),
-          //             plan: "Monthly"
-          //         }
-          //     })
-          // }}
-          >
-            Continue
-          </button>
-        </div>
-        <div class="column col_right">
-          <div className="button">Yearly</div>
-          <p>{subscriptions?.yearlysubtitle}</p>
-          <h3>{subscriptions?.yearlyprice}</h3>
-          <p>
-            <span>{subscriptions?.yearlytitle}</span>
-          </p>
-          <button
-            class="btn11 btn btn-"
-            style={{  background: "#9f9f9f", color: "white", lineHeight: "40px", minWidth: "200px"  }}
-
-          //  onClick={() => {
-          //     navigate('/payment', {
-          //         state:
-          //         {
-          //             amount: parseInt(subscriptions.yearlyprice?.substring(1)),
-          //             plan: "Yearly"
-          //         }
-          //     })
-          // }}
-          >
-            Continue
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+	return (
+		<div className={props.sidebar ? "router-body active " : "router-body"}>
+			<div className="breadcrumbs aos-init aos-animate" data-aos="fade-down">
+				<ul>
+					<li>
+						<a href="/dashboard">Dashboard </a>
+					</li>
+					<li>
+						<a href="#">Supplier </a>
+					</li>
+					<li>
+						<a href="/supplier-product-showcase">
+							<span> Product Showcase </span>
+						</a>
+					</li>
+					<li>
+						<a
+							onClick={() => {
+								checkSubscription().then((response) => {
+									if (response.subscription_status !== 0) {
+										navigate("/add-new-product");
+									} else {
+										navigate("/company-subscription");
+									}
+								});
+							}}
+						>
+							<span> Add New Product </span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<span> Payment </span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<h2>Payment</h2>
+			<div className="payment_wrapper row justify-content-center">
+				{subscriptions?.map((item) => {
+					return (
+						<>
+							{item?.title?.toLowerCase() == "monthly" ? (
+								<div className="column">
+									<div className="button">Monthly</div>
+									<p>
+										<span>{item?.subtitle}</span>
+									</p>
+									<h3>{" €" + item?.price}</h3>
+									{/* <p>{item?.title}</p> */}
+									<button
+										className="btn11 btn btn-secondary"
+										onClick={() => {
+											if (
+												localStorage.getItem("manage_type").toLowerCase() ==
+												"superadmin"
+											) {
+												navigate("/payment", {
+													state: {
+														amount: parseInt(item?.price),
+														plan: item.recurring != null ? item?.recurring : "",
+														subscription_plan_id: item?.id,
+														planType:
+															item.recurring != null ? null : item?.days,
+														note: item?.note,
+														product_id: state?.product_id,
+													},
+												});
+											} else {
+												toast.error("Only superadmin can do the payments !");
+											}
+										}}
+									>
+										Continue
+									</button>
+								</div>
+							) : item?.title?.toLowerCase() == "yearly" ? (
+								<div className="column col_right">
+									<div className="button">Yearly</div>
+									<p>{item?.subtitle}</p>
+									<h3>{" €" + item?.price}</h3>
+									{/* <p>
+										<span>{item?.title}</span>
+									</p> */}
+									<button
+										className="btn11 btn btn-primary"
+										onClick={() => {
+											if (
+												localStorage.getItem("manage_type").toLowerCase() ===
+												"superadmin"
+											) {
+												navigate("/payment", {
+													state: {
+														amount: parseInt(item?.price),
+														plan: item.recurring != null ? item?.recurring : "",
+														subscription_plan_id: item?.id,
+														note: item?.note,
+														planType:
+															item.recurring != null ? null : item?.days,
+														product_id: state?.product_id,
+													},
+												});
+											} else {
+												toast.error("Only superadmin can do the payments !");
+											}
+										}}
+									>
+										Continue
+									</button>
+								</div>
+							) : (
+								<div className="column col_right">
+									<div className="button">{item?.title}</div>
+									<p>{item?.subtitle}</p>
+									<h3>{" €" + item?.price}</h3>
+									{/* <p>
+										<span>{item?.title}</span>
+									</p> */}
+									<button
+										className="btn11 btn btn-primary"
+										onClick={() => {
+											if (
+												localStorage.getItem("manage_type").toLowerCase() ===
+												"superadmin"
+											) {
+												navigate("/payment", {
+													state: {
+														amount: parseInt(item?.price),
+														plan: item.recurring != null ? item?.recurring : "",
+														subscription_plan_id: item?.id,
+														note: item?.note,
+														planType:
+															item.recurring != null ? null : item?.days,
+														product_id: state?.product_id,
+													},
+												});
+											} else {
+												toast.error("Only superadmin can do the payments !");
+											}
+										}}
+									>
+										Continue
+									</button>
+								</div>
+							)}
+						</>
+					);
+				})}
+			</div>
+		</div>
+	);
 }

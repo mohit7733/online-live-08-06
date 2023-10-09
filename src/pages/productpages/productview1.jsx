@@ -137,7 +137,7 @@ function Productview() {
     return (
         <>
 
-            <div class="product_wrapper">
+            <div className="product_wrapper">
 
                 <div className="breadcrumbs">
                     <div className="container aos-init aos-animate" data-aos="fade-up">

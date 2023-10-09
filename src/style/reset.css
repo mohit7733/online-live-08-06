@@ -17,11 +17,36 @@ body {
   font-size: 16px;
 }
 
+.font-fm {
+  font-family: 'Poppins', sans-serif !important;
 
-.Meeting_wrap .table_form .btn-secondary:hover{
+}
+/* margin-descreez */
+.mt-0 {
+  margin-bottom: 0px;
+}
+
+.mt-10 {
+  margin-bottom: -15px;
+}
+
+.mt-20 {
+  margin-bottom: -25px;
+}
+/* margin-descreez */
+
+/* padding-descreez */
+.pt-0 {
+  padding-bottom: 0px;
+}
+
+/* padding-descreez */
+
+/* .Meeting_wrap .table_form .btn-secondary:hover {
   background-color: #19A0DD;
   cursor: default !important;
-}
+}  doubt by save*/
+
 
 @media (max-width: 1024px) {
   .product_showcase .main .column {
@@ -110,7 +135,7 @@ p {
 }
 
 .m-t {
-  margin-top: 15px;
+  margin-top: 45px;
 }
 
 .Meeting_wrap h1,
@@ -229,6 +254,10 @@ p {
   overflow: hidden;
 }
 
+.Done-meeting {
+  pointer-events: none !important;
+}
+
 .btn-primary {
   background-color: #E30613;
   color: #fff;
@@ -254,14 +283,20 @@ p {
   background-color: #E30613;
 }
 
-.btn-secondary {
+.btn-secondary, .cance_sub {
   background-color: #19A0DD;
   color: #fff;
 }
 
-.btn-secondary:hover {
+.btn-secondary:hover, .cance_sub:hover {
   background-color: #E30613;
   border: solid 1px transparent;
+}
+
+.appointment-btn:hover {
+  background: #fff;
+  color: #19a0dd;
+  border-color: #19a0dd;
 }
 
 .btn-secondary:hover::after {
@@ -311,7 +346,7 @@ p {
   font-size: 16px;
   color: #666;
   font-family: 'Poppins', sans-serif;
-  padding: 0px 20px;
+  padding: 0px 10px;
 }
 
 .custom-select {
@@ -320,29 +355,38 @@ p {
   border-radius: 30px;
   width: 100%;
   min-width: 157px;
-  height: 48px;
+  height: 44px;
   overflow: hidden;
   position: relative;
+  
 }
 
-.custom-select select {
+.Payment_form_Wrapper .payment_form_wrap .form-control.custom-select {
+  padding: 0px !important;
+} 
+
+ select {
   -webkit-appearance: none;
-  border: none;
-  outline: none;
-  height: 46px;
-  width: 100%;
-  font-size: 16px;
-  color: #666;
-  font-family: 'Poppins', sans-serif;
-  border-radius: 30px;
-  padding: 0px 20px;
-  cursor: pointer;
   background: transparent;
+  border: none;
+  border-radius: 30px;
+  color: #666;
+  cursor: pointer;
+  font-family: Poppins, sans-serif;
+  font-size: 15px;
+  height: 48px;
+  outline: none;
+  padding: 0 10px;
+  width: 100%;
+  
 }
 
-.custom-select select option[value=""],select:invalid {
+.custom-select select option[value=""],
+select:invalid {
   color: #999999;
+  
 }
+
 /* 
 .custom-select select option:hover {
   color: #999999 !important;
@@ -350,13 +394,13 @@ p {
 
 
 
-.custom-select::after {
+.custom-select:after {
+  color: #999;
   content: "\f107";
   font-family: FontAwesome;
   position: absolute;
+  right: 8px !important;
   top: calc(50% - 8px);
-  right: 32px;
-  color: #999999;
 }
 
 .inline-list li {
@@ -630,7 +674,12 @@ p {
 .breadcrumbs li span {
   display: inline-block;
   color: #E30613;
+  font-size: 15px;
   padding-right: 5px;
+}
+
+.rd {
+  color: #E30613 !important;
 }
 
 .breadcrumbs li::after {
@@ -871,7 +920,7 @@ li.menubutton:hover>.menu-button-hover {}
   }
 
   h6 {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   #toggle {

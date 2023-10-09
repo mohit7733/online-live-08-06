@@ -252,74 +252,74 @@ function Contact() {
   
     return (
         <>
-            <div class="breadcrumbs" data-aos="fade-down">
-                <div class="container aos-init aos-animate" >
+            <div className="breadcrumbs" data-aos="fade-down">
+                <div className="container aos-init aos-animate" >
                     <ul>
                         <li><a href="/">Home</a></li>
                         <li><a href="#"><span>Contact Us</span></a></li>
                     </ul>
                 </div>
             </div>
-            <div class="create-account  conatct_us" >
-                <div class="container" data-aos="fade-up">
-                    <h1 class="">Contact Us</h1>
-                    <p class="wd-50">For any enquiries regarding our events, please fill the form below and we will reply to you
+            <div className="create-account  conatct_us" >
+                <div className="container" data-aos="fade-up">
+                    <h1 className="">Contact Us</h1>
+                    <p className="wd-50">For any enquiries regarding our events, please fill the form below and we will reply to you
                         soon.</p>
-                    <div class="row justify-content-between">
-                        <div class="col_left" data-aos="fade-right">
-                            <div class="panel panel-default">
+                    <div className="row justify-content-between">
+                        <div className="col_left" data-aos="fade-right">
+                            <div className="panel panel-default">
                                 <form action='https://forms.zohopublic.eu/healthandbeautyfrance/form/ContactUs/formperma/AEhsrzf8fq_x2TjnQ3QxhaH6wz1DJQ9nr0Slja0r98I/htmlRecords/submit'
                                     name='form' method='POST' onSubmit='javascript:document.charset="UTF-8"; return zf_ValidateAndSubmit();'
                                     accept-charset='UTF-8' enctype='multipart/form-data' id='form' target='_blank'>
-                                    <div class="form__wrapper row justify-content-between">
-                                        <div class="form-group">
-                                            <input required type="text" placeholder="First Name*" name='Name_First' class="form-control" onChange={e => logins_field2(e)} style={errorfield?.Name_First == "" ? {} : { borderBottom: "1px solid red" }} />
+                                    <div className="form__wrapper row justify-content-between">
+                                        <div className="form-group">
+                                            <input required type="text" placeholder="First Name*" name='Name_First' className="form-control" onChange={e => logins_field2(e)} style={errorfield?.Name_First == "" ? {} : { borderBottom: "1px solid red" }} />
                                         </div>
-                                        <div class="form-group">
-                                            <input required type="text" placeholder="Last Name*" name='Name_Last' class="form-control" onChange={e => logins_field2(e)} style={errorfield?.Name_Last == "" ? {} : { borderBottom: "1px solid red" }} />
+                                        <div className="form-group">
+                                            <input required type="text" placeholder="Last Name*" name='Name_Last' className="form-control" onChange={e => logins_field2(e)} style={errorfield?.Name_Last == "" ? {} : { borderBottom: "1px solid red" }} />
                                         </div>
-                                        <div class="form-group">
-                                            <input required type="text" placeholder="Job Position*" name='SingleLine' class="form-control" onChange={e => logins_field2(e)} style={errorfield?.SingleLine == "" ? {} : { borderBottom: "1px solid red" }} />
+                                        <div className="form-group">
+                                            <input required type="text" placeholder="Job Position*" name='SingleLine' className="form-control" onChange={e => logins_field2(e)} style={errorfield?.SingleLine == "" ? {} : { borderBottom: "1px solid red" }} />
                                         </div>
-                                        <div class="form-group">
-                                            <input required type="text" placeholder="Company Name*" name='SingleLine1' class="form-control" onChange={e => logins_field2(e)} style={errorfield?.SingleLine1 == "" ? {} : { borderBottom: "1px solid red" }} />
+                                        <div className="form-group">
+                                            <input required type="text" placeholder="Company Name*" name='SingleLine1' className="form-control" onChange={e => logins_field2(e)} style={errorfield?.SingleLine1 == "" ? {} : { borderBottom: "1px solid red" }} />
                                         </div>
-                                        <div class="form-group">
-                                            <input required type="email" placeholder="Email Address*" name='Email' class="form-control" onChange={e => logins_field2(e)} style={errorfield?.Email == "" ? {} : { borderBottom: "1px solid red" }} />
+                                        <div className="form-group">
+                                            <input required type="email" placeholder="Email Address*" name='Email' className="form-control" onChange={e => logins_field2(e)} style={errorfield?.Email == "" ? {} : { borderBottom: "1px solid red" }} />
                                         </div>
-                                        <div class="form-group">
-                                            <input required type="text" placeholder="Phone Number*" name='PhoneNumber_countrycode' class="form-control" onChange={e => logins_field2(e)} style={errorfield?.PhoneNumber_countrycode == "" ? {} : { borderBottom: "1px solid red" }} />
+                                        <div className="form-group">
+                                            <input required type="text" placeholder="Phone Number*" name='PhoneNumber_countrycode' className="form-control" onChange={e => logins_field2(e)} style={errorfield?.PhoneNumber_countrycode == "" ? {} : { borderBottom: "1px solid red" }} />
                                         </div>
-                                        <div class="form-group">
-                                            <input required type="text" placeholder="City" name='SingleLine2' class="form-control" onChange={e => logins_field2(e)} style={errorfield?.SingleLine2 == "" ? {} : { borderBottom: "1px solid red" }} />
+                                        <div className="form-group">
+                                            <input required type="text" placeholder="City" name='SingleLine2' className="form-control" onChange={e => logins_field2(e)} style={errorfield?.SingleLine2 == "" ? {} : { borderBottom: "1px solid red" }} />
                                         </div>
-                                        <div class="form-group">
-                                            <input required type="text" placeholder="Country*" name='SingleLine3' class="form-control" onChange={e => logins_field2(e)} style={errorfield?.SingleLine3 == "" ? {} : { borderBottom: "1px solid red" }} />
+                                        <div className="form-group">
+                                            <input required type="text" placeholder="Country*" name='SingleLine3' className="form-control" onChange={e => logins_field2(e)} style={errorfield?.SingleLine3 == "" ? {} : { borderBottom: "1px solid red" }} />
                                         </div>
-                                        <div class="form-group full">
-                                            <input required type="text" placeholder="Website" name='Website' class="form-control" onChange={e => logins_field2(e)} style={errorfield?.Website == "" ? {} : { borderBottom: "1px solid red" }} />
+                                        <div className="form-group full">
+                                            <input required type="text" placeholder="Website" name='Website' className="form-control" onChange={e => logins_field2(e)} style={errorfield?.Website == "" ? {} : { borderBottom: "1px solid red" }} />
                                         </div>
                                     </div>
-                                    <div class="radio_btn">
+                                    <div className="radio_btn">
                                         <p>You are:</p>
-                                        <div class="row align-items-center">
+                                        <div className="row align-items-center">
                                             <input required type="radio" id="buyer" name="Radio" value="A buyer" onClick={e => logins_field2(e)} />
-                                            <label for="buyer">A buyer</label>
+                                            <label htmlFor="buyer">A buyer</label>
                                         </div>
-                                        <div class="row align-items-center">
+                                        <div className="row align-items-center">
                                             <input required type="radio" id="supplier" name="Radio" value="A supplier" onClick={e => logins_field2(e)} />
-                                            <label for="A supplier">A supplier</label>
+                                            <label htmlFor="A supplier">A supplier</label>
                                         </div>
-                                        <div class="row align-items-center">
+                                        <div className="row align-items-center">
                                             <input required type="radio" id="Others" name="Radio" value="Others" onClick={e => logins_field2(e)} />
-                                            <label for="javascript">Both</label>
+                                            <label htmlFor="javascript">Both</label>
                                         </div>
                                     </div>
-                                    <textarea required placeholder="Message*" name='MultiLine' class="form-control" onChange={e => logins_field2(e)} style={errorfield?.MultiLine == "" ? {} : { borderBottom: "1px solid red" }}></textarea>
-                                    {/* <input required  type="button" class="btn btn-secondary" placeholder='Submit' name='submit' /> */}
-                                    <button class="btn btn-secondary" onClick={theytrusted_data}>Submit</button>
+                                    <textarea required placeholder="Message*" name='MultiLine' className="form-control" onChange={e => logins_field2(e)} style={errorfield?.MultiLine == "" ? {} : { borderBottom: "1px solid red" }}></textarea>
+                                    {/* <input required  type="button" className="btn btn-secondary" placeholder='Submit' name='submit' /> */}
+                                    <button className="btn btn-secondary" onClick={theytrusted_data}>Submit</button>
                                 </form>
-                                {/* <button class="btn btn-secondary"
+                                {/* <button className="btn btn-secondary"
                                     onClick={e => {
                                         if (contact.f_name == "" || contact.l_name == "" || contact.Email == "" || contact.phone == "" || contact.city == "" || contact.country == "" || contact.website == "" || contact.company_name == "" || contact.job_position == "" || contact.message == "") {
                                             check_data.map((data) => {
@@ -337,28 +337,28 @@ function Contact() {
                                 }}>{theytrusted}</p>
                             </div>
                         </div>
-                        <div class="col_right" data-aos="fade-left">
-                            <div class="direct-contact-container">
+                        <div className="col_right" data-aos="fade-left">
+                            <div className="direct-contact-container">
 
-                                <ul class="contact-list">
-                                    <li class="list-item"><span class="contact-text place">You are a supplier, contact:</span>
+                                <ul className="contact-list">
+                                    <li className="list-item"><span className="contact-text place">You are a supplier, contact:</span>
                                     </li>
-                                    <li class="heading">
+                                    <li className="heading">
                                         <h3>{number?.contactus?.supplier_name}</h3>
                                     </li>
-                                    <li class="list-item"><a href="tel:1-212-555-5555" title="Give me a call">{number?.contactus?.supplier_no}</a></li>
+                                    <li className="list-item"><a href="tel:1-212-555-5555" title="Give me a call">{number?.contactus?.supplier_no}</a></li>
                                 </ul>
-                                <ul class="contact-list">
-                                    <li class="list-item"><span class="contact-text place pt-32">You are a buyer,
+                                <ul className="contact-list">
+                                    <li className="list-item"><span className="contact-text place pt-32">You are a buyer,
                                         contact:</span></li>
-                                    <li class="heading">
-                                        <h3 class="heading">{number?.contactus?.buyer_name}</h3>
+                                    <li className="heading">
+                                        <h3 className="heading">{number?.contactus?.buyer_name}</h3>
                                     </li>
-                                    <li class="list-item"><a href="tel:1-212-555-5555" title="Give me a call">{number?.contactus?.buyer_no}</a></li>
+                                    <li className="list-item"><a href="tel:1-212-555-5555" title="Give me a call">{number?.contactus?.buyer_no}</a></li>
                                 </ul>
-                                <ul class="contact-list">
-                                    <li class="list-item"><span class="contact-text mail">Or send us an email:</span></li>
-                                    <li class="heading"><a href="mailto:#"
+                                <ul className="contact-list">
+                                    <li className="list-item"><span className="contact-text mail">Or send us an email:</span></li>
+                                    <li className="heading"><a href="mailto:#"
                                         title="Send me an email">{number?.contactus?.admin_email}</a></li>
                                 </ul>
                             </div>

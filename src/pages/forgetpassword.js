@@ -73,7 +73,10 @@ function Forgetpassword() {
     axios
       .request(config)
       .then((response) => {
-        console.log(JSON.stringify(response.data));
+        if(response?.data?.status == false) {
+          toast.error(response?.data?.message)
+        }
+        console.log(response?.data?.status , "this is response");
         if (response.data?.status == true) {
           navigate("/create-password/" + response.data?.verify_token);      
         }
@@ -81,7 +84,7 @@ function Forgetpassword() {
       })
       .catch((error) => {
         console.log(error);
-        // toast.error(error.message)
+        toast.error(error.message)
       });
   };
  

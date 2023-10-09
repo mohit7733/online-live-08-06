@@ -24,32 +24,32 @@ function How_it_work() {
     }, [check])
     return (
         <>
-            <div class="breadcrumbs" data-aos="fade-down">
-                <div class="container">
+            <div className="breadcrumbs" data-aos="fade-down">
+                <div className="container">
                     <ul>
                         <li><a href="/">Home</a></li>
                         <li><a href="#"><span>How it works</span></a></li>
                     </ul>
                 </div>
             </div>
-            <div class="about font-sm">
-                <div class="container">
-                    <div class="inner" data-aos="fade-up">
+            <div className="about font-sm">
+                <div className="container">
+                    <div className="inner" data-aos="fade-up">
                         <h1 className="heading">{how_work?.howitworks?.title}</h1>
                         <div className="inner-text" dangerouslySetInnerHTML={{ __html: how_work?.howitworks?.description }}>
 
                         </div>
                     </div>
                 </div>
-                {/* <div class="container">
-                    <div class="banner-work">
+                {/* <div className="container">
+                    <div className="banner-work">
                         <img src={api + "/assets/cms/" + how_work?.howitworks?.image} alt="" />
                     </div>
                 </div> */}
             </div>
-            {/* <div class="our-section">
-                <div class="container">
-                    <div class="row justify-content-between">
+            {/* <div className="our-section">
+                <div className="container">
+                    <div className="row justify-content-between">
                         <div className="column col-text  aos-init aos-animate" data-aos="fade-right">
                             <h5>{how_work?.timesaving?.title}</h5>
                             <div dangerouslySetInnerHTML={{ __html: how_work?.timesaving?.description }}>
@@ -65,12 +65,12 @@ function How_it_work() {
                     </div>
                 </div>
             </div> */}
-            <div class="Quality-section">
-                <div class="container">
-                    <div class=" row justify-content-between">
-                        <div class="column register-sec col-text col-text aos-init aos-animate" data-aos="fade-right">
-                            <div class="row">
-                                <div class="round-circle">
+            <div className="Quality-section">
+                <div className="container">
+                    <div className=" row justify-content-between">
+                        <div className="column register-sec col-text col-text aos-init aos-animate" data-aos="fade-right">
+                            <div className="row">
+                                <div className="round-circle">
                                     <span>{how_work?.register?.title}</span>
                                 </div>
                                 <div className="head">
@@ -87,16 +87,16 @@ function How_it_work() {
                     </div>
                 </div>
             </div>
-            <div class="Quality-section">
-                <div class="container">
-                    <div class="handle_col_res row justify-content-between">
+            <div className="Quality-section">
+                <div className="container">
+                    <div className="handle_col_res row justify-content-between">
 
-                        <div class="column match-sec col-img col-text aos-init aos-animate" data-aos="fade-right">
+                        <div className="column match-sec col-img col-text aos-init aos-animate" data-aos="fade-right">
                             <img src={api + "/assets/cms/" + how_work?.match?.image} alt="" />
                         </div>
-                        <div class="column col-text col-text aos-init aos-animate" data-aos="fade-left">
-                            <div class="row">
-                                <div class="round-circle">
+                        <div className="column col-text col-text aos-init aos-animate" data-aos="fade-left">
+                            <div className="row">
+                                <div className="round-circle">
                                     <span>{how_work?.match?.title}</span>
                                 </div>
                                 <div className="head">
@@ -110,12 +110,12 @@ function How_it_work() {
                     </div>
                 </div>
             </div>
-            <div class="Quality-section">
-                <div class="container">
-                    <div class="row justify-content-between">
-                        <div class="column register-sec col-text col-text aos-init aos-animate" data-aos="fade-right">
-                            <div class="row">
-                                <div class="round-circle">
+            <div className="Quality-section">
+                <div className="container">
+                    <div className="row justify-content-between">
+                        <div className="column register-sec col-text col-text aos-init aos-animate" data-aos="fade-right">
+                            <div className="row">
+                                <div className="round-circle">
                                     <span>{how_work?.meet?.title}</span>
                                 </div>
                                 <div className="head">

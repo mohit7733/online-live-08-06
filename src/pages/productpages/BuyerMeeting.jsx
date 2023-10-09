@@ -15,13 +15,13 @@ function BuyerMeeting() {
   };
   return (
     <>
-      {/* <div class="product_buyer_wrap profile_popup">
-        <div class="main">
+      {/* <div className="product_buyer_wrap profile_popup">
+        <div className="main">
          
         */}
         
-          <div class="router-body">
-            <div class="breadcrumbs" data-aos="fade-down">
+          <div className="router-body">
+            <div className="breadcrumbs" data-aos="fade-down">
               <ul>
                 <li>
                   <a href="#">Dashboard </a>
@@ -42,15 +42,15 @@ function BuyerMeeting() {
                 </li>
               </ul>
             </div>
-            <div class="product_detail product_supplier">
-              <div class="row">
-                <div class="col_img" data-aos="fade-right">
-                  <div class="slider-for">
+            <div className="product_detail product_supplier">
+              <div className="row">
+                <div className="col_img" data-aos="fade-right">
+                  <div className="slider-for">
                     <Slider {...settings}>
                       <div>
                         <figure>
                           <img
-                            class="mainimg-display"
+                            className="mainimg-display"
                             src="images/banner_supplier.jpg"
                             alt=""
                           />
@@ -59,7 +59,7 @@ function BuyerMeeting() {
                       <div>
                         <figure>
                           <img
-                            class="mainimg-display"
+                            className="mainimg-display"
                             src="images/images-slider/A2.png"
                             alt=""
                           />
@@ -68,7 +68,7 @@ function BuyerMeeting() {
                       <div>
                         <figure>
                           <img
-                            class="mainimg-display"
+                            className="mainimg-display"
                             src="images/images-slider/A3.png"
                             alt=""
                           />
@@ -77,7 +77,7 @@ function BuyerMeeting() {
                       <div>
                         <figure>
                           <img
-                            class="mainimg-display"
+                            className="mainimg-display"
                             src="images/images-slider/A4.png"
                             alt=""
                           />
@@ -85,17 +85,17 @@ function BuyerMeeting() {
                       </div>
                     </Slider>
                    
-                    <div class="product-img">
+                    <div className="product-img">
                       <div>
                         <figure>
                           <img
-                            class="thumbnail"
+                            className="thumbnail"
                             src="images/images-slider/A4.png"
                             alt=""
                           />
                         </figure>
                       </div>
-                      <div class="video-cercile">
+                      <div className="video-cercile">
                         <figure>
                           <img src="images/video-icon.svg" alt="" />
                         </figure>
@@ -104,7 +104,7 @@ function BuyerMeeting() {
                     <div>
                       <figure>
                         <img
-                          class="thumbnail"
+                          className="thumbnail"
                           src="images/images-slider/image_slider_1.png"
                           alt=""
                         />
@@ -112,10 +112,10 @@ function BuyerMeeting() {
                     </div>
                   </div>
                 </div>
-                <div class="col_text" data-aos="fade-left">
-                  <div class="button">
-                    <button class="btn btn-secondary">Category 1</button>
-                    <button class="btn btn-secondary btn-default">
+                <div className="col_text" data-aos="fade-left">
+                  <div className="button">
+                    <button className="btn btn-secondary">Category 1</button>
+                    <button className="btn btn-secondary btn-default">
                       Sub Category 1
                     </button>
                   </div>
@@ -142,8 +142,8 @@ function BuyerMeeting() {
                       <h5>Training:</h5>
                     </li>
                   </ul>
-                  <div class="button-wrapper">
-                    <a href="#" class="btn btn-secondary">
+                  <div className="button-wrapper">
+                    <a href="#" className="btn btn-secondary">
                       <span style={{ alignItems: "center", display: "flex" }}>
                         <img src="images/favourite.svg" alt="" />
                       </span>
@@ -151,7 +151,7 @@ function BuyerMeeting() {
                     </a>
                     
                     {meetingdone == 2 ? (
-                      <a class="btn btn-secondary">
+                      <a className="btn btn-secondary">
                         <span>
                           <img src="images/check (1).svg" alt="" />
                         </span>
@@ -161,7 +161,7 @@ function BuyerMeeting() {
                       <a
                         onClick={() => setmeetingdone(2)}
                         onclick="Calendly.initPopupWidget({url: 'https://calendly.com/nitintom11/30min'});return false;"
-                        class="btn btn-primary"
+                        className="btn btn-primary"
                       >
                         <span>
                           <img src="images/meeting.svg" alt="" />
@@ -183,9 +183,9 @@ function BuyerMeeting() {
                 </div>
               </div>
             </div>
-            <div class="product_supplier_inner">
+            <div className="product_supplier_inner">
               <h2>Product Details</h2>
-              <p class="justify-para">
+              <p className="justify-para">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem Ipsum has been the industry's standard dummy
                 text ever since the 1500s, when an unknown printer took a galley
@@ -198,12 +198,12 @@ function BuyerMeeting() {
                 Lorem Ipsum.
               </p>
             </div>
-            <div class="product_supplir_profile">
-              <div class="d-flex">
-                <div class="profile-list profile-brand">
+            <div className="product_supplir_profile">
+              <div className="d-flex">
+                <div className="profile-list profile-brand">
                   <h2>Profile</h2>
-                  <div class="row justify-content-between">
-                    <div class="col_left">
+                  <div className="row justify-content-between">
+                    <div className="col_left">
                       <ul>
                         <li>
                           <h6>

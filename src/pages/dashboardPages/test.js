@@ -73,11 +73,11 @@ function Test() {
                     <p>Do you have VAT number?</p>
                     <div className="row align-items-center">
                         <input type="radio" id="buyer" name="fav_language" value="A buyer" checked=""/>
-                        <label for="buyer" className="active">Yes</label>
+                        <label htmlFor="buyer" className="active">Yes</label>
                     </div>
                     <div className="row mb-l align-items-center">
                         <input type="radio" id="supplier" name="fav_language" value="A supplier"/>
-                        <label for="A supplier" className="removeClass">No</label>
+                        <label htmlFor="A supplier" className="removeClass">No</label>
                     </div>
                 </div>
                 <div className="form-group toggle-form-box" style={{display: "none"}}>

@@ -16,12 +16,12 @@ function Productaftermeeting() {
     slidesToScroll: 1,
   };
   return (
-    // <div class="product_before_meeting product_after_meeting Meeting_wrap profile_popup">
-    //    <div class="main">
+    // <div className="product_before_meeting product_after_meeting Meeting_wrap profile_popup">
+    //    <div className="main">
 
-    <div class="router-body">
-      <div class="breadcrumbs" data-aos="fade-down">
-        <div class="head">
+    <div className="router-body">
+      <div className="breadcrumbs" data-aos="fade-down">
+        <div className="head">
           <ul>
             <li>
               <a href="#">Dashboard </a>
@@ -43,15 +43,15 @@ function Productaftermeeting() {
           </ul>
         </div>
       </div>
-      <div class="product_detail product_supplier after__meeting">
-        <div class="row">
-          <div class="col_img">
-            <div class="slider-for ">
+      <div className="product_detail product_supplier after__meeting">
+        <div className="row">
+          <div className="col_img">
+            <div className="slider-for ">
               <Slider {...settings}>
                 <div>
                   <figure>
                     <img
-                      class="mainimg-display"
+                      className="mainimg-display"
                       src="images/banner_supplier.jpg"
                       alt=""
                     />
@@ -60,7 +60,7 @@ function Productaftermeeting() {
                 <div>
                   <figure>
                     <img
-                      class="mainimg-display"
+                      className="mainimg-display"
                       src={image2}
                       alt=""
                     />
@@ -69,7 +69,7 @@ function Productaftermeeting() {
                 <div>
                   <figure>
                     <img
-                      class="mainimg-display"
+                      className="mainimg-display"
                       src={image3}
                       alt=""
                     />
@@ -78,7 +78,7 @@ function Productaftermeeting() {
                 <div>
                   <figure>
                     <img
-                      class="mainimg-display"
+                      className="mainimg-display"
                       src={image1}
                       alt=""
                     />
@@ -86,11 +86,11 @@ function Productaftermeeting() {
                 </div>
               </Slider>
             </div>
-            <div class="slider-nav2 slider-nav">
+            <div className="slider-nav2 slider-nav">
               <div>
                 <figure>
                   <img
-                    class="thumbnail"
+                    className="thumbnail"
                     src={image1}
                     alt=""
                   />
@@ -99,7 +99,7 @@ function Productaftermeeting() {
               <div>
                 <figure>
                   <img
-                    class="thumbnail"
+                    className="thumbnail"
                     src={image2}
                     alt=""
                   />
@@ -108,24 +108,24 @@ function Productaftermeeting() {
               <div>
                 <figure>
                   <img
-                    class="thumbnail"
+                    className="thumbnail"
                     src={image3}
                     alt=""
                   />
                 </figure>
               </div>
 
-              <div class="product-img">
+              <div className="product-img">
                 <div>
                   <figure>
                     <img
-                      class="thumbnail"
+                      className="thumbnail"
                       src="images/images-slider/A4.png"
                       alt=""
                     />
                   </figure>
                 </div>
-                <div class="video-cercile">
+                <div className="video-cercile">
                   <figure>
                     <img src="images/video-icon.svg" alt="" />
                   </figure>
@@ -134,7 +134,7 @@ function Productaftermeeting() {
               <div>
                 <figure>
                   <img
-                    class="thumbnail"
+                    className="thumbnail"
                     src="images/images-slider/image_slider_1.png"
                     alt=""
                   />
@@ -142,19 +142,19 @@ function Productaftermeeting() {
               </div>
             </div>
           </div>
-          <div class="col_text">
-            <div class="button">
-              <button class="btn btn-secondary">Category 1</button>
-              <button class="btn btn-secondary btn-default">
+          <div className="col_text">
+            <div className="button">
+              <button className="btn btn-secondary">Category 1</button>
+              <button className="btn btn-secondary btn-default">
                 Sub Category 1
               </button>
             </div>
             <h2>Product Name (Full)</h2>
             <ul>
-              <li class="after_meeting_li">
+              <li className="after_meeting_li">
                 <h5>Made In:</h5>
               </li>
-              <li class="after_meeting_li">
+              <li className="after_meeting_li">
                 <h5>
                   Price Range: : € 10.000{" "}
                   <a href="">{/* <span>(See Price Policy)</span> */}</a>
@@ -188,27 +188,27 @@ function Productaftermeeting() {
                   </div> */}
                 </h5>
               </li>
-              <li class="after_meeting_li">
+              <li className="after_meeting_li">
                 <h5>Minimum Quantity:</h5>
               </li>
-              <li class="after_meeting_li">
+              <li className="after_meeting_li">
                 <h5>Guarantee:</h5>
               </li>
-              <li class="after_meeting_li">
+              <li className="after_meeting_li">
                 <h5>Date Of Creation:</h5>
               </li>
-              <li class="after_meeting_li">
+              <li className="after_meeting_li">
                 <h5>Training:</h5>
               </li>
             </ul>
-            <div class="button-wrapper">
-              <a href="#" class="btn btn-secondary">
+            <div className="button-wrapper">
+              <a href="#" className="btn btn-secondary">
                 <span>
                   <img src="images/favourite.svg" alt="" />
                 </span>
                 Add your favourites
               </a>
-              <a href="#" class="btn btn-primary">
+              <a href="#" className="btn btn-primary">
                 <span>
                   <img src="images/check.svg" alt="" />
                 </span>
@@ -218,9 +218,9 @@ function Productaftermeeting() {
           </div>
         </div>
       </div>
-      <div class="profile-list profile-brand">
+      <div className="profile-list profile-brand">
         <h2>Product Details</h2>
-        <p class="justify-para">
+        <p className="justify-para">
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s, when an unknown printer took a galley of type and
@@ -232,8 +232,8 @@ function Productaftermeeting() {
           including versions of Lorem Ipsum.
         </p>
         <h2>Company</h2>
-        <div class="row justify-content-between">
-          <div class="col_left">
+        <div className="row justify-content-between">
+          <div className="col_left">
             <ul>
               <li>
                 <h6>Your Brand Belongs To One Of The Following Category?</h6>
