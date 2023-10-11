@@ -187,7 +187,9 @@ function Invoicepage() {
 													<>
 														{moment(billingdata?.date).format("MMM  DD, YYYY")}
 													</>
-												) : (
+												) : billingdata?.endDate?.recurring_subs_id != null ||
+												  billingdata?.endDate?.recurring_subs_id !=
+														undefined ? (
 													<>
 														{moment(billingdata?.endDate?.start_date).format(
 															"MMM  DD, YYYY"
@@ -197,12 +199,16 @@ function Invoicepage() {
 															"MMM  DD, YYYY"
 														)}
 													</>
+												) : (
+													moment(billingdata?.endDate?.start_date).format(
+														"MMM  DD, YYYY"
+													)
 												)}
 											</p>
 										</td>
 										<td>1</td>
-										<td>{billingdata?.amount?.includes(".00") ? `${billingdata?.amount}` : `${billingdata?.amount}.00`}</td>
-										<td>{billingdata?.amount?.includes(".00") ? `${billingdata?.amount}` : `${billingdata?.amount}.00`}</td>
+										<td>{billingdata?.amount}</td>
+										<td>{billingdata?.amount}</td>
 									</tr>
 									<tr>
 										<td className="ht_40"></td>
@@ -250,7 +256,7 @@ function Invoicepage() {
 										<td></td>
 										<td className="css_2">Amount Paid €</td>
 										<td className="css_2"></td>
-										<td className="css_2">{billingdata?.amount?.includes(".00") ? `${billingdata?.amount}` : `${billingdata?.amount}.00`}</td>
+										<td className="css_2">{billingdata?.amount}</td>
 									</tr>
 									<tr>
 										<td></td>

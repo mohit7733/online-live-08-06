@@ -1443,7 +1443,15 @@ function Company_informationNew(props) {
 										>
 											Submit
 										</button>
-										<button className="btn btn-primary">Cancel</button>
+										<button  
+										onClick={() => {
+											if (cInfo?.company_name == "") {
+											navigate("/");
+											} else {
+											navigate("/company-Information");
+											}
+										}} 
+										className="btn btn-primary">Cancel</button>
 									</div>
 								) : null}
 							</form>
