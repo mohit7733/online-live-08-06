@@ -1220,7 +1220,15 @@ function Company_profile_Edit(props) {
 								>
 									Submit
 								</button>
-								<a href="/buyer-company-profile" className="btn btn-primary">
+								<a 
+								onClick={() => {
+									if (editData?.company != null) {
+									navigate("/buyer-company-profile");
+									} else {
+									navigate("/");
+									}
+								}} 
+								className="btn btn-primary">
 									Cancel
 								</a>
 							</div>

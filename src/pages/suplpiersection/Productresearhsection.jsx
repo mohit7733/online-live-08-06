@@ -1483,7 +1483,7 @@ function Productresearchsection(props) {
 							>
 								Submit
 							</button>
-							<a href="#" className="btn btn-primary">
+							<a onClick={() => navigate("/")} className="btn btn-primary">
 								Cancel
 							</a>
 						</div>
