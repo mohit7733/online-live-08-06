@@ -187,9 +187,7 @@ function Invoicepage() {
 													<>
 														{moment(billingdata?.date).format("MMM  DD, YYYY")}
 													</>
-												) : billingdata?.endDate?.recurring_subs_id != null ||
-												  billingdata?.endDate?.recurring_subs_id !=
-														undefined ? (
+												) : (
 													<>
 														{moment(billingdata?.endDate?.start_date).format(
 															"MMM  DD, YYYY"
@@ -199,10 +197,6 @@ function Invoicepage() {
 															"MMM  DD, YYYY"
 														)}
 													</>
-												) : (
-													moment(billingdata?.endDate?.start_date).format(
-														"MMM  DD, YYYY"
-													)
 												)}
 											</p>
 										</td>
