@@ -362,7 +362,7 @@ function Add_product(props) {
 		});
 
 		let b = question.filter(
-			(obj2) => !answerArray.some((obj1) => obj1.questionId === obj2.id)
+			(obj2) => !answerArray.some((obj1) => obj1.questionId === obj2.id) && obj2.mandatory != 0
 		);
 
 		if (b?.length > 0) {
@@ -1362,7 +1362,7 @@ function Add_product(props) {
 								>
 									{submitStatus ? "Loading..." : "Submit"}
 								</button>
-								<a href="" className="btn btn-primary">
+								<a href="/dashboard" className="btn btn-primary">
 									Cancel
 								</a>
 							</div>

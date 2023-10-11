@@ -201,8 +201,8 @@ function Invoicepage() {
 											</p>
 										</td>
 										<td>1</td>
-										<td> {billingdata?.amount}.00</td>
-										<td> {billingdata?.amount}.00</td>
+										<td>{billingdata?.amount?.includes(".00") ? `${billingdata?.amount}` : `${billingdata?.amount}.00`}</td>
+										<td>{billingdata?.amount?.includes(".00") ? `${billingdata?.amount}` : `${billingdata?.amount}.00`}</td>
 									</tr>
 									<tr>
 										<td className="ht_40"></td>
@@ -250,7 +250,7 @@ function Invoicepage() {
 										<td></td>
 										<td className="css_2">Amount Paid €</td>
 										<td className="css_2"></td>
-										<td className="css_2"> {billingdata?.amount}.00</td>
+										<td className="css_2">{billingdata?.amount?.includes(".00") ? `${billingdata?.amount}` : `${billingdata?.amount}.00`}</td>
 									</tr>
 									<tr>
 										<td></td>
