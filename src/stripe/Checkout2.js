@@ -537,7 +537,7 @@ export const CheckoutForm2 = (props) => {
 		try {
 			let res1 = await axios.post(stripe_recurring_subscription, {
 				paymentMethod: paymentMethod,
-				amount: final_amount_show,
+				amount: final_amount_show * 100,
 				productId: "prod_OlP3rZAtHHm22L",
 				period: period,
 				interval: interval,
@@ -547,17 +547,14 @@ export const CheckoutForm2 = (props) => {
 				let res2 = await stripe.confirmCardPayment(
 					res1.data?.data?.clientSecret
 				);
-				billingdata = res1.data?.data;
+				billingdata = res1.data.paymentIntent.charges?.data[0]?.billing_details;
 
 				purchase(res1.data?.data.paymentIntent);
 				toast.success("Subscription Payment Successful!");
+
 				// // console.log(response.data.payment.charges.data[0].billing_details);
 				window.scrollTo(0, 0);
-				if (state?.meeting_id == undefined) {
-					navigate("/dashboard");
-				} else {
-					navigate("/confirmed-meeting/supplier");
-				}
+
 			}
 		} catch (error) {
 			console.log(error);
@@ -570,6 +567,10 @@ export const CheckoutForm2 = (props) => {
 
 	// console.log(detail_data.address.country , "hey budy")
 	const purchase = (data) => {
+		console.log({
+			billing_details: billingdata,
+			address_line: billingdata?.line1,
+		});
 		var myHeaders = new Headers();
 		myHeaders.append(
 			"Authorization",
@@ -585,9 +586,7 @@ export const CheckoutForm2 = (props) => {
 		var raw = JSON.stringify({
 			plan_type: props?.planType ? props?.planType : null,
 			payment_status: data?.status,
-			billing_details: props?.plan
-				? billingdata?.paymentIntent?.charges?.data[0]?.billing_details
-				: billingdata,
+			billing_details: billingdata,
 			recurring_payment: props?.plan ? billingdata : null,
 			promo_code: isValidCode ? discountCode : null,
 			discount: isValidCode ? discount : null,
@@ -597,9 +596,7 @@ export const CheckoutForm2 = (props) => {
 			amount: parseFloat(data?.amount / 100).toFixed(2),
 			payment_json_data: data,
 			subscription_plan_id: state.subscription_plan_id,
-			address_line:
-				billingdata?.paymentIntent?.charges?.data[0]?.billing_details?.address
-					?.line1,
+			address_line: billingdata?.line1,
 			meeting_id: state?.meeting_id,
 			vat_number: vat !== "" ? vat : "N/A",
 			vat_amount: amountIncludingVat - amount,
@@ -623,6 +620,11 @@ export const CheckoutForm2 = (props) => {
 			.then((result) => {
 				// toast.success("Purchase Successful");
 				// setTimeout(function () { window.location.reload(false) }, 2000);
+				if (state?.meeting_id == undefined) {
+					navigate("/dashboard");
+				} else {
+					navigate("/confirmed-meeting/supplier");
+				}
 			})
 			.catch((error) => console.log("error", error));
 	};
@@ -717,7 +719,7 @@ export const CheckoutForm2 = (props) => {
 		<>
 			<ToastContainer
 				position="top-center"
-				autoClose={2000}
+				autoClose={4000}
 				hideProgressBar={true}
 				newestOnTop={false}
 				closeOnClick
