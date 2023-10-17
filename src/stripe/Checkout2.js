@@ -384,11 +384,10 @@ export const CheckoutForm2 = (props) => {
 		});
 
 		if (error) {
-			toast.error(error?.message || "Card detials are not correct")
+			toast.error(error?.message || "Card detials are not correct");
 			setPaymentLoading(false);
-			return
+			return;
 		}
-
 
 		if (state?.plan != "" && typeof state?.plan === "string" && !error) {
 			if (state?.plan === "month") {
@@ -421,22 +420,32 @@ export const CheckoutForm2 = (props) => {
 						axiosConfig
 					);
 					if (response.data.success) {
-						console.log(response);
-						stripe.confirmCardPayment(
-							response.data?.payment?.client_secret
-						).then(async (res2) => {
-							console.log(res2);
-							if (res2?.paymentIntent != undefined && res2?.paymentIntent != null) {
-								billingdata = response.data.payment.charges.data[0].billing_details;
-								purchase(response.data.payment);
-								toast.success("Payment Successful!");
-							} else if (res2?.error?.message) {
-								toast.error("Payment failed");
-							} else {
-								toast.error("Payment failed");
-							}
-						})
+						stripe
+							.confirmCardPayment(response?.data?.payment?.client_secret)
+							.then(async (res2) => {
+								if (
+									res2?.paymentIntent != undefined &&
+									res2?.paymentIntent != null
+								) {
+									let _billingData = "";
+									if (response?.data?.payment?.charges?.data[0]
+										?.billing_details != undefined
+									) {
+										_billingData =
+											response?.data?.payment?.charges?.data[0]
+												?.billing_details;
+									} else {
+										_billingData = detail_data
+									}
 
+									purchase(response?.data?.payment, _billingData);
+									toast.success("Payment Successful!");
+								} else if (res2?.error?.message) {
+									toast.error("Payment failed");
+								} else {
+									toast.error("Payment failed");
+								}
+							});
 					} else {
 						toast.error("Payment Failed!");
 					}
@@ -454,19 +463,19 @@ export const CheckoutForm2 = (props) => {
 		setPaymentLoading(false);
 	};
 
-	// const get_cus = async () => {
-	// 	try {
-	// 		const response = await axios.get(stripe_costumer, {
-	// 			headers: {
-	// 				Authorization:
-	// 					`Bearer ${process.env.REACT_APP_STRIPE_SECRET_TEST}`,
-	// 				"Content-Type": "application/json",
-	// 			},
-	// 		});
-	// 	} catch (error) {
-	// 		console.error("Error fetching customers:", error);
-	// 	}
-	// };
+	const get_cus = async () => {
+		try {
+			const response = await axios.get(stripe_costumer, {
+				headers: {
+					Authorization:
+						`Bearer ${process.env.REACT_APP_STRIPE_SECRET_TEST}`,
+					"Content-Type": "application/json",
+				},
+			});
+		} catch (error) {
+			console.error("Error fetching customers:", error);
+		}
+	};
 
 	const handleDiscount = async (e) => {
 		setDiscountCode(e.target.value);
@@ -539,37 +548,33 @@ export const CheckoutForm2 = (props) => {
 			let res1 = await axios.post(stripe_recurring_subscription, {
 				paymentMethod: paymentMethod,
 				amount: final_amount_show * 100,
-				productId: "prod_OLSMWz2NKBN0Ai",
+				productId: "prod_OlP3rZAtHHm22L",
 				period: period,
 				interval: interval,
 			});
 
 			if (res1.status === 200) {
-				// let res2 = await stripe.confirmCardPayment(
-				// 	res1.data?.data?.clientSecret
-				// );
-				// billingdata = res1.data.paymentIntent.charges?.data[0]?.billing_details;
-
-				// purchase(res1.data?.data.paymentIntent);
-				// toast.success("Subscription Payment Successful!");
-
-				purchase(res1.data?.data.paymentIntent);
-				stripe.confirmCardPayment(
-					res1.data?.data?.clientSecret
-				).then(async (res2) => {
-					if (res2?.paymentIntent != undefined && res2?.paymentIntent != null) {
-						billingdata = res1.data.paymentIntent.charges?.data[0]?.billing_details;
-						purchase(res1.data?.data.paymentIntent);
-						toast.success("Subscription Payment Successful!");
-					} else if (res2?.error?.message) {
-						toast.error("Payment failed");
-						let res3 = await axios.post(stripe_cancel_sub, {
-							subscriptionId: res1?.data?.data?.subscriptionId,
-						});
-					} else {
-						toast.error("Payment failed");
-					}
-				})
+				stripe
+					.confirmCardPayment(res1.data?.data?.clientSecret)
+					.then(async (res2) => {
+						if (res2?.paymentIntent?.status == "succeeded") {
+							let _billingData = ""
+							if (res1?.data?.data?.paymentIntent?.charges?.data[0]?.billing_details != undefined) {
+								_billingData = res1.data?.data?.paymentIntent?.charges?.data[0]?.billing_details;
+							} else {
+								_billingData = detail_data
+							}
+							purchase(res1.data?.data?.paymentIntent, _billingData);
+							toast.success("Subscription Payment Successful!");
+						} else if (res2?.error) {
+							toast.error("Payment failed");
+							let res3 = await axios.post(stripe_cancel_sub, {
+								subscriptionId: res1?.data?.data?.subscriptionId,
+							});
+						} else {
+							toast.error("Payment failed");
+						}
+					});
 				window.scrollTo(0, 0);
 			}
 		} catch (error) {
@@ -577,16 +582,8 @@ export const CheckoutForm2 = (props) => {
 		}
 	};
 
-
-
-
-
 	// console.log(detail_data.address.country , "hey budy")
-	const purchase = (data) => {
-		// console.log({
-		// 	billing_details: billingdata,
-		// 	address_line: billingdata?.line1,
-		// });
+	const purchase = (data, _billingData) => {
 		var myHeaders = new Headers();
 		myHeaders.append(
 			"Authorization",
@@ -601,9 +598,11 @@ export const CheckoutForm2 = (props) => {
 
 		var raw = JSON.stringify({
 			plan_type: props?.planType ? props?.planType : null,
-			payment_status: data?.status,
-			billing_details: billingdata,
-			recurring_payment: props?.plan ? billingdata : null,
+			payment_status: 'succeeded',
+			billing_details: _billingData,
+			recurring_payment: props?.plan
+				? data.charges?.data[0]?.billing_details
+				: null,
 			promo_code: isValidCode ? discountCode : null,
 			discount: isValidCode ? discount : null,
 			discount_amount: isValidCode ? discountAmount : null,
@@ -612,7 +611,6 @@ export const CheckoutForm2 = (props) => {
 			amount: parseFloat(data?.amount / 100).toFixed(2),
 			payment_json_data: data,
 			subscription_plan_id: state.subscription_plan_id,
-			address_line: billingdata?.line1,
 			meeting_id: state?.meeting_id,
 			vat_number: vat !== "" ? vat : "N/A",
 			vat_amount: amountIncludingVat - amount,
@@ -642,7 +640,9 @@ export const CheckoutForm2 = (props) => {
 					navigate("/confirmed-meeting/supplier");
 				}
 			})
-			.catch((error) => console.log("error", error));
+			.catch((error) => {
+				console.log("error", error);
+			});
 	};
 	// axios.post('https://adminbm.health-and-beauty.fr/api/v1/supplier-meeting-payment')
 	// let final_amount_show = 0;

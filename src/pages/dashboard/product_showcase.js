@@ -27,11 +27,11 @@ function Product_showcase(props) {
 	// check company detail
 
 	useEffect(() => {
-	  if(localStorage.getItem("user_type") == "Buyer") {
-		navigate("/buyer-company-profile")
-	  }
+		if (localStorage.getItem("user_type") == "Buyer") {
+			navigate("/buyer-company-profile")
+		}
 	}, []);
-	
+
 
 	useEffect(() => {
 		axios
@@ -261,10 +261,10 @@ function Product_showcase(props) {
 								{user_type == "both"
 									? "Supplier"
 									: user_type == "buyer"
-									? "Buyer"
-									: user_type == "supplier"
-									? "Supplier"
-									: ""}
+										? "Buyer"
+										: user_type == "supplier"
+											? "Supplier"
+											: ""}
 							</a>
 						</li>
 						<li>
@@ -344,19 +344,20 @@ function Product_showcase(props) {
 								}
 								//
 								// if (!check) {
-									checkSubscription().then((response) => {
-										if (response?.data?.subscription_status !== 0) {
-											navigate("/add-new-product");
-											// navigate("/company-subscription");
-										} else if (
-											response?.message?.subscription_status != 0 &&
-											response?.data.manage_type?.toLowerCase() == "shareduser"
-										) {
-											navigate("/add-new-product");
-										} else {
-											navigate("/company-subscription");
-										}
-									});
+								checkSubscription().then((response) => {
+									console.log(response);
+									if (response?.data?.subscription_status !== 0) {
+										navigate("/add-new-product");
+										// navigate("/company-subscription");
+									} else if (
+										response?.message?.subscription_status != 0 &&
+										response?.data.manage_type?.toLowerCase() == "shareduser"
+									) {
+										navigate("/add-new-product");
+									} else {
+										navigate("/company-subscription");
+									}
+								});
 								// if (
 								// 	companyinfo[0]?.timezone != "" &&
 								// 	companyinfo[0]?.timezone != null
@@ -467,13 +468,13 @@ function Product_showcase(props) {
 														? { opacity: "0.6" }
 														: { pointerEvents: "none", opacity: "0.5" }
 												}
-												// onClick={(e) => {
-												// 	if (data?.status === 1) {
-												// 		setdeleteid(data.id);
-												// 		setalertshow(true);
-												// 	}
-												// }}
-												// onClick={(e) => deletedata(data.id)}
+											// onClick={(e) => {
+											// 	if (data?.status === 1) {
+											// 		setdeleteid(data.id);
+											// 		setalertshow(true);
+											// 	}
+											// }}
+											// onClick={(e) => deletedata(data.id)}
 											/>
 											{data?.renewal_status == 1 && (
 												<button
