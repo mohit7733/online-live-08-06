@@ -154,13 +154,13 @@ function Productdetails() {
 														></iframe>
 													</figure>
 												</div>
-											) : productData?.media_files.file_path
-													.substr(
-														productData?.media_files.file_path.lastIndexOf(
+											) : productData?.media_files?.file_path
+													?.substr(
+														productData?.media_files?.file_path?.lastIndexOf(
 															"\\"
 														) + 1
 													)
-													.split(".")[3] == "pdf" ? (
+													?.split(".")[3] == "pdf" ? (
 												<div>
 													<figure>
 														<embed
