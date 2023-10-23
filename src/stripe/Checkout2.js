@@ -790,7 +790,7 @@ export const CheckoutForm2 = (props) => {
 			} `,
 			{
 				method: "POST",
-				body: JSON.stringify(paymentdata),
+				body: raw,
 				headers: myHeaders,
 				redirect: "follow",
 			}
@@ -799,11 +799,11 @@ export const CheckoutForm2 = (props) => {
 			.then((result) => {
 				// toast.success("Purchase Successful");
 				// setTimeout(function () { window.location.reload(false) }, 2000);
-				// if (state?.meeting_id == undefined) {
-				// 	navigate("/dashboard");
-				// } else {
-				// 	navigate("/confirmed-meeting/supplier");
-				// }
+				if (state?.meeting_id == undefined) {
+					navigate("/dashboard");
+				} else {
+					navigate("/confirmed-meeting/supplier");
+				}
 			})
 			.catch((error) => {
 				console.log("error", error);
@@ -1032,7 +1032,7 @@ export const CheckoutForm2 = (props) => {
 							</ul>
 						</div>
 						<h2>Payment Form</h2>
-						<button onClick={(e) => handleSubmitNew(e)}>submit</button>
+						{/* <button onClick={(e) => handleSubmitNew(e)}>submit</button> */}
 
 						<form className="payment_form_wrap">
 							<div className="form-group">

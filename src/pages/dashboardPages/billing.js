@@ -21,8 +21,8 @@ function Billing() {
 		console.log("clicked");
 		axios
 			.get(
-				"https://adminbm.health-and-beauty.fr/api/billing-details?sortBy=" +
-					parameter,
+				api + "/api/billing-details?sortBy=" +
+				parameter,
 				{
 					headers: {
 						Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -228,31 +228,31 @@ function Billing() {
 															>
 																Renew Plan
 															</button>
-														) : 
-														// item.endDate?.recurring_status === "active" ? (
-														// 	<button
-														// 		className="btn btn-primary remove-primary"
-														// 		onClick={() => {
-														// 			setShowAlert({
-														// 				open: true,
-														// 				subscriptionId:
-														// 					item?.endDate?.recurring_subs_id,
-														// 				id: item?.id,
-														// 			});
-														// 		}}
-														// 	>
-														// 		Cancel Plan
-														// 	</button>
-														// ) : 
-														// item.endDate?.recurring_status ===
-														//   "canceled" ? (
-														// 	<button className="btn btn-primary remove-primary Done-meeting">
-														// 		Plan Cancelled
-														// 	</button>
-														// ) :
-														(
-															""
-														)}
+														) :
+															// item.endDate?.recurring_status === "active" ? (
+															// 	<button
+															// 		className="btn btn-primary remove-primary"
+															// 		onClick={() => {
+															// 			setShowAlert({
+															// 				open: true,
+															// 				subscriptionId:
+															// 					item?.endDate?.recurring_subs_id,
+															// 				id: item?.id,
+															// 			});
+															// 		}}
+															// 	>
+															// 		Cancel Plan
+															// 	</button>
+															// ) : 
+															// item.endDate?.recurring_status ===
+															//   "canceled" ? (
+															// 	<button className="btn btn-primary remove-primary Done-meeting">
+															// 		Plan Cancelled
+															// 	</button>
+															// ) :
+															(
+																""
+															)}
 													</td>
 												</tr>
 											);
