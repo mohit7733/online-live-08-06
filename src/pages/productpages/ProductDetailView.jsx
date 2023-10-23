@@ -596,7 +596,7 @@ function ProductDetailView(props) {
 									</div>
 									<div className="slider-nav">
 										<Slider {...settings2}>
-											{productData.media_files?.map((item, index) => {
+											{productData?.media_files?.length > 0 && productData?.media_files?.map((item, index) => {
 												if (item.media_type === "image") {
 													return (
 														<div>
@@ -1096,7 +1096,7 @@ function ProductDetailView(props) {
 										<h2>Profile</h2>
 										<div className="row justify-content-between">
 											<div className="col_left last-contnt">
-												{productData.questions?.map((item) => {
+												{productData?.questions?.map((item) => {
 													if(item?.answer == "null") return
 													if (item?.type.toLowerCase() == "checkbox") {
 														try {
@@ -1219,7 +1219,7 @@ function ProductDetailView(props) {
 					) : null}
 				</div>
 				<div className="selected-time">
-					{slots.map((item) => {
+					{slots?.map((item) => {
 						return (
 							<p>
 								{item.sDate + " - " + item.sTime}
