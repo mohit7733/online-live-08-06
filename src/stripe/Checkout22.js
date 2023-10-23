@@ -26,159 +26,6 @@ import Left_menu from "../pages/productpages/left_menu";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 // import { CountryCodes } from "validator/lib/isiso31661alpha2";
 
-// const paymentdata = { "plan_type": 1, "res": null, "payment_status": "succeeded", "billing_details": { "address": { "city": "test", "country": "IN", "line1": "test", "postal_code": "222333" }, "email": "madhuramnj@gmail.com", "name": "madhura joshi", "phone": "2233445566" }, "recurring_payment": null, "promo_code": null, "discount": null, "discount_amount": null, "payment_id": "pi_3O2xaFCUBa9fLoA50wlqNeLe", "amount": "0.50", "payment_json_data": { "id": "pi_3O2xaFCUBa9fLoA50wlqNeLe", "object": "payment_intent", "amount": 50, "amount_capturable": 0, "amount_details": { "tip": {} }, "amount_received": 50, "application": null, "application_fee_amount": null, "automatic_payment_methods": null, "canceled_at": null, "cancellation_reason": null, "capture_method": "automatic", "charges": { "object": "list", "data": [{ "id": "ch_3O2xaFCUBa9fLoA50b9CDzV7", "object": "charge", "amount": 50, "amount_captured": 50, "amount_refunded": 0, "application": null, "application_fee": null, "application_fee_amount": null, "balance_transaction": "txn_3O2xaFCUBa9fLoA50pFghb66", "billing_details": { "address": { "city": "test", "country": "IN", "line1": "test", "line2": null, "postal_code": "222333", "state": null }, "email": "madhuramnj@gmail.com", "name": "madhura joshi", "phone": "2233445566" }, "calculated_statement_descriptor": "HEALTH AND BEAUTY MKTG", "captured": true, "created": 1697727143, "currency": "eur", "customer": null, "description": "All Payments Done by madhura joshi", "destination": null, "dispute": null, "disputed": false, "failure_balance_transaction": null, "failure_code": null, "failure_message": null, "fraud_details": {}, "invoice": null, "livemode": true, "metadata": {}, "on_behalf_of": null, "order": null, "outcome": { "network_status": "approved_by_network", "reason": null, "risk_level": "normal", "seller_message": "Payment complete.", "type": "authorized" }, "paid": true, "payment_intent": "pi_3O2xaFCUBa9fLoA50wlqNeLe", "payment_method": "pm_1O2xaCCUBa9fLoA51jIzXu7h", "payment_method_details": { "card": { "amount_authorized": 50, "brand": "mastercard", "checks": { "address_line1_check": "unavailable", "address_postal_code_check": "unavailable", "cvc_check": "pass" }, "country": "IN", "exp_month": 9, "exp_year": 2024, "extended_authorization": { "status": "disabled" }, "fingerprint": "ZOi9gGIK0LxJhHdC", "funding": "credit", "incremental_authorization": { "status": "unavailable" }, "installments": null, "last4": "7472", "mandate": null, "multicapture": { "status": "unavailable" }, "network": "mastercard", "network_token": { "used": false }, "overcapture": { "maximum_amount_capturable": 50, "status": "unavailable" }, "three_d_secure": null, "wallet": null }, "type": "card" }, "receipt_email": null, "receipt_number": null, "receipt_url": "https://pay.stripe.com/receipts/payment/CAcQARoXChVhY2N0XzFJRzBMQ0NVQmE5ZkxvQTUoqIXFqQYyBmx6hyi5azosFhPI_6JB5fp5hji0tigaB91W6nDZBu3eeRQ5aQWXTyzpkLFSyTwBZxlTXRA", "refunded": false, "refunds": { "object": "list", "data": [], "has_more": false, "total_count": 0, "url": "/v1/charges/ch_3O2xaFCUBa9fLoA50b9CDzV7/refunds" }, "review": null, "shipping": null, "source": null, "source_transfer": null, "statement_descriptor": null, "statement_descriptor_suffix": null, "status": "succeeded", "transfer_data": null, "transfer_group": null }], "has_more": false, "total_count": 1, "url": "/v1/charges?payment_intent=pi_3O2xaFCUBa9fLoA50wlqNeLe" }, "client_secret": "pi_3O2xaFCUBa9fLoA50wlqNeLe_secret_dXRxxDgTWQKKvlQyPcrIGCvhE", "confirmation_method": "automatic", "created": 1697727143, "currency": "eur", "customer": null, "description": "All Payments Done by madhura joshi", "invoice": null, "last_payment_error": null, "latest_charge": "ch_3O2xaFCUBa9fLoA50b9CDzV7", "livemode": true, "metadata": {}, "next_action": null, "on_behalf_of": null, "payment_method": "pm_1O2xaCCUBa9fLoA51jIzXu7h", "payment_method_configuration_details": null, "payment_method_options": { "card": { "installments": null, "mandate_options": null, "network": null, "request_three_d_secure": "automatic" } }, "payment_method_types": ["card"], "processing": null, "receipt_email": null, "review": null, "setup_future_usage": null, "shipping": null, "source": null, "statement_descriptor": null, "statement_descriptor_suffix": null, "status": "succeeded", "transfer_data": null, "transfer_group": null }, "subscription_plan_id": 14, "vat_number": "N/A", "vat_amount": -40, "product_id": null }
-
-const paymentdata = {
-	"subscriptionId": "sub_1NyFpMCUBa9fLoA507oLKCyQ", "res": {
-		"id": "sub_1NyFpMCUBa9fLoA507oLKCyQ",
-		"object": "subscription",
-		"application": null,
-		"application_fee_percent": null,
-		"automatic_tax": {
-			"enabled": false
-		},
-		"billing_cycle_anchor": 1696605632,
-		"billing_thresholds": null,
-		"cancel_at": null,
-		"cancel_at_period_end": false,
-		"canceled_at": null,
-		"cancellation_details": {
-			"comment": null,
-			"feedback": null,
-			"reason": null
-		},
-		"collection_method": "charge_automatically",
-		"created": 1696605632,
-		"currency": "eur",
-		"current_period_end": 1699284032,
-		"current_period_start": 1696605632,
-		"customer": "cus_OlnQ7hLgNrW0z1",
-		"days_until_due": null,
-		"default_payment_method": "pm_1NyFpKCUBa9fLoA5jBlMwmVD",
-		"default_source": null,
-		"default_tax_rates": [],
-		"description": null,
-		"discount": null,
-		"ended_at": null,
-		"items": {
-			"object": "list",
-			"data": [
-				{
-					"id": "si_OlnQRvX0MYa4ja",
-					"object": "subscription_item",
-					"billing_thresholds": null,
-					"created": 1696605633,
-					"metadata": {},
-					"plan": {
-						"id": "price_1NyFpMCUBa9fLoA5xQwJpUMy",
-						"object": "plan",
-						"active": false,
-						"aggregate_usage": null,
-						"amount": 150,
-						"amount_decimal": "150",
-						"billing_scheme": "per_unit",
-						"created": 1696605632,
-						"currency": "eur",
-						"interval": "month",
-						"interval_count": 1,
-						"livemode": true,
-						"metadata": {},
-						"nickname": null,
-						"product": "prod_OlP3rZAtHHm22L",
-						"tiers_mode": null,
-						"transform_usage": null,
-						"trial_period_days": null,
-						"usage_type": "licensed"
-					},
-					"price": {
-						"id": "price_1NyFpMCUBa9fLoA5xQwJpUMy",
-						"object": "price",
-						"active": false,
-						"billing_scheme": "per_unit",
-						"created": 1696605632,
-						"currency": "eur",
-						"custom_unit_amount": null,
-						"livemode": true,
-						"lookup_key": null,
-						"metadata": {},
-						"nickname": null,
-						"product": "prod_OlP3rZAtHHm22L",
-						"recurring": {
-							"aggregate_usage": null,
-							"interval": "month",
-							"interval_count": 1,
-							"trial_period_days": null,
-							"usage_type": "licensed"
-						},
-						"tax_behavior": "unspecified",
-						"tiers_mode": null,
-						"transform_quantity": null,
-						"type": "recurring",
-						"unit_amount": 150,
-						"unit_amount_decimal": "150"
-					},
-					"quantity": 1,
-					"subscription": "sub_1NyFpMCUBa9fLoA507oLKCyQ",
-					"tax_rates": []
-				}
-			],
-			"has_more": false,
-			"total_count": 1,
-			"url": "/v1/subscription_items?subscription=sub_1NyFpMCUBa9fLoA507oLKCyQ"
-		},
-		"latest_invoice": "in_1NyFpMCUBa9fLoA5ap7uoBmE",
-		"livemode": true,
-		"metadata": {},
-		"next_pending_invoice_item_invoice": null,
-		"on_behalf_of": null,
-		"pause_collection": null,
-		"payment_settings": {
-			"payment_method_options": null,
-			"payment_method_types": [
-				"card"
-			],
-			"save_default_payment_method": "on_subscription"
-		},
-		"pending_invoice_item_interval": null,
-		"pending_setup_intent": null,
-		"pending_update": null,
-		"plan": {
-			"id": "price_1NyFpMCUBa9fLoA5xQwJpUMy",
-			"object": "plan",
-			"active": false,
-			"aggregate_usage": null,
-			"amount": 150,
-			"amount_decimal": "150",
-			"billing_scheme": "per_unit",
-			"created": 1696605632,
-			"currency": "eur",
-			"interval": "month",
-			"interval_count": 1,
-			"livemode": true,
-			"metadata": {},
-			"nickname": null,
-			"product": "prod_OlP3rZAtHHm22L",
-			"tiers_mode": null,
-			"transform_usage": null,
-			"trial_period_days": null,
-			"usage_type": "licensed"
-		},
-		"quantity": 1,
-		"schedule": null,
-		"start_date": 1696605632,
-		"status": "active",
-		"test_clock": null,
-		"transfer_data": null,
-		"trial_end": null,
-		"trial_settings": {
-			"end_behavior": {
-				"missing_payment_method": "create_invoice"
-			}
-		},
-		"trial_start": null
-	},
-	"plan_type": null, "payment_status": "succeeded", "billing_details": { "address": { "city": "pune", "country": "IN", "line1": "Nizarneshwar garden b wing", "postal_code": "222333" }, "email": "rupa.sds07@gmail.com", "name": "madhura joshi", "phone": "2233445566" }, "promo_code": null, "discount": null, "discount_amount": null, "payment_id": "pi_3O2zQICUBa9fLoA50c2Lmlkp", "amount": "0.50", "payment_json_data": { "id": "pi_3O2zQICUBa9fLoA50c2Lmlkp", "object": "payment_intent", "amount": 50, "amount_capturable": 0, "amount_details": { "tip": {} }, "amount_received": 0, "application": null, "application_fee_amount": null, "automatic_payment_methods": null, "canceled_at": null, "cancellation_reason": null, "capture_method": "automatic", "charges": { "object": "list", "data": [], "has_more": false, "total_count": 0, "url": "/v1/charges?payment_intent=pi_3O2zQICUBa9fLoA50c2Lmlkp" }, "client_secret": "pi_3O2zQICUBa9fLoA50c2Lmlkp_secret_KIhial1vHqNlmcWFMqtvZlT4l", "confirmation_method": "automatic", "created": 1697734214, "currency": "eur", "customer": "cus_OqgnfvXsFuYUPw", "description": "Subscription creation", "invoice": "in_1O2zQICUBa9fLoA5MQow1120", "last_payment_error": null, "latest_charge": null, "livemode": true, "metadata": {}, "next_action": { "type": "use_stripe_sdk", "use_stripe_sdk": { "directory_server_encryption": { "algorithm": "RSA", "certificate": "-----BEGIN CERTIFICATE-----\nMIIFADCCAuigAwIBAgIIDzMLWm4xrKMwDQYJKoZIhvcNAQELBQAwejELMAkGA1UE\nBhMCVVMxEzARBgNVBAoTCk1hc3RlckNhcmQxKDAmBgNVBAsTH01hc3RlckNhcmQg\nSWRlbnRpdHkgQ2hlY2sgR2VuIDMxLDAqBgNVBAMTI1BSRCBNYXN0ZXJDYXJkIDNE\nUzIgQWNxdWlyZXIgU3ViIENBMB4XDTIxMDYxNjIwNDgyNloXDTI0MDYxNTIwNDgy\nNlowgaYxJjAkBgNVBAMMHTNkczIuZGlyZWN0b3J5Lm1hc3RlcmNhcmQuY29tMScw\nJQYDVQQLDB5zZGstZGV2aWNlaW5mby1lbmNyeXB0LWRlY3J5cHQxHTAbBgNVBAoM\nFE1hc3RlckNhcmQgV29ybGRXaWRlMRQwEgYDVQQHDAtTYWludCBMb3VpczERMA8G\nA1UECAwITWlzc291cmkxCzAJBgNVBAYTAlVTMIIBIjANBgkqhkiG9w0BAQEFAAOC\nAQ8AMIIBCgKCAQEAxhfEFuMQfwKcHwSm1rbHmT82eKSCmgpf+8QZwuIBCofl62Y5\nXDli5eOQeo5+iToJKKgEroMLrIjvvXDSp5MHu0mDmTChD4hiy9s4cAkJokBObgU9\nHorCOsjSwqNuFovO3jXMp4lgeCTFsF5iAJTZBPN0Nyg2mVZ4kjyAc/4V5oaKEmCg\nA+Kbi0UNum9n2wN/UYpNiZktk+lr0XrCoOs7KKxGQ2upI7Lr3pO0unIput0IcGQC\ncehQM4UYvd31x5u8harrun7c6H3jmpPoqEy3DqojvxR05B7zlkqUdbYGu579pCMR\nijXMyyRfrWEip44pEzJLz1kNCUcvPV8G3ltP3QIDAQABo10wWzAOBgNVHQ8BAf8E\nBAMCACgwCQYDVR0TBAIwADAdBgNVHQ4EFgQUPF7TGQqa5LaSVmu/3nSDvigAI4gw\nHwYDVR0jBBgwFoAUmpKiVMeAjf7OVuMDFP9e7ki4RbswDQYJKoZIhvcNAQELBQAD\nggIBAHoHWo3G9XEHGBc/L4JuW6ZZXvZmAThQb71WBxsvOMZOw/SDLO50ksG1y/Xt\nzCbpkM9PktiNx6+HDusJMhaop6jCkkKTJlG7TYxbN8sHpTI/G21nAgMBP5anePll\nO8Wcw/uMW9FzycyDMCryTVfriwxvLSeVcbB4N5x/wUBe54c+fVOBXw0Dczdw5/JE\nIcZs98O2rX+YQCaYMhxwJoil99ogIKEqFcHuSrqlpiXeaD8xC3gRewUyfr1roHNG\nr3KQWH3Kjdkk4TrXeAxdh0JfGJecHzm6oxekQOmm4jcxJoh84fRjCPsdq83r12Er\nLK2CuyXN0eTgz+VooM2lqU6YZorBAtLfVzckiCFFHek8kc2Jx7bTdreOO0vHQiwj\nNKdkVwge4hVDoVyp3rulBVFPTXduP0yGF/OYaUt84wz5I7Cjphw2d/MlZetXO0Bx\n7kXq+WRbgwrTi+aiL6TxOdONyrATODOP39rKLSpot4Jil4M4JeT9oy5g0JuTddwe\nFXmemcG1M0L2C6qGx79Hx8gpdEKRM4t6/vNia98kBFBFBHRwCr37hsiAmMeRRG2n\n7GtQFECJxVXkVbNXPjnPQkrY1fPFlTr9+CIKse2mtzG8nexhQUyIEvvuIDlNefmF\n+UrJ/C3zO2IlF0Um8Rk8L85gJNDMexmDx7Sx5aDj8zFC6hgI\n-----END CERTIFICATE-----\n", "directory_server_id": "A000000004", "key_id": "3c5ed3190a9ae4b692566bbfde7483be28002388", "root_certificate_authorities": ["-----BEGIN CERTIFICATE-----\n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\n-----END CERTIFICATE-----\n"] }, "directory_server_name": "mastercard", "merchant": "acct_1IG0LCCUBa9fLoA5", "one_click_authn": null, "server_transaction_id": "b126d766-30ad-41d6-b75d-a3658171b1ad", "three_d_secure_2_source": "payatt_3O2zQICUBa9fLoA5028M0drq", "three_ds_method_url": "https://secure-acs2ui-b2.wibmo.com/v1/acs/services/threeDSMethod/8111?cardType=M", "three_ds_optimizations": "kf", "type": "stripe_3ds2_fingerprint" } }, "on_behalf_of": null, "payment_method": "pm_1O2zQFCUBa9fLoA5r3aIMwuc", "payment_method_configuration_details": null, "payment_method_options": { "card": { "installments": null, "mandate_options": { "amount": 50, "amount_type": "maximum", "description": "subscription", "end_date": null, "interval": "month", "interval_count": 1, "reference": "sub_1O2zQICUBa9fLoA5P3AJlCCt - 1697734214", "start_date": 1697734214, "supported_types": ["india"] }, "network": null, "request_three_d_secure": "any" } }, "payment_method_types": ["card"], "processing": null, "receipt_email": null, "review": null, "setup_future_usage": "off_session", "shipping": null, "source": null, "statement_descriptor": null, "statement_descriptor_suffix": null, "status": "requires_action", "transfer_data": null, "transfer_group": null }, "subscription_plan_id": 15, "vat_number": "N/A", "vat_amount": -150, "product_id": null
-}
 export const CheckoutForm2 = (props) => {
 	const stripe = useStripe();
 	const elements = useElements();
@@ -489,11 +336,6 @@ export const CheckoutForm2 = (props) => {
 	console.log(state);
 	console.log("====================================");
 
-	const handleSubmitNew = (event) => {
-		event.preventDefault();
-		purchase()
-	}
-
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		const fieldErrors = validateFields();
@@ -581,23 +423,22 @@ export const CheckoutForm2 = (props) => {
 						stripe
 							.confirmCardPayment(response?.data?.payment?.client_secret)
 							.then(async (res2) => {
-								console.log("res2 >>>>>>>>>", res2)
 								if (
 									res2?.paymentIntent != undefined &&
 									res2?.paymentIntent != null
 								) {
-									// let _billingData = "";
-									// if (response?.data?.payment?.charges?.data[0]
-									// 	?.billing_details != undefined
-									// ) {
-									// 	_billingData =
-									// 		response?.data?.payment?.charges?.data[0]
-									// 			?.billing_details;
-									// } else {
-									// 	_billingData = detail_data
-									// }
+									let _billingData = "";
+									if (response?.data?.payment?.charges?.data[0]
+										?.billing_details != undefined
+									) {
+										_billingData =
+											response?.data?.payment?.charges?.data[0]
+												?.billing_details;
+									} else {
+										_billingData = detail_data
+									}
 
-									purchase(response?.data?.payment, detail_data);
+									purchase(response?.data?.payment, _billingData);
 									toast.success("Payment Successful!");
 								} else if (res2?.error?.message) {
 									toast.error("Payment failed");
@@ -622,7 +463,19 @@ export const CheckoutForm2 = (props) => {
 		setPaymentLoading(false);
 	};
 
-
+	const get_cus = async () => {
+		try {
+			const response = await axios.get(stripe_costumer, {
+				headers: {
+					Authorization:
+						`Bearer ${process.env.REACT_APP_STRIPE_SECRET_TEST}`,
+					"Content-Type": "application/json",
+				},
+			});
+		} catch (error) {
+			console.error("Error fetching customers:", error);
+		}
+	};
 
 	const handleDiscount = async (e) => {
 		setDiscountCode(e.target.value);
@@ -704,15 +557,14 @@ export const CheckoutForm2 = (props) => {
 				stripe
 					.confirmCardPayment(res1.data?.data?.clientSecret)
 					.then(async (res2) => {
-						console.log("res2 >>>>>>>>>", res2)
 						if (res2?.paymentIntent?.status == "succeeded") {
-							// let _billingData = ""
-							// if (res1?.data?.data?.paymentIntent?.charges?.data[0]?.billing_details != undefined) {
-							// 	_billingData = res1.data?.data?.paymentIntent?.charges?.data[0]?.billing_details;
-							// } else {
-							// 	_billingData = detail_data
-							// }
-							get_cus(res1.data?.data?.paymentIntent, detail_data, res1.data?.data?.subscriptionId);
+							let _billingData = ""
+							if (res1?.data?.data?.paymentIntent?.charges?.data[0]?.billing_details != undefined) {
+								_billingData = res1.data?.data?.paymentIntent?.charges?.data[0]?.billing_details;
+							} else {
+								_billingData = detail_data
+							}
+							purchase(res1.data?.data?.paymentIntent, _billingData);
 							toast.success("Subscription Payment Successful!");
 						} else if (res2?.error) {
 							toast.error("Payment failed");
@@ -729,25 +581,9 @@ export const CheckoutForm2 = (props) => {
 			console.log(error);
 		}
 	};
-	const get_cus = async (data, _billingData, subscriptionIdd) => {
-		let response = {}
-		try {
-			response = await axios.get(stripe_costumer + "/" + subscriptionIdd, {
-				headers: {
-					Authorization:
-						`Bearer ${process.env.REACT_APP_STRIPE_SECRET_TEST}`,
-					"Content-Type": "application/json",
-				},
-			});
-		} catch (error) {
-			console.error("Error fetching customers:", error);
-		}
-		purchase(data, _billingData, subscriptionIdd, response.data)
-		console.log(response.data);
-	};
-	// console.log(detail_data.address.country , "hey budy")
-	const purchase = (data, _billingData, subscriptionIdd, subscriptiondata) => {
 
+	// console.log(detail_data.address.country , "hey budy")
+	const purchase = (data, _billingData) => {
 		var myHeaders = new Headers();
 		myHeaders.append(
 			"Authorization",
@@ -764,9 +600,8 @@ export const CheckoutForm2 = (props) => {
 			plan_type: props?.planType ? props?.planType : null,
 			payment_status: 'succeeded',
 			billing_details: _billingData,
-			res: props?.plan ? subscriptiondata : null,
-			subscriptionId: props?.plan
-				? subscriptionIdd
+			recurring_payment: props?.plan
+				? data.charges?.data[0]?.billing_details
 				: null,
 			promo_code: isValidCode ? discountCode : null,
 			discount: isValidCode ? discount : null,
@@ -790,7 +625,7 @@ export const CheckoutForm2 = (props) => {
 			} `,
 			{
 				method: "POST",
-				body: JSON.stringify(paymentdata),
+				body: raw,
 				headers: myHeaders,
 				redirect: "follow",
 			}
@@ -799,19 +634,14 @@ export const CheckoutForm2 = (props) => {
 			.then((result) => {
 				// toast.success("Purchase Successful");
 				// setTimeout(function () { window.location.reload(false) }, 2000);
-				// if (state?.meeting_id == undefined) {
-				// 	navigate("/dashboard");
-				// } else {
-				// 	navigate("/confirmed-meeting/supplier");
-				// }
+				if (state?.meeting_id == undefined) {
+					navigate("/dashboard");
+				} else {
+					navigate("/confirmed-meeting/supplier");
+				}
 			})
 			.catch((error) => {
 				console.log("error", error);
-				// if (state?.meeting_id == undefined) {
-				// 	navigate("/dashboard");
-				// } else {
-				// 	navigate("/confirmed-meeting/supplier");
-				// }
 			});
 	};
 	// axios.post('https://adminbm.health-and-beauty.fr/api/v1/supplier-meeting-payment')
@@ -1032,8 +862,6 @@ export const CheckoutForm2 = (props) => {
 							</ul>
 						</div>
 						<h2>Payment Form</h2>
-						<button onClick={(e) => handleSubmitNew(e)}>submit</button>
-
 						<form className="payment_form_wrap">
 							<div className="form-group">
 								<input
