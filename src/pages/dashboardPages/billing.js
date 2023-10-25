@@ -203,7 +203,7 @@ function Billing() {
 													</td>
 													<td>{moment(item?.date).format("DD-MM-YYYY")}</td>
 													<td>{item?.invoice_number}</td>
-													<td>€{item?.amount}</td>
+													<td>€{(item?.amount)?.includes(".00") ? item?.amount?.split(".00")[0] : item?.amount }</td>
 													<td>{item?.title}</td>
 													<td>{item.productName?.product_name ?? ""}</td>
 													<td>
