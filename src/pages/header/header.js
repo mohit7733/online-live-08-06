@@ -314,13 +314,12 @@ function Header() {
 					</li>
 					<ul className="sub__menu term">
 						<li>
-							<a> Privacy and Terms</a>
-							{/* <a href="/privacy-terms"> Privacy and Terms</a> */}
+							{/* <a> Privacy and Terms</a> */}
+							<a href="/privacy-terms"> Privacy and Terms</a>
 						</li>
 						<li>
-							<a>Cookies Preferences</a>
-
-							{/* <a href="/cookies-policy">Cookies Preferences</a> */}
+							{/* <a>Cookies Preferences</a> */}
+							<a href="/cookies-policy">Cookies Preferences</a>
 						</li>
 					</ul>
 				</div>

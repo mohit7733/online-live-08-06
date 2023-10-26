@@ -274,9 +274,9 @@ function Invoicepage() {
 										lineHeight: "1.4em",
 										color: "#a7a7a7",
 									}}
-									href="mailto:info@health-and-beauty.fr"
+									href="mailto:contact@beauty-meetings.com"
 								>
-									• info@health-and-beauty.fr
+									• contact@beauty-meetings.com
 								</a>
 								• RCS Paris • Siren 812 800 563 • N° TVA Intracommunautaire: FR
 								84 812 800 563 • Code NAF: 8230Z • IBAN FR76 3006 6109 1200 0201
