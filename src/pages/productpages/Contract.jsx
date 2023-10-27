@@ -84,7 +84,7 @@ function Contract() {
 						.then((res) => {
 							if (res?.status === "true") {
 								localStorage.removeItem("created_from");
-								if (localStorage.removeItem("user_type") === "Buyer") {
+								if (localStorage.getItem("user_type") === "Buyer") {
 									navigate("/buyer-company-profile");
 								} else {
 									navigate("/dashboard");
@@ -103,7 +103,7 @@ function Contract() {
 					if (showCompanyProfile) {
 						navigate("/company-Information-fill");
 					} else {
-						if (localStorage.removeItem("user_type") === "Buyer") {
+						if (localStorage.getItem("user_type") === "Buyer") {
 							navigate("/buyer-company-profile");
 						} else {
 							navigate("/dashboard");
