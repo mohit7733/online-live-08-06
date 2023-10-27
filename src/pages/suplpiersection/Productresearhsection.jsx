@@ -659,14 +659,14 @@ function Productresearchsection(props) {
 							<a href="/dashboard">Dashboard </a>
 						</li>
 						<li>
-							<a href="/dashboard">
-								{user_type == "both"
+							<a href="/dashboard">Buyer
+								{/* {user_type == "both"
 									? "Supplier"
 									: user_type == "buyer"
 									? "Buyer"
 									: user_type == "supplier"
 									? "Supplier"
-									: ""}
+									: ""} */}
 							</a>
 						</li>
 						<li>

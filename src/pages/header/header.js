@@ -279,7 +279,7 @@ function Header() {
 							</a>
 						</li>
 						<ul
-							className="sub__menu information_sub"
+							className="sub__menu profile_sub"
 							style={showmenu == false ? { display: "none" } : {}}
 						>
 							<li>
