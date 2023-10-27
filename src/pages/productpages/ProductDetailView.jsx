@@ -1096,7 +1096,7 @@ function ProductDetailView(props) {
 										<h2>Profile</h2>
 										<div className="row justify-content-between">
 											<div className="col_left last-contnt">
-												{productData?.questions?.map((item) => {
+												{productData?.questions?.sort((a,b )=> a?.product_question_id - b?.product_question_id).map((item) => {
 													if(item?.answer == "null") return
 													if (item?.type.toLowerCase() == "checkbox") {
 														try {
