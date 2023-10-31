@@ -206,13 +206,13 @@ function Login() {
               console.log(error);
             });
         } else {
-          setTimeout(() => {
-            if (result.data?.user_type?.toLowerCase() === "buyer") {
-              navigate("/buyer-company-profile");
-            } else {
-              // navigate("/dashboard");
-            }
-          }, 3000);
+          // setTimeout(() => {
+          //   if (result.data?.user_type?.toLowerCase() === "buyer") {
+          //     navigate("/buyer-company-profile");
+          //   } else {
+          //     // navigate("/dashboard");
+          //   }
+          // }, 3000);
         }
 
         // Retrieve user data using Axios GET request
