@@ -3,6 +3,8 @@ import ReactToPrint from "react-to-print";
 import { api } from "../base_url";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import moment from "moment";
 import { country } from "../dashboard/country";
 import "./invoice.css";
@@ -53,7 +55,7 @@ function Invoicepage() {
 	})[0];
 	// console.log(
 	//   billingdata,
-	//   country?.data?.filter((data) => {
+	//   country?.data?.filter((data) => { 
 	//     return data?.code == personaldata?.address?.country;
 	//   })[0],
 	//   "<<<<<<<<",
@@ -61,11 +63,21 @@ function Invoicepage() {
 	// );
 
 	console.log("**************** invoice page *****************");
-
+const downloadPdf = () => {
+const input = document.getElementById("invoice")
+html2canvas(input,{scale:2})
+        .then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('l','cm','a4');
+			// const width = pdf.internal.pageSize.getWidth();
+            const height = pdf.internal.pageSize.getHeight();
+            pdf.addImage(imgData, 'JPEG',4.5,0,21,height);
+            pdf.save("invoice.pdf");});
+};
 	return (
 		<>
-			<div className="mainDiv" ref={componentRef}>
-				<table>
+			<div className="mainDiv" ref={componentRef}>	
+				<table id="invoice">
 					<tr>
 						<td>
 							<table className="table_1">
@@ -120,7 +132,7 @@ function Invoicepage() {
 											{/* {country_Name?.country} */}
 										</p>
 										<p>
-											<a href="tel:+91 80057 00764">
+											<a href={`tel:${personaldata?.phone}`}>
 												{" "}
 												{/* {country_Name?.dial_code + "-"} */}
 												{personaldata?.phone}
@@ -128,8 +140,7 @@ function Invoicepage() {
 										</p>
 										<p>
 											<a
-												href="mailto:mohitbeniwal68@gmail.com
-                            "
+												href={`mailto:${personaldata?.email}`}
 											>
 												{personaldata?.email}
 											</a>
@@ -285,10 +296,11 @@ function Invoicepage() {
 						</td>
 					</tr>
 				</table>
-				<ReactToPrint
-					trigger={() => <button className="print_btn">Download</button>}
+				<button onClick={downloadPdf} className="print_btn">Download</button>
+				{/* <ReactToPrint
+					trigger={() => <button  className="print_btn">Download</button>}
 					content={() => componentRef.current}
-				/>
+				/> */}
 			</div>
 		</>
 	);
