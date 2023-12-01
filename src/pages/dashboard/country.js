@@ -568,7 +568,7 @@ export const country = {
 			country: "Greece",
 			dial_code: "+30",
 			flag: "flags/Greece.png",
-			code: "GR",
+			code: "EL",
 			continent: "Europe",
 		},
 		{

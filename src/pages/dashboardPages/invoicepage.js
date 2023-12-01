@@ -165,7 +165,7 @@ html2canvas(input,{scale:2})
 									</td>
 									<td>
 										<p>Payment type: Online payment</p>
-										{/* <p>VAT: {billingdata?.vatno}</p> */}
+										<p>VAT: {billingdata?.vatno}</p>
 									</td>
 								</tr>
 
@@ -218,7 +218,7 @@ html2canvas(input,{scale:2})
 									<tr>
 										<td className="ht_40"></td>
 									</tr>
-									{/* <tr className="tr_2">
+									<tr className="tr_2">
 										<td></td>
 										<td className="css_2">Sub total before VAT €</td>
 										<td className="css_2"></td>
@@ -228,14 +228,14 @@ html2canvas(input,{scale:2})
 												billingdata?.vatamt : billingdata?.amount - billingdata?.vatamt}
 											.00
 										</td>
-									</tr> */}
-									{/* <tr>
+									</tr>
+									<tr>
 										<td></td>
 										<td className="css_2">VAT €</td>
 										<td className="css_2"></td>
 										<td className="css_2"> {billingdata?.vatamt}.00</td>
-									</tr> */}
-									{/* <tr>
+									</tr>
+									<tr>
 										<td></td>
 										<td className="css_2">Total including VAT €</td>
 										<td className="css_2"></td>
@@ -244,9 +244,9 @@ html2canvas(input,{scale:2})
 												? parseInt(billingdata?.amount) +
 												  parseInt(billingdata?.endDate?.discount_amount)
 												: billingdata?.amount}
-											.00
+											
 										</td>
-									</tr> */}
+									</tr>
 									{billingdata?.endDate?.discount_amount && (
 										<tr>
 											<td></td>
@@ -275,7 +275,7 @@ html2canvas(input,{scale:2})
 								</tbody>
 							</table>
 							<p
-								style={{ fontSize: 14, lineHeight: "1.4em", color: "#a7a7a7" }}
+								style={{paddingTop:240, fontSize: 14, lineHeight: "1.4em", color: "#a7a7a7" }}
 							>
 								SARL au Capital de 10.000 € • Siège Social: HEALTH AND BEAUTY
 								FRANCE, 5 rue Geoffroy Marie, 75009 Paris, France • Email:{" "}
@@ -296,12 +296,12 @@ html2canvas(input,{scale:2})
 						</td>
 					</tr>
 				</table>
-				<button onClick={downloadPdf} className="print_btn">Download</button>
+<button onClick={downloadPdf} className="print_btn">Download</button>
 				{/* <ReactToPrint
 					trigger={() => <button  className="print_btn">Download</button>}
 					content={() => componentRef.current}
 				/> */}
-			</div>
+							</div>
 		</>
 	);
 }

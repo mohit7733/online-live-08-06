@@ -230,6 +230,7 @@ export const CheckoutForm2 = (props) => {
 		isCity: false,
 		isPostalcode: false,
 		isMobile: false,
+		vat: false,
 	});
 	const [checkbox, setCheckbox] = useState(true);
 
@@ -251,7 +252,7 @@ export const CheckoutForm2 = (props) => {
 		"ES",
 		"EE",
 		"FI",
-		"GR",
+		"EL",
 		"HU",
 		"IE",
 		"IT",
@@ -297,39 +298,63 @@ export const CheckoutForm2 = (props) => {
 		// 		});
 	}, [vat]);
 
+	useEffect(() => {
+		if (countryCode != detail_data.address.country && vat != "" && isValidVat) {
+			setVatError(true);
+			setIsValidVat(false);
+			setTimeout(() => setVatError(false), 5000);
+		}
+	}, [detail_data.address.country]);
+
 	const checkVat = () => {
 		setVatLoading(true);
-		axios
-			.get(`${Vat_check_api}=${vat}`)
-			.then(
-				(res) => {
-					if (res.data.valid === true) {
-						setCountryCode(res.data.country_code);
-						if (coutnry_list.includes(res.data.country_code)) {
-							setVatError(false);
-							setIsValidVat(true);
-						}
-						if (res.data.country_code != detail_data.address.country) {
-							setVatError(true);
-							setIsValidVat(false);
-						}
-						setVatLoading(false);
-					} else {
+		var myHeaders = new Headers();
+		myHeaders.append(
+			"Authorization",
+			"Bearer " + localStorage.getItem("token")
+		);
+		myHeaders.append("Content-Type", "application/json");
+		myHeaders.append(
+			"Cookie",
+			"onlinebeauty_session=" + localStorage.getItem("token")
+		);
+		fetch(`${api}/api/v1/check-vat`, {
+			method: "POST",
+			body: JSON.stringify({ vat_number: vat }),
+			headers: myHeaders,
+			redirect: "follow",
+		})
+			.then((res) => res.json())
+			.then((result) => {
+				if (result?.Vies == true) {
+					setCountryCode(result?.country_code);
+					if (coutnry_list.includes(result?.country_code)) {
+						setVatError(false);
+						setIsValidVat(true);
+					}
+					if (result?.country_code != detail_data.address.country) {
 						setVatError(true);
 						setIsValidVat(false);
-						e = true;
-						setVatLoading(false);
+						setTimeout(() => setVatError(false), 2000);
 					}
-				},
-				[vat]
-			)
+					setVatLoading(false);
+				} else {
+					setVatError(true);
+					setIsValidVat(false);
+					setTimeout(() => setVatError(false), 2000);
+					e = true;
+					setVatLoading(false);
+				}
+			})
 			.catch((error) => {
+				console.log("error", error);
 				setVatError(true);
 				setIsValidVat(false);
+				setTimeout(() => setVatError(false), 2000);
 				setVatLoading(false);
 				e = true;
 			});
-	};
+			};
 
 	// calculate ammount
 	const handleTermsLinkClick = () => {
@@ -340,73 +365,73 @@ export const CheckoutForm2 = (props) => {
 		let _amount = amount;
 		// Calculate the amount based on your conditions
 		if (detail_data?.address?.country == "FR") {
-			// _amount =
-			// 	(texdata.filter(
-			// 		(data) => data.country === detail_data.address.country
-			// 	)[0]
-			// 		? _amount +
-			// 		  _amount *
-			// 				texdata.filter(
-			// 					(data) => data.country === detail_data.address.country
-			// 				)[0].percentage
-			// 		: _amount) *
-			// 		100 +
-			// 	_amount * 20;
-			// if (isValidCode != true) {
-			// 	setAmountIncludingVat(Math.round(_amount / 100));
-			// }
-			// setfinal_amount_show(Math.round(_amount / 100));
-			// return _amount;
+			_amount =
+				(texdata.filter(
+					(data) => data.country === detail_data.address.country
+				)[0]
+					? _amount +
+					  _amount *
+							texdata.filter(
+								(data) => data.country === detail_data.address.country
+							)[0].percentage
+					: _amount) *
+					100 +
+				_amount * 20;
+			if (isValidCode != true) {
+				setAmountIncludingVat(Math.round(_amount / 100));
+			}
+			setfinal_amount_show(Math.round(_amount / 100));
+			return _amount;
 		}
 		if (!coutnry_list.includes(detail_data.address.country)) {
-			// _amount = texdata.filter(
-			// 	(data) =>
-			// 		data.country === detail_data.address.country &&
-			// 		detail_data.address.country !== "IN"
-			// )[0]?.percentage
-			// 	? _amount * 100 +
-			// 	  ((_amount *
-			// 			texdata.filter(
-			// 				(data) => data.country === detail_data.address.country
-			// 			)[0].percentage) /
-			// 			100) *
-			// 			100
-			// 	: _amount * 100;
+			_amount = texdata.filter(
+				(data) =>
+					data.country === detail_data.address.country &&
+					detail_data.address.country !== "IN"
+			)[0]?.percentage
+				? _amount * 100 +
+				  ((_amount *
+						texdata.filter(
+							(data) => data.country === detail_data.address.country
+						)[0].percentage) /
+						100) *
+						100
+				: _amount * 100;
 		} else if (
 			vatError === false &&
 			showVat === true &&
 			isValidVat &&
 			coutnry_list.includes(detail_data.address.country)
 		) {
-			// _amount = texdata.filter(
-			// 	(data) => data.country === detail_data.address.country
-			// )[0]?.percentage
-			// 	? _amount +
-			// 	  ((_amount *
-			// 			texdata.filter(
-			// 				(data) => data.country === detail_data.address.country
-			// 			)[0].percentage) /
-			// 			100) *
-			// 			100
-			// 	: _amount * 100;
+			_amount = texdata.filter(
+				(data) => data.country === detail_data.address.country
+			)[0]?.percentage
+				? _amount +
+				  ((_amount *
+						texdata.filter(
+							(data) => data.country === detail_data.address.country
+						)[0].percentage) /
+						100) *
+						100
+				: _amount * 100;
 		} else {
-			// _amount =
-			// 	(texdata.filter(
-			// 		(data) => data.country === detail_data.address.country
-			// 	)[0]
-			// 		? _amount +
-			// 		  _amount *
-			// 				texdata.filter(
-			// 					(data) => data.country === detail_data.address.country
-			// 				)[0].percentage
-			// 		: _amount) *
-			// 		100 +
-			// 	_amount * 20;
+			_amount =
+				(texdata.filter(
+					(data) => data.country === detail_data.address.country
+				)[0]
+					? _amount +
+					  _amount *
+							texdata.filter(
+								(data) => data.country === detail_data.address.country
+							)[0].percentage
+					: _amount) *
+					100 +
+				_amount * 20;
 		}
-		// if (isValidCode != true) {
-		// 	setAmountIncludingVat(Math.round(_amount / 100));
-		// }
-		setfinal_amount_show(Math.round(_amount));
+		if (isValidCode != true) {
+			setAmountIncludingVat(Math.round(_amount / 100));
+		}
+		setfinal_amount_show(Math.round(_amount / 100));
 		// setfinal_amount_show(_amount)
 		return Math.round(_amount);
 	};
@@ -476,6 +501,12 @@ export const CheckoutForm2 = (props) => {
 			errors.isMobile = false;
 		}
 
+		if (showVat && vat == "") {
+			errors.vat = true;
+		} else {
+			errors.vat = false;
+		}
+
 		document.querySelectorAll(".form-control.payformd").forEach(function (i) {
 			if (i.classList.contains("StripeElement--empty")) {
 				i.classList.add("error-active");
@@ -508,6 +539,7 @@ export const CheckoutForm2 = (props) => {
 			fieldErrors?.isPostalcode === true ||
 			fieldErrors?.isMobile === true ||
 			fieldErrors?.isName === true ||
+			fieldErrors?.vat === true ||
 			checkbox === true
 		) {
 			// code here for handling any of the error conditions
@@ -532,6 +564,9 @@ export const CheckoutForm2 = (props) => {
 		const cardNumberElement = elements.getElement(CardNumberElement);
 		const cardExpiryElement = elements.getElement(CardExpiryElement);
 		const cardCvcElement = elements.getElement(CardCvcElement);
+		if(detail_data?.address?.country == "EL") {
+			detail_data.address.country = "GB"
+		}
 		const { error, paymentMethod } = await stripe.createPaymentMethod({
 			type: "card",
 			card: cardNumberElement,
@@ -546,7 +581,7 @@ export const CheckoutForm2 = (props) => {
 			setPaymentLoading(false);
 			return;
 		}
-
+		
 		if (state?.plan != "" && typeof state?.plan === "string" && !error) {
 			if (state?.plan === "month") {
 				await recurringSubscription(paymentMethod, undefined, "month");
@@ -570,7 +605,9 @@ export const CheckoutForm2 = (props) => {
 					const response = await axios.post(
 						`${stripe_charge}`,
 						{
-							amount: isValidCode ? final_amount_show * 100 : calculateAmount() * 100,
+							amount: isValidCode
+								? final_amount_show * 100
+								: calculateAmount() * 100,
 							id: id,
 							currency: "EUR",
 							description: "All Payments Done by " + detail_data.name,
@@ -581,7 +618,6 @@ export const CheckoutForm2 = (props) => {
 						stripe
 							.confirmCardPayment(response?.data?.payment?.client_secret)
 							.then(async (res2) => {
-								console.log("res2 >>>>>>>>>", res2)
 								if (
 									res2?.paymentIntent != undefined &&
 									res2?.paymentIntent != null
@@ -621,8 +657,6 @@ export const CheckoutForm2 = (props) => {
 		}
 		setPaymentLoading(false);
 	};
-
-
 
 	const handleDiscount = async (e) => {
 		setDiscountCode(e.target.value);
@@ -704,7 +738,6 @@ export const CheckoutForm2 = (props) => {
 				stripe
 					.confirmCardPayment(res1.data?.data?.clientSecret)
 					.then(async (res2) => {
-						console.log("res2 >>>>>>>>>", res2)
 						if (res2?.paymentIntent?.status == "succeeded") {
 							// let _billingData = ""
 							// if (res1?.data?.data?.paymentIntent?.charges?.data[0]?.billing_details != undefined) {
@@ -712,7 +745,11 @@ export const CheckoutForm2 = (props) => {
 							// } else {
 							// 	_billingData = detail_data
 							// }
-							get_cus(res1.data?.data?.paymentIntent, detail_data, res1.data?.data?.subscriptionId);
+							get_cus(
+								res1.data?.data?.paymentIntent,
+								detail_data,
+								res1.data?.data?.subscriptionId
+							);
 							toast.success("Subscription Payment Successful!");
 						} else if (res2?.error) {
 							toast.error("Payment failed");
@@ -730,24 +767,22 @@ export const CheckoutForm2 = (props) => {
 		}
 	};
 	const get_cus = async (data, _billingData, subscriptionIdd) => {
-		let response = {}
+		let response = {};
 		try {
 			response = await axios.get(stripe_costumer + "/" + subscriptionIdd, {
 				headers: {
-					Authorization:
-						`Bearer ${process.env.REACT_APP_STRIPE_SECRET_TEST}`,
+					Authorization: `Bearer ${process.env.REACT_APP_STRIPE_SECRET_TEST}`,
 					"Content-Type": "application/json",
 				},
 			});
 		} catch (error) {
 			console.error("Error fetching customers:", error);
 		}
-		purchase(data, _billingData, subscriptionIdd, response.data)
+		purchase(data, _billingData, subscriptionIdd, response.data);
 		console.log(response.data);
 	};
 	// console.log(detail_data.address.country , "hey budy")
 	const purchase = (data, _billingData, subscriptionIdd, subscriptiondata) => {
-
 		var myHeaders = new Headers();
 		myHeaders.append(
 			"Authorization",
@@ -762,12 +797,10 @@ export const CheckoutForm2 = (props) => {
 
 		var raw = JSON.stringify({
 			plan_type: props?.planType ? props?.planType : null,
-			payment_status: 'succeeded',
+			payment_status: "succeeded",
 			billing_details: _billingData,
 			res: props?.plan ? subscriptiondata : null,
-			subscriptionId: props?.plan
-				? subscriptionIdd
-				: null,
+			subscriptionId: props?.plan ? subscriptionIdd : null,
 			promo_code: isValidCode ? discountCode : null,
 			discount: isValidCode ? discount : null,
 			discount_amount: isValidCode ? discountAmount : null,
@@ -784,9 +817,10 @@ export const CheckoutForm2 = (props) => {
 		});
 
 		fetch(
-			`${api}/api/v1/${state?.meeting_id == undefined
-				? "addpaymentsdetail"
-				: "supplier-meeting-payment"
+			`${api}/api/v1/${
+				state?.meeting_id == undefined
+					? "addpaymentsdetail"
+					: "supplier-meeting-payment"
 			} `,
 			{
 				method: "POST",
@@ -807,11 +841,6 @@ export const CheckoutForm2 = (props) => {
 			})
 			.catch((error) => {
 				console.log("error", error);
-				// if (state?.meeting_id == undefined) {
-				// 	navigate("/dashboard");
-				// } else {
-				// 	navigate("/confirmed-meeting/supplier");
-				// }
 			});
 	};
 	// axios.post('https://adminbm.health-and-beauty.fr/api/v1/supplier-meeting-payment')
@@ -1032,15 +1061,14 @@ export const CheckoutForm2 = (props) => {
 							</ul>
 						</div>
 						<h2>Payment Form</h2>
-						{/* <button onClick={(e) => handleSubmitNew(e)}>submit</button> */}
-
 						<form className="payment_form_wrap">
 							<div className="form-group">
 								<input
 									type="text"
 									placeholder="Name *"
-									className={`form-control ${error?.isName == true ? "error-active" : ""
-										}`}
+									className={`form-control ${
+										error?.isName == true ? "error-active" : ""
+									}`}
 									value={detail_data?.name}
 									name="name"
 									onChange={(e) => {
@@ -1061,8 +1089,9 @@ export const CheckoutForm2 = (props) => {
 								<input
 									type="email"
 									placeholder="Email *"
-									className={`form-control ${error?.isEmailValid == true ? "error-active" : ""
-										}`}
+									className={`form-control ${
+										error?.isEmailValid == true ? "error-active" : ""
+									}`}
 									value={detail_data?.email}
 									onChange={(e) => {
 										setdetail_data({ ...detail_data, email: e.target.value });
@@ -1072,7 +1101,7 @@ export const CheckoutForm2 = (props) => {
 											error.isEmailValid = false;
 										}
 									}}
-								// required
+									// required
 								/>
 							</div>
 							<div className="form-group">
@@ -1080,8 +1109,9 @@ export const CheckoutForm2 = (props) => {
 									type="text"
 									placeholder="Address *"
 									value={detail_data?.address?.line1}
-									className={`form-control ${error?.isAddress == true ? "error-active" : ""
-										}`}
+									className={`form-control ${
+										error?.isAddress == true ? "error-active" : ""
+									}`}
 									onChange={(e) => {
 										setdetail_data({
 											...detail_data,
@@ -1096,14 +1126,15 @@ export const CheckoutForm2 = (props) => {
 											error.isAddress = false;
 										}
 									}}
-								// required
+									// required
 								/>
 							</div>
 							<div className="row justify-content-between">
 								<div className="column pd-b">
 									<div
-										className={`form-control custom-select ${error?.isCountry == true ? "error-active" : ""
-											}`}
+										className={`form-control custom-select ${
+											error?.isCountry == true ? "error-active" : ""
+										}`}
 									>
 										<select
 											value={detail_data.address.country}
@@ -1156,8 +1187,9 @@ export const CheckoutForm2 = (props) => {
 											type="text"
 											placeholder="City *"
 											value={detail_data?.address?.city}
-											className={`form-control ${error?.isCity == true ? "error-active" : ""
-												}`}
+											className={`form-control ${
+												error?.isCity == true ? "error-active" : ""
+											}`}
 											onChange={(e) => {
 												setdetail_data({
 													...detail_data,
@@ -1175,7 +1207,7 @@ export const CheckoutForm2 = (props) => {
 													error.isCity = false;
 												}
 											}}
-										// required
+											// required
 										/>
 									</div>
 								</div>
@@ -1186,8 +1218,9 @@ export const CheckoutForm2 = (props) => {
 											type="text"
 											placeholder="Postal Code *"
 											value={detail_data?.address?.postal_code}
-											className={`form-control ${error?.isPostalcode == true ? "error-active" : ""
-												}`}
+											className={`form-control ${
+												error?.isPostalcode == true ? "error-active" : ""
+											}`}
 											onKeyPress={(e) => {
 												const pattern = /[0-9a-zA-Z]/; // Updated pattern to include numerics (0-9) and alphabets (a-z, A-Z)
 												const enteredValue = e.target.value + e.key;
@@ -1223,7 +1256,7 @@ export const CheckoutForm2 = (props) => {
 													error.isPostalcode = false;
 												}
 											}}
-										// required
+											// required
 										/>
 									</div>
 								</div>
@@ -1232,8 +1265,9 @@ export const CheckoutForm2 = (props) => {
 										<input
 											type="tel"
 											placeholder="Phone Number *"
-											className={`form-control ${error?.isMobile == true ? "error-active" : ""
-												}`}
+											className={`form-control ${
+												error?.isMobile == true ? "error-active" : ""
+											}`}
 											value={detail_data?.phone}
 											onKeyPress={(e) => {
 												const pattern = /[0-9]/;
@@ -1267,7 +1301,7 @@ export const CheckoutForm2 = (props) => {
 													error.isMobile = false;
 												}
 											}}
-										// required
+											// required
 										/>
 									</div>
 								</div>
@@ -1417,7 +1451,7 @@ export const CheckoutForm2 = (props) => {
 									disabled={true}
 								/>
 							</div>
-							{/* <div className="radio_btn row">
+							<div className="radio_btn row">
 								<p>
 									Do you have VAT number?{" "}
 									<span
@@ -1481,8 +1515,8 @@ export const CheckoutForm2 = (props) => {
 										</li>
 									</ul>
 								</div>
-							</div> */}
-							{/* <div
+							</div>
+							<div
 								className="form-group toggle-form-box"
 								style={showVat ? {} : { display: "none" }}
 							>
@@ -1490,19 +1524,23 @@ export const CheckoutForm2 = (props) => {
 									<input
 										type="text"
 										placeholder="VAT Number"
-										className="form-control"
+										// className="form-control"
 										value={vat}
 										onChange={(event) => {
 											setVat(event.target.value);
 											if (isValidVat) {
 												setIsValidVat(false);
 												setVatError(true);
+												setTimeout(() => setVatError(false), 2000);
 											}
 										}}
 										style={{
 											borderBottom:
 												vatError && !isValidVat ? "1px solid red" : "",
 										}}
+										className={`form-control ${
+											error?.vat == true ? "error-active" : ""
+										}`}
 									/>
 									<button
 										onClick={(e) => {
@@ -1520,15 +1558,12 @@ export const CheckoutForm2 = (props) => {
 								) : (
 									""
 								)}
-								{(vatError && !isValidVat && vat != "") ||
-								(countryCode != detail_data.address.country &&
-									vat != "" &&
-									isValidVat) ? (
+								{vatError && !isValidVat && vat != "" ? (
 									<h6 style={{ color: "red" }}>VAT Number is Not Valid</h6>
 								) : (
 									isValidVat && <h6>Vat number is valid</h6>
 								)}
-							</div> */}
+							</div>
 							<div className="form-group">
 								<label>Discount Code: </label>
 								<div style={{ position: "relative" }}>
@@ -1669,8 +1704,8 @@ export const CheckoutForm2 = (props) => {
 									(data) => data.country == detail_data.address.country
 								)[0]
 									? texdata?.filter(
-										(data) => data.country == detail_data.address.country
-									)[0].percentage
+											(data) => data.country == detail_data.address.country
+									  )[0].percentage
 									: 0}
 								% (inclusive) :
 							</strong>{" "}
@@ -1678,11 +1713,11 @@ export const CheckoutForm2 = (props) => {
 								(data) => data.country == detail_data.address.country
 							)[0]
 								? "€" +
-								(amount *
-									texdata?.filter(
-										(data) => data.country == detail_data.address.country
-									)[0].percentage) /
-								100
+								  (amount *
+										texdata?.filter(
+											(data) => data.country == detail_data.address.country
+										)[0].percentage) /
+										100
 								: "€" + 0}
 						</label>
 					</div>
@@ -1693,12 +1728,12 @@ export const CheckoutForm2 = (props) => {
 								(data) => data.country == detail_data.address.country
 							)[0]
 								? "€" +
-								(amount +
-									(amount *
-										texdata.filter(
-											(data) => data.country == detail_data.address.country
-										)[0].percentage) /
-									100)
+								  (amount +
+										(amount *
+											texdata.filter(
+												(data) => data.country == detail_data.address.country
+											)[0].percentage) /
+											100)
 								: "€" + amount}
 						</label>
 					</div>
