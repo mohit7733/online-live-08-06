@@ -3,8 +3,8 @@ import ReactToPrint from "react-to-print";
 import { api } from "../base_url";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import moment from "moment";
 import { country } from "../dashboard/country";
 import "./invoice.css";
@@ -55,7 +55,7 @@ function Invoicepage() {
 	})[0];
 	// console.log(
 	//   billingdata,
-	//   country?.data?.filter((data) => { 
+	//   country?.data?.filter((data) =>
 	//     return data?.code == personaldata?.address?.country;
 	//   })[0],
 	//   "<<<<<<<<",
@@ -63,21 +63,26 @@ function Invoicepage() {
 	// );
 
 	console.log("**************** invoice page *****************");
-const downloadPdf = () => {
-const input = document.getElementById("invoice")
-html2canvas(input,{scale:2})
-        .then((canvas) => {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF('l','cm','a4');
-			// const width = pdf.internal.pageSize.getWidth();
-            const height = pdf.internal.pageSize.getHeight();
-            pdf.addImage(imgData, 'JPEG',4.5,0,21,height);
-            pdf.save("invoice.pdf");});
-};
+	const downloadPdf = () => {
+		const input = document.getElementById("invoice");
+		const button = document.getElementById("button");
+		html2canvas(input, {
+			scale: 2,
+			exclude: button,
+		}).then((canvas) => {
+			const imgData = canvas.toDataURL("image/png");
+			const pdf = new jsPDF("p", "cm", "a4");
+			const width = pdf.internal.pageSize.getWidth();
+			const imgAspectRatio = canvas.width / canvas.height;
+			const pdfHeight = width / imgAspectRatio;
+			pdf.addImage(imgData, "JPEG", 0, 2, width, pdfHeight);
+			pdf.save("invoice.pdf");
+		});
+	};
 	return (
 		<>
-			<div className="mainDiv" ref={componentRef}>	
-				<table id="invoice">
+			<div className="mainDiv" id="invoice" ref={componentRef}>
+				<table className="table_1">
 					<tr>
 						<td>
 							<table className="table_1">
@@ -113,8 +118,8 @@ html2canvas(input,{scale:2})
 											{billingdata?.copy_billing_details != "1" ? (
 												<>
 													{" "}
-													{personaldata.address?.line1}{" "}
-													{", " + personaldata.address?.city + ","}{" "}
+													{personaldata.address?.line1}
+													{", " + personaldata.address?.city + ", "}
 													{personaldata.address?.postal_code}{" "}
 												</>
 											) : (
@@ -139,9 +144,7 @@ html2canvas(input,{scale:2})
 											</a>
 										</p>
 										<p>
-											<a
-												href={`mailto:${personaldata?.email}`}
-											>
+											<a href={`mailto:${personaldata?.email}`}>
 												{personaldata?.email}
 											</a>
 										</p>
@@ -223,9 +226,11 @@ html2canvas(input,{scale:2})
 										<td className="css_2">Sub total before VAT €</td>
 										<td className="css_2"></td>
 										<td className="css_2">
-											{billingdata?.endDate?.discount_amount ? parseInt(billingdata?.amount) +
-												parseInt(billingdata?.endDate?.discount_amount) -
-												billingdata?.vatamt : billingdata?.amount - billingdata?.vatamt}
+											{billingdata?.endDate?.discount_amount
+												? parseInt(billingdata?.amount) +
+												  parseInt(billingdata?.endDate?.discount_amount) -
+												  billingdata?.vatamt
+												: billingdata?.amount - billingdata?.vatamt}
 											.00
 										</td>
 									</tr>
@@ -244,7 +249,6 @@ html2canvas(input,{scale:2})
 												? parseInt(billingdata?.amount) +
 												  parseInt(billingdata?.endDate?.discount_amount)
 												: billingdata?.amount}
-											
 										</td>
 									</tr>
 									{billingdata?.endDate?.discount_amount && (
@@ -275,7 +279,12 @@ html2canvas(input,{scale:2})
 								</tbody>
 							</table>
 							<p
-								style={{paddingTop:240, fontSize: 14, lineHeight: "1.4em", color: "#a7a7a7" }}
+								style={{
+									paddingTop: 240,
+									fontSize: 14,
+									lineHeight: "1.4em",
+									color: "#a7a7a7",
+								}}
 							>
 								SARL au Capital de 10.000 € • Siège Social: HEALTH AND BEAUTY
 								FRANCE, 5 rue Geoffroy Marie, 75009 Paris, France • Email:{" "}
@@ -296,12 +305,19 @@ html2canvas(input,{scale:2})
 						</td>
 					</tr>
 				</table>
-<button onClick={downloadPdf} className="print_btn">Download</button>
 				{/* <ReactToPrint
 					trigger={() => <button  className="print_btn">Download</button>}
 					content={() => componentRef.current}
 				/> */}
-							</div>
+				<button
+					id="button"
+					data-html2canvas-ignore="true"
+					onClick={downloadPdf}
+					className="print_btn"
+				>
+					Download
+				</button>
+			</div>
 		</>
 	);
 }
