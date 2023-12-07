@@ -956,6 +956,10 @@ table tr td .fa-pen-to-square {
 	padding: 15px 0px 30px;
 }
 
+.banner-section .banner-slide .banner-text p ul li {
+	list-style-type: disc;
+}
+
 .banner-section .banner-slide .banner-text .button .btn {
 	margin-right: 20px;
 }
