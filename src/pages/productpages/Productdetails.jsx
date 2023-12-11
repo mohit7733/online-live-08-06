@@ -219,9 +219,10 @@ function Productdetails() {
 											: "button-wrapper style2"
 									}
 								>
-									<a href="#">
+									{/* <a href="#"> */}
 										<h3>Do you want more information?</h3>
-									</a>
+									{/* </a> */}
+									<p>You need to be a part of our distributors community</p>
 									<div className="button_row row align-items-center">
 										<a href="/login" className="btn btn-secondary">
 											Sign In
@@ -229,6 +230,23 @@ function Productdetails() {
 										<p>Or</p>
 										<a href="/login" className="btn btn-secondary btn-default">
 											Create a new account
+										</a>
+										<a
+											onClick={() => {
+												let e = document.getElementById("zsiq_float");
+												if (e) {
+													e?.click();
+												}
+											}}
+											style={{
+												fontStyle: "italic",
+												borderBottom: "1px solid grey",
+												marginTop: "50px",
+												color: "grey",
+												cursor: 'pointer'
+											}}
+										>
+											For any assistance, contact us via the chat bot below
 										</a>
 									</div>
 								</div>
