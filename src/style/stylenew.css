@@ -6767,7 +6767,8 @@ a.error_icon i {
 }
 
 .buyers_wrapper .grid-5 .column img {
-	width: 50%;
+	width: 60%;
+	object-fit: contain;
 }
 
 /* buyers page css end */
