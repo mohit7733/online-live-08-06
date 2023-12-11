@@ -76,7 +76,7 @@ function Theytrustedus() {
                                     return (
                                         <div className="grid-col aos-init aos-animate" data-aos="fade-in" key={index}>
                                             <div className="column">
-                                                <img src={api + "/assets/cms/" + logos.logo} title="" alt="" />
+                                                <img height="120px" src={api + "/assets/cms/" + logos.logo} title="" alt="" />
                                             </div>
                                             <h5>{logos.country}</h5>
 
