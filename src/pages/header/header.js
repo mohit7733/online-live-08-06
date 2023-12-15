@@ -72,7 +72,7 @@ function Header() {
 	return (
 		<>
 			<div className="header">
-				<div className="container">
+				<div className="container" style={{maxWidth: '1250px'}}>
 					<div
 						className="outsideClick"
 						onClick={() => outsideClick()}
@@ -100,16 +100,17 @@ function Header() {
 										<Link to="/how-does-it-work">How it works</Link>
 									</li>
 									<li onClick={() => showtoggle && setshowtoggle(false)}>
+										<a href="https://events.beauty-forum.fr/BeautyMeetingsParis" target="_blank">
+											Events
+										</a>
+									</li>
+									<li onClick={() => showtoggle && setshowtoggle(false)}>
 										<Link to="/buyers-at-a-glance">Buyers at a glance</Link>
 									</li>
 									<li onClick={() => showtoggle && setshowtoggle(false)}>
 										<Link to="/product-view">Showcased Products</Link>
 									</li>
-									<li
-										className="
-                  dropdown2 
-                  dropdown"
-									>
+									<li className="dropdown2 dropdown">
 										<Link to="#">
 											Content Library{" "}
 											<span>
