@@ -216,7 +216,7 @@ export const CheckoutForm2 = (props) => {
 		name: paymentCardData?.charges?.data[0]?.billing_details?.name,
 		phone: paymentCardData?.charges?.data[0]?.billing_details?.name,
 	});
-
+console.log("detail_data >>>>>>>>>>>>>>",detail_data)
 	// const [isEmailValid, setIsEmailValid] = useState();
 	// const [isName , setIsName] = useState()
 	// const validateEmail = (email) => {
@@ -250,6 +250,7 @@ export const CheckoutForm2 = (props) => {
 		"BE",
 		"BA",
 		"BG",
+		"SZ",
 		"CY",
 		"HR",
 		"DK",
@@ -439,6 +440,7 @@ export const CheckoutForm2 = (props) => {
 						100
 				: _amount * 100;
 		} else {
+			alert("4")
 			_amount =
 				(texdata.filter(
 					(data) => data.country === detail_data.address.country
