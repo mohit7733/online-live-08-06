@@ -440,7 +440,6 @@ console.log("detail_data >>>>>>>>>>>>>>",detail_data)
 						100
 				: _amount * 100;
 		} else {
-			alert("4")
 			_amount =
 				(texdata.filter(
 					(data) => data.country === detail_data.address.country
