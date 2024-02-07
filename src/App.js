@@ -170,7 +170,7 @@ function App() {
 						path="/product-details/:id/:name"
 						element={<Productdetails />}
 					/>
-					<Route path="/blog-detail/:id" element={<Blog_detail />} />
+					<Route path="/blog-detail/:id/:title" element={<Blog_detail />} />
 					<Route path="/our-videos" element={<Our_videos />} />
 					<Route path="/forgot-password" element={<Forgetpassword />} />
 					<Route
