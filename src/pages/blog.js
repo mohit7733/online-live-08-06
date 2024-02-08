@@ -77,9 +77,11 @@ function Blog() {
 			settheytrusted([...arr]);
 		}
 	}, [sortBy]);
+
 	useEffect(() => {
 		theytrusted_data();
 	}, [cateValue]);
+
 	const getCategory = () => {
 		axios
 			.get(api + "/api/blogsCategory")
@@ -90,9 +92,11 @@ function Blog() {
 				console.log(error);
 			});
 	};
+
 	useEffect(() => {
 		getCategory();
 	}, []);
+
 	return (
 		<>
 			<div className="breadcrumbs" data-aos="fade-down">
@@ -274,17 +278,17 @@ function Blog() {
 								return searchparam === ""
 									? item
 									: item.author
-											.toLowerCase()
-											.includes(searchparam.toLowerCase()) ||
+											?.toLowerCase()
+											?.includes(searchparam?.toLowerCase()) ||
 											item.title
-												.toLowerCase()
-												.includes(searchparam.toLowerCase()) ||
+												?.toLowerCase()
+												?.includes(searchparam?.toLowerCase()) ||
 											item.category
-												.toLowerCase()
-												.includes(searchparam.toLowerCase()) ||
+												?.toLowerCase()
+												?.includes(searchparam?.toLowerCase()) ||
 											item.description
-												.toLowerCase()
-												.includes(searchparam.toLowerCase());
+												?.toLowerCase()
+												?.includes(searchparam?.toLowerCase());
 							})
 							.map((data, i) => {
 								if (i < pagination && i >= pagination - 9) {
@@ -302,8 +306,8 @@ function Blog() {
 																	"/" +
 																	data.title
 																		?.replace(/[^\w]+/g, "-")
-																		.normalize("NFD")
-																		.replace(/[\u0300-\u036f]/g, "")
+																		?.normalize("NFD")
+																		?.replace(/[\u0300-\u036f]/g, "")
 																}
 																target="_blank"
 															>
@@ -319,8 +323,8 @@ function Blog() {
 																	"/" +
 																	data.title
 																		?.replace(/[^\w]+/g, "-")
-																		.normalize("NFD")
-																		.replace(/[\u0300-\u036f]/g, "")
+																		?.normalize("NFD")
+																		?.replace(/[\u0300-\u036f]/g, "")
 																}
 															/>
 														</div>
@@ -341,8 +345,8 @@ function Blog() {
 																		"/" +
 																		data.title
 																			?.replace(/[^\w]+/g, "-")
-																			.normalize("NFD")
-																			.replace(/[\u0300-\u036f]/g, "")
+																			?.normalize("NFD")
+																			?.replace(/[\u0300-\u036f]/g, "")
 																	}
 																	// target='_blank'
 																>
