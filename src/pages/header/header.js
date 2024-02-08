@@ -59,7 +59,7 @@ function Header() {
 	const { pathname } = useLocation();
 
 	useEffect(() => {
-		console.log(profile_img, usericon);
+		// console.log(profile_img, usericon);
 		setshow(false);
 		if (
 			window.location.pathname == "/product-details" ||
