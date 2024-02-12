@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { api } from "./base_url";
+import FB from "../assets/images/facebook.png";
+import twitter from "../assets/images/Twitter.png";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import Sharebtn from "./sharebtn";
-import { TwitterShareButton, FacebookShareButton } from "react-share";
+import { FacebookShareButton } from "react-share";
+import { TwitterShareButton } from "react-share";
 import { Helmet } from "react-helmet";
+import { InlineShareButtons } from "sharethis-reactjs";
 
 function Blog_detail() {
 	const slugdata = useParams();
@@ -128,7 +132,7 @@ function Blog_detail() {
 
 			<div className="blog-detail font-lg">
 				<div className="container">
-					<h2 data-aos="fade-up">{"By " + theytrusted?.author}</h2>
+					<h2 data-aos="fade-up">By {theytrusted?.author && theytrusted?.author}</h2>
 					<h1 data-aos="fade-up" data-aos-delay="200">
 						{theytrusted?.title}
 					</h1>
@@ -164,6 +168,40 @@ function Blog_detail() {
                                 <img src="https://onlinebeautymeeting.sdsstaging.co.uk/images/icon-o-share.svg" title="" alt=""/>
                             </a>
                         </span>          */}
+
+						<span>
+							<a href="#">
+								<InlineShareButtons
+									config={{
+										url:
+											window.location.origin +
+											"/blog-detail/" +
+											theytrusted?.id +
+											"/" +
+											theytrusted.title
+												?.replace(/[^\w]+/g, "-")
+												.normalize("NFD")
+												.replace(/[\u0300-\u036f]/g, ""),
+										networks: ["facebook"],
+										title: "Test title",
+										description: "Test Description",
+										image: "https://bit.ly/2CMhCMC",
+									}}
+								>
+									<img
+										style={{
+											background: "black",
+											borderRadius: "50%",
+											height: "60%",
+											width: "60%",
+										}}
+										src="https://admin.beauty-meetings.com/assets/images/fb.png"
+										title=""
+										alt=""
+									/>
+								</InlineShareButtons>
+							</a>
+						</span>
 						<span>
 							<a href="#">
 								<FacebookShareButton
@@ -179,7 +217,8 @@ function Blog_detail() {
 									}
 								>
 									<img
-										src="https://onlinebeautymeeting.sdsstaging.co.uk/images/icon-o-facebook.svg"
+										style={{ height: "90%", width: "90%", marginTop: "3px" }}
+										src={FB}
 										title=""
 										alt=""
 									/>
@@ -202,8 +241,8 @@ function Blog_detail() {
 									title={theytrusted.title}
 								>
 									<img
-										style={{ width: "20px", height: "24px" }}
-										src="https://sds.sdsstaging.co.uk/images/twitter%20(2).svg"
+										style={{ height: "60%", width: "60%", marginTop: "7px" }}
+										src={twitter}
 										title=""
 										alt=""
 									/>
@@ -238,7 +277,7 @@ function Blog_detail() {
 												</div>
 												<div className="bottom">
 													<ul>
-														<li>By {data.author}</li>
+														<li>By {data?.author && data?.author}</li>
 														<li>
 															{moment(data?.publish).format("MMM DD, YYYY")}
 														</li>

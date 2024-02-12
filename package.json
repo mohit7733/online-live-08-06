@@ -38,6 +38,7 @@
     "react-to-pdf": "^1.0.1",
     "react-to-print": "^2.14.12",
     "react-toastify": "^9.1.1",
+    "sharethis-reactjs": "^1.6.0",
     "slick-carousel": "^1.8.1",
     "stripe": "^11.9.1",
     "validator": "^13.9.0",
