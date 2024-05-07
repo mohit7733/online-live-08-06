@@ -132,7 +132,9 @@ function Blog_detail() {
 
 			<div className="blog-detail font-lg">
 				<div className="container">
-					<h2 data-aos="fade-up">By {theytrusted?.author && theytrusted?.author}</h2>
+					<h2 data-aos="fade-up">
+						By {theytrusted?.author && theytrusted?.author}
+					</h2>
 					<h1 data-aos="fade-up" data-aos-delay="200">
 						{theytrusted?.title}
 					</h1>
