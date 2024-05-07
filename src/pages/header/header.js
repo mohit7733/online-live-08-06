@@ -125,7 +125,7 @@ function Header() {
 											style={showsub == true ? { display: "block" } : {}}
 										>
 											<li>
-												<Link to="/blogs">Blogs</Link>
+												<Link to="/blogs">Blog</Link>
 											</li>
 											<li onClick={() => showtoggle && setshowtoggle(false)}>
 												<Link to="/our-videos">Videos</Link>
