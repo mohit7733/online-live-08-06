@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FacebookIcon, TwitterShareButton, XIcon } from "react-share";
+import { FacebookShareButton } from "react-share";
+import { TwitterShareButton } from "react-share";
+import { FacebookIcon } from "react-share";
+import { XIcon } from "react-share";
 import { FacebookButton } from "react-social";
-
 export default function Sharebtn(props) {
 	const [share, setShare] = useState({});
 	const handleShareToggle = (itemId) => {
