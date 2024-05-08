@@ -115,7 +115,7 @@ function Blog() {
 			</div>
 			<div className="blog-panel font-lg font-sm">
 				<div className="container">
-					<h1 data-aos="fade-down">Blogs</h1>
+					<h1 data-aos="fade-down">Blog</h1>
 					{featured?.map((data, i) => {
 						if (i < 1) {
 							return (
