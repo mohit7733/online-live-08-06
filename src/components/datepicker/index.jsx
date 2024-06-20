@@ -1,21 +1,31 @@
 import { useState } from "react";
 import { Calendar } from "react-calendar";
-import 'react-calendar/dist/Calendar.css';
-import './index.css';
+import "react-calendar/dist/Calendar.css";
+import "./index.css";
 
-export default function DatePicker (props) {
-    const [value, setValue] = useState(new Date());
+export default function DatePicker(props) {
+  const [value, setValue] = useState(new Date());
+  const [date, setDate] = useState(new Date());
 
-
-    const [date, setDate] = useState(new Date());
-
-  
-
-    return (
-        <>
-        <Calendar minDate={new Date()}   onChange={(value) => { 
-            setValue(value);
-            props.setDate(value)}} value={value}/>
-        </>
-    )
+  return (
+    <>
+      <Calendar
+        minDate={new Date()}
+        onChange={(value) => {
+          setValue(value);
+          props.setDate(value);
+          //   props.slots?.length == 5 && props.setDateError("");
+          if (props.slots.length >= 5) {
+            props.setDateError("You can't select more than 5 availabilities");
+            setTimeout(() => {
+              setDateError("");
+            }, 5000);
+          } else {
+            props.setDateError("");
+          }
+        }}
+        value={value}
+      />
+    </>
+  );
 }
