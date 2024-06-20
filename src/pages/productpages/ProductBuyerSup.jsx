@@ -208,7 +208,7 @@ function ProductBuyerSup(props) {
                         <h5>Training:</h5>
                       </li>
                     </ul>
-                    <div style={{display: 'none'}} className="button-wrapper">
+                    <div className="button-wrapper">
                       <a href="#" className="btn btn-secondary">
                         <span>
                           <img src="images/favourite.svg" alt="" />

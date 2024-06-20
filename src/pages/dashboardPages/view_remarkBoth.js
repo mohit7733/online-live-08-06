@@ -71,7 +71,7 @@ function View_remarkBoth() {
 						<div className="breadcrumbs" data-aos="fade-down">
 							<ul>
 								<li>
-									<a href="/dashboard/user-management">Dashboard </a>
+									<a href="/dashboard">Dashboard </a>
 								</li>
 								<li>
 									<a href="#">

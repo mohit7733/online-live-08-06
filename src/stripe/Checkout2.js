@@ -216,7 +216,7 @@ export const CheckoutForm2 = (props) => {
 		name: paymentCardData?.charges?.data[0]?.billing_details?.name,
 		phone: paymentCardData?.charges?.data[0]?.billing_details?.name,
 	});
-console.log("detail_data >>>>>>>>>>>>>>",detail_data)
+
 	// const [isEmailValid, setIsEmailValid] = useState();
 	// const [isName , setIsName] = useState()
 	// const validateEmail = (email) => {
@@ -379,7 +379,37 @@ console.log("detail_data >>>>>>>>>>>>>>",detail_data)
 				setVatLoading(false);
 				e = true;
 			});
-			};
+		// axios
+		// 	.post(`${Vat_check_api}=${vat}`)
+		// 	.then(
+		// 		(res) => {
+		// 			if (res.data.valid === true) {
+		// 				setCountryCode(res.data.country_code);
+		// 				if (coutnry_list.includes(res.data.country_code)) {
+		// 					setVatError(false);
+		// 					setIsValidVat(true);
+		// 				}
+		// 				if (res.data.country_code != detail_data.address.country) {
+		// 					setVatError(true);
+		// 					setIsValidVat(false);
+		// 				}
+		// 				setVatLoading(false);
+		// 			} else {
+		// 				setVatError(true);
+		// 				setIsValidVat(false);
+		// 				e = true;
+		// 				setVatLoading(false);
+		// 			}
+		// 		},
+		// 		[vat]
+		// 	)
+		// 	.catch((error) => {
+		// 		setVatError(true);
+		// 		setIsValidVat(false);
+		// 		setVatLoading(false);
+		// 		e = true;
+		// 	});
+	};
 
 	// calculate ammount
 	const handleTermsLinkClick = () => {
@@ -391,12 +421,12 @@ console.log("detail_data >>>>>>>>>>>>>>",detail_data)
 		// Calculate the amount based on your conditions
 		if (detail_data?.address?.country == "FR") {
 			_amount =
-				(texdata.filter(
+				(texdata?.filter(
 					(data) => data.country === detail_data.address.country
 				)[0]
 					? _amount +
 					  _amount *
-							texdata.filter(
+							texdata?.filter(
 								(data) => data.country === detail_data.address.country
 							)[0].percentage
 					: _amount) *
@@ -409,14 +439,14 @@ console.log("detail_data >>>>>>>>>>>>>>",detail_data)
 			return _amount;
 		}
 		if (!coutnry_list.includes(detail_data.address.country)) {
-			_amount = texdata.filter(
+			_amount = texdata?.filter(
 				(data) =>
 					data.country === detail_data.address.country &&
 					detail_data.address.country !== "IN"
 			)[0]?.percentage
 				? _amount * 100 +
 				  ((_amount *
-						texdata.filter(
+						texdata?.filter(
 							(data) => data.country === detail_data.address.country
 						)[0].percentage) /
 						100) *
@@ -428,12 +458,12 @@ console.log("detail_data >>>>>>>>>>>>>>",detail_data)
 			isValidVat &&
 			coutnry_list.includes(detail_data.address.country)
 		) {
-			_amount = texdata.filter(
+			_amount = texdata?.filter(
 				(data) => data.country === detail_data.address.country
 			)[0]?.percentage
 				? _amount +
 				  ((_amount *
-						texdata.filter(
+						texdata?.filter(
 							(data) => data.country === detail_data.address.country
 						)[0].percentage) /
 						100) *
@@ -441,12 +471,12 @@ console.log("detail_data >>>>>>>>>>>>>>",detail_data)
 				: _amount * 100;
 		} else {
 			_amount =
-				(texdata.filter(
+				(texdata?.filter(
 					(data) => data.country === detail_data.address.country
 				)[0]
 					? _amount +
 					  _amount *
-							texdata.filter(
+							texdata?.filter(
 								(data) => data.country === detail_data.address.country
 							)[0].percentage
 					: _amount) *
@@ -474,9 +504,9 @@ console.log("detail_data >>>>>>>>>>>>>>",detail_data)
 	useEffect(() => {
 		calculateAmount();
 	}, [detail_data, vatError, isValidVat, showVat]);
-	useEffect(() => {
-		console.log(state.plan, "");
-	}, [final_amount_show]);
+	// useEffect(() => {
+	// 	console.log(state.plan, "");
+	// }, [final_amount_show]);
 
 	const validateFields = () => {
 		const errors = {};
@@ -541,14 +571,6 @@ console.log("detail_data >>>>>>>>>>>>>>",detail_data)
 		return errors;
 	};
 
-	console.log("==================state==================");
-	console.log(state);
-	console.log("====================================");
-
-	const handleSubmitNew = (event) => {
-		event.preventDefault();
-		purchase()
-	}
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -620,8 +642,12 @@ console.log("detail_data >>>>>>>>>>>>>>",detail_data)
 				await recurringSubscription(paymentMethod, 3, "month");
 			} else if (state?.plan === "week") {
 				toast.error("Currently not supported");
+				setPaymentLoading(false);
+
 			} else {
 				toast.error("This recurring payment option not supported");
+				setPaymentLoading(false);
+
 			}
 		} else {
 			if (!error) {
@@ -632,7 +658,7 @@ console.log("detail_data >>>>>>>>>>>>>>",detail_data)
 						{
 							amount: isValidCode
 								? final_amount_show * 100
-								: calculateAmount() * 100,
+								: calculateAmount(),
 							id: id,
 							currency: "EUR",
 							description: "All Payments Done by " + detail_data.name,
@@ -658,26 +684,38 @@ console.log("detail_data >>>>>>>>>>>>>>",detail_data)
 									// 	_billingData = detail_data
 									// }
 
-									purchase(response?.data?.payment, detail_data);
 									toast.success("Payment Successful!");
+									// if (state?.meeting_id == undefined) {
+									// 	navigate("/dashboard");
+									// } else {
+									// 	navigate("/pending-meeting/supplier");
+									// }
+									purchase(response?.data?.payment, detail_data);
+									setPaymentLoading(false);
 								} else if (res2?.error?.message) {
 									toast.error("Payment failed");
+									setPaymentLoading(false);
 								} else {
 									toast.error("Payment failed");
+									setPaymentLoading(false);
 								}
 							});
 					} else {
 						toast.error("Payment Failed!");
+						setPaymentLoading(false);
 					}
 				} catch (error) {
 					window.scrollTo(0, 0);
 					toast.error(error.message);
+					setPaymentLoading(false);
 				}
 			} else {
 				let errorElement2 = document.querySelector(
 					".StripeElement--invalid"
 				)?.offsetTop;
 				window.scrollTo(0, errorElement2);
+				setPaymentLoading(false);
+
 			}
 		}
 		setPaymentLoading(false);
@@ -704,12 +742,15 @@ console.log("detail_data >>>>>>>>>>>>>>",detail_data)
 	};
 
 	const checkIsValidCode = async (code) => {
+		let plan_type=state?.meeting_id?"Meeting":"Product"
 		try {
 			setLoadingDiscount(true);
 			let res = await axios.get(
-				`${api}/api/valid-promocode?promo_code=${code}&user_id=${localStorage.getItem(
-					"user_id"
-				)}`,
+				`${api}/api/valid-promocode
+				?promo_code=${code}
+				&user_id=${localStorage.getItem("user_id")}
+				&plan_type=${plan_type}
+				`,
 				{
 					headers: {
 						Authorization: "Bearer " + localStorage.getItem("token"),
@@ -718,7 +759,6 @@ console.log("detail_data >>>>>>>>>>>>>>",detail_data)
 				}
 			);
 			setLoadingDiscount(false);
-			console.log(res, "res");
 			if (isValidCode) {
 				return;
 			}
@@ -804,7 +844,6 @@ console.log("detail_data >>>>>>>>>>>>>>",detail_data)
 			console.error("Error fetching customers:", error);
 		}
 		purchase(data, _billingData, subscriptionIdd, response.data);
-		console.log(response.data);
 	};
 	// console.log(detail_data.address.country , "hey budy")
 	const purchase = (data, _billingData, subscriptionIdd, subscriptiondata) => {
@@ -856,12 +895,13 @@ console.log("detail_data >>>>>>>>>>>>>>",detail_data)
 		)
 			.then((res) => res.json())
 			.then((result) => {
+				console.log(result,"res")
 				// toast.success("Purchase Successful");
 				// setTimeout(function () { window.location.reload(false) }, 2000);
 				if (state?.meeting_id == undefined) {
 					navigate("/dashboard");
 				} else {
-					navigate("/confirmed-meeting/supplier");
+					navigate("/pending-meeting/supplier");
 				}
 			})
 			.catch((error) => {
@@ -952,9 +992,6 @@ console.log("detail_data >>>>>>>>>>>>>>",detail_data)
 				console.error(error);
 			});
 	}, []);
-
-	// console.log(amount, final_amount_show - amount,
-	//   "vat details")
 	return (
 		<>
 			<ToastContainer
@@ -977,7 +1014,7 @@ console.log("detail_data >>>>>>>>>>>>>>",detail_data)
 							data-aos="fade-down"
 						>
 							<ul>
-								{state.ProductId == undefined ? (
+								{state?.ProductId == undefined ? (
 									<>
 										<li>
 											<a>Dashboard</a>
@@ -986,7 +1023,7 @@ console.log("detail_data >>>>>>>>>>>>>>",detail_data)
 											<a href="#">Supplier </a>
 										</li>
 										<li>
-											<a href="/supplier-product-showcase">
+											<a href="/supplier-product-showcase/all-products">
 												<span> Product Showcase </span>
 											</a>
 										</li>
@@ -1749,13 +1786,13 @@ console.log("detail_data >>>>>>>>>>>>>>",detail_data)
 					<div className="col-sm-12 paddCss" style={{ padding: "6px 10px 0" }}>
 						<label>
 							<strong>Total :</strong>{" "}
-							{texdata.filter(
+							{texdata?.filter(
 								(data) => data.country == detail_data.address.country
 							)[0]
 								? "€" +
 								  (amount +
 										(amount *
-											texdata.filter(
+											texdata?.filter(
 												(data) => data.country == detail_data.address.country
 											)[0].percentage) /
 											100)

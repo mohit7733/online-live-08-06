@@ -13,7 +13,7 @@ function Company_info_edit() {
         <div className={(sidebar ? "active " : " ") + "router-body"}>
                 <div className="breadcrumbs" data-aos="fade-down">
                     <ul>
-                        <li><a href="/dashboard/user-management">Dashboard </a></li>
+                        <li><a href="/dashboard">Dashboard </a></li>
                         <li><a href="/">My Profile</a></li>
                         <li><a  style={{cursor:"pointer"}}><span> Company Information </span></a></li>
                         <li><a href="#"><span> Edit Company Information </span></a></li>

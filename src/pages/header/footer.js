@@ -148,7 +148,7 @@ function Footer() {
             </div>
           </div>
           <div className="copyright d-flex justify-content-between">
-            <p>© 2022-23, Beautymeetings, All Rights Reserved.</p>
+            <p>© 2023-24, Beautymeetings, All Rights Reserved.</p>
             <p>
               Website By:{" "}
               <Link to="https://sdssoftwares.co.uk/" target="_blank">

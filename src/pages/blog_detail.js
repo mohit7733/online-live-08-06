@@ -60,8 +60,8 @@ function Blog_detail() {
 	};
 	useEffect(() => {
 		if (check) {
-			theytrusted_data2();
 			theytrusted_data();
+			// theytrusted_data2();
 			setcheck(false);
 		}
 		window.scrollTo({
@@ -75,8 +75,8 @@ function Blog_detail() {
 			<Helmet>
 				<title>Beauty Meetings - Blogs</title>
 				<meta name="title" content="Beauty Meetings for blogs" />
-				<meta property="og:title" content={theytrusted.title} />
-				<meta property="og:description" content={theytrusted.description} />
+				<meta property="og:title" content={theytrusted?.title} />
+				<meta property="og:description" content={theytrusted?.title} />
 				<meta property="og:image" content={api + "/" + theytrusted?.Image} />
 				<meta name="twitter:card" content="summary_large" />
 				<meta property="og:type" content="website" />
@@ -132,9 +132,7 @@ function Blog_detail() {
 
 			<div className="blog-detail font-lg">
 				<div className="container">
-					<h2 data-aos="fade-up">
-						By {theytrusted?.author && theytrusted?.author}
-					</h2>
+					<h2 data-aos="fade-up">By {theytrusted?.author && theytrusted?.author}</h2>
 					<h1 data-aos="fade-up" data-aos-delay="200">
 						{theytrusted?.title}
 					</h1>

@@ -59,7 +59,6 @@ function Header() {
 	const { pathname } = useLocation();
 
 	useEffect(() => {
-		// console.log(profile_img, usericon);
 		setshow(false);
 		if (
 			window.location.pathname == "/product-details" ||
@@ -72,7 +71,7 @@ function Header() {
 	return (
 		<>
 			<div className="header">
-				<div className="container" style={{ maxWidth: "1250px" }}>
+				<div className="container" style={{maxWidth: '1250px'}}>
 					<div
 						className="outsideClick"
 						onClick={() => outsideClick()}
@@ -100,17 +99,14 @@ function Header() {
 										<Link to="/how-does-it-work">How it works</Link>
 									</li>
 									<li onClick={() => showtoggle && setshowtoggle(false)}>
-										<a
-											href="https://events.beauty-forum.fr/BeautyMeetingsParis"
-											target="_blank"
-										>
+										<a href="https://events.beauty-forum.fr/BeautyMeetingsParis" target="_blank">
 											Events
 										</a>
 									</li>
 									<li onClick={() => showtoggle && setshowtoggle(false)}>
 										<Link to="/buyers-at-a-glance">Buyers at a glance</Link>
 									</li>
-									<li onClick={() => showtoggle && setshowtoggle(false)}>
+									<li onClick={() => {showtoggle && setshowtoggle(false); window.location.reload();}}>
 										<Link to="/product-view">Showcased Products</Link>
 									</li>
 									<li className="dropdown2 dropdown">
@@ -181,9 +177,9 @@ function Header() {
 							</>
 						) : (
 							<div className="right d-flex">
-								<Link to="/login" className="btn btn-primary">
+								<a href="/login" className="btn btn-primary">
 									Sign in
-								</Link>
+								</a>
 								<div
 									id="toggle"
 									className={showtoggle == true ? "on" : ""}
@@ -217,9 +213,9 @@ function Header() {
 						<span>
 							{localStorage.getItem("user_type")}{" "}
 							{localStorage.getItem("manage_type")?.toLowerCase() ==
-								"superadmin" && "( Super Admin )"}{" "}
+								"superadmin" && "(Admin)"}{" "}
 							{localStorage.getItem("manage_type")?.toLowerCase() ==
-								"shareduser" && "( Shared User )"}
+								"shareduser" && "(Standard User)"}
 						</span>
 					</div>
 				</div>
@@ -244,7 +240,7 @@ function Header() {
 						(localStorage.getItem("user_type").toLowerCase() === "supplier" ||
 							localStorage.getItem("user_type").toLowerCase() === "both") ? (
 							<li>
-								<a href="/dashboard/user-management">My Dashboard</a>
+								<a href="/dashboard">My Dashboard</a>
 							</li>
 						) : (
 							<li>
@@ -255,21 +251,30 @@ function Header() {
 						<li>
 							<a href="/company-Information">Company Information</a>
 						</li>
+                       {localStorage.getItem("user_type") &&
+						(localStorage.getItem("user_type").toLowerCase() === "buyer" ||
+							localStorage.getItem("user_type").toLowerCase() === "both")?(<li>
+								<a href="/buyer-company-profile">My Company Profile</a>
+							</li>):"" }
+						
 						<li>
 							<a
-								style={{ color: "#999999" }}
-								// href={
-								// 	localStorage.getItem("user_type") != null
-								// 		? `/dashboard/user-management/${localStorage.getItem(
-								// 				"user_type"
-								// 		  )}`
-								// 		: ""
-								// }
+								// style={{ color: "#999999" }}
+								href={
+									localStorage.getItem("user_type") != null
+										? `/dashboard/user-management/${localStorage.getItem(
+												"user_type"
+										  )}`
+										: ""
+								}
 							>
 								User Management{" "}
 							</a>
 						</li>
-						<li className="information">
+						<li style={localStorage.getItem("manage_type")?.toLowerCase() ==
+								"shareduser"?{display:"none"}:{display:"block"}
+						}
+						 className="information">
 							<a onClick={() => setshowmenu(!showmenu)}>
 								<span>Administrative Informations</span>
 
@@ -283,7 +288,7 @@ function Header() {
 							</a>
 						</li>
 						<ul
-							className="sub__menu profile_sub"
+							className="sub__menu information_sub"
 							style={showmenu == false ? { display: "none" } : {}}
 						>
 							<li>
@@ -316,13 +321,14 @@ function Header() {
 							Logout<i className="fa fa-sign-out" aria-hidden="true"></i>
 						</a>
 					</li>
-					<ul className="sub__menu term">
+					<ul className="sub__menu">
 						<li>
 							{/* <a> Privacy and Terms</a> */}
 							<a href="/privacy-terms"> Privacy and Terms</a>
 						</li>
 						<li>
 							{/* <a>Cookies Preferences</a> */}
+
 							<a href="/cookies-policy">Cookies Preferences</a>
 						</li>
 					</ul>

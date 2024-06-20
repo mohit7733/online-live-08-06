@@ -50,7 +50,7 @@ function Forgetpassword() {
       })
       .catch((error) => {
         console.log(error);
-        toast.error("Your email id not register this email")
+        toast.error("Email id is not registered")
 
       });
   };
@@ -122,6 +122,9 @@ function Forgetpassword() {
     seterrorfield({ ...errorfield });
     // setcontact({ ...contact, [e.target.name]: e.target.value })
   };
+  const entersub = e =>{
+    e.preventDefault();
+   }
 
   return (
     <>
@@ -153,7 +156,7 @@ function Forgetpassword() {
             <div className="col-md-12 col-md-offset-4" data-aos="fade-up">
               <div className="panel panel-default">
                 {hide == true ? (
-                  <div className="text-center">
+                  <form onSubmit={entersub} className="text-center">
                     <h3> Enter OTP </h3>
                     <div className="panel-body">
                       <form className="form" autoComplete="off">
@@ -198,9 +201,9 @@ function Forgetpassword() {
                         </div>
                       </form>
                     </div>
-                  </div>
+                  </form>
                 ) :  (
-                    <div className="text-center">
+                    <form onSubmit={entersub} className="text-center">
                       <h3> Forgot Your Password </h3>
                       <div className="panel-body">
                         <div
@@ -247,7 +250,7 @@ function Forgetpassword() {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </form>
                   )}
               </div>
             </div>

@@ -53,6 +53,7 @@ function Contract() {
 	}, [check]);
 	// handle accept aggrement
 	console.log(state, "this is state of uselocation");
+	
 	const handleAgreeButtonClick = () => {
 		console.log("working");
 		const userId = localStorage.getItem("user_id");
@@ -115,6 +116,7 @@ function Contract() {
 				console.log(error);
 			});
 	};
+	
 	console.log("state", state);
 	return (
 		<>

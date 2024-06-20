@@ -747,7 +747,7 @@ console.log(">>>>>>>>>");
                     <button className="btn btn-secondary" type="submit">
                       Submit
                     </button>
-                    <button className="btn btn-primary">Cancel</button>
+                    <button className="btn btn-primary">Canel</button>
                   </div>
                 ) : null}
               </form>

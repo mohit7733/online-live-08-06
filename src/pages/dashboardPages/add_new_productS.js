@@ -25,6 +25,7 @@ function Add_product(props) {
 	const [emptyans_id, setemptyans_id] = useState([]);
 	const [emptyans, setempatyans] = useState([]);
 	const [mandatoryQues, setMandatoryQues] = useState([]);
+	const [otherValues, setOtherValues] = useState([]);
 
 	const navigate = useNavigate();
 	const [contact, setcontact] = useState({
@@ -77,7 +78,6 @@ function Add_product(props) {
 			})
 			.then((res) => {
 				// Handle the successful response here
-				console.log(res.data.data, "this is data");
 				if (res?.data?.data.length === 0) {
 					setCompanydetail(false);
 				}
@@ -95,7 +95,6 @@ function Add_product(props) {
 			})
 			.then((res) => {
 				// Handle the successful response here
-				console.log(res.data.data.company, "this is data of company profile");
 				if (res?.data?.data?.company === null) {
 					setCompanyProfile(false);
 				}
@@ -277,10 +276,6 @@ function Add_product(props) {
 	const [options, setOptions] = useState([]);
 
 	useEffect(() => {
-		console.log(options, "options");
-	}, [options]);
-
-	useEffect(() => {
 		answerArray?.map((item) => {
 			if (item?.answer == "") {
 				emptyans_id.push(item?.questionId);
@@ -323,8 +318,6 @@ function Add_product(props) {
 				);
 			}
 		}
-		console.log(type, "type");
-		console.log(id, "question id");
 	};
 
 	const subcate_id = [];
@@ -333,7 +326,6 @@ function Add_product(props) {
 		subcate_id.push(item.id);
 		subcate_idvalue.push(item.value);
 	});
-	// console.log(subcate_id, subcate_idvalue, "acate_idacate_idacate_id");
 	const add_product = () => {
 		setsubmitStatus(true);
 		var myHeaders = new Headers();
@@ -360,9 +352,23 @@ function Add_product(props) {
 		contact.product_file?.map((data) => {
 			formdata.append("documents[]", data);
 		});
+		let a = options?.filter(
+			(a) =>
+				a?.checkboxValues?.includes("Other") &&
+				otherValues?.filter((b) => b?.id == a?.id)?.length == 0
+		);
+
+		if (a?.length > 0) {
+			setsubmitStatus(false);
+			toast.error("Please mention other option");
+			window.scrollTo(0, 0);
+			return;
+		}
 
 		let b = question.filter(
-			(obj2) => !answerArray.some((obj1) => obj1.questionId === obj2.id) && obj2.mandatory != 0
+			(obj2) =>
+				!answerArray.some((obj1) => obj1.questionId === obj2.id) &&
+				obj2.mandatory != 0
 		);
 
 		if (b?.length > 0) {
@@ -378,23 +384,73 @@ function Add_product(props) {
 		answerArray
 			?.sort((a, b) => a?.questionId - b?.questionId)
 			.map((question, index) => {
-				formdata.append(`product_question[${index}][id]`, question?.questionId);
-				const matchingOption = options.find(
-					(option) => option.id === question?.questionId
-				);
-				if (matchingOption) {
-					formdata.append(
-						`product_question[${index}][answer]`,
-						JSON.stringify(matchingOption.checkboxValues)
-					);
+				if (options?.filter((e) => e?.id == question?.questionId)?.length > 0) {
+					let ans = [];
+					if (
+						otherValues?.filter((e) => e?.id == question?.questionId)?.length >
+						0
+					) {
+						options
+							?.filter((e) => e?.id == question?.questionId)
+							?.map((e) => {
+								e?.checkboxValues
+									?.filter((a) => a != "Other")
+									?.map((b) => {
+										ans.push(b);
+									});
+							});
+
+						let a = otherValues
+							?.filter((e) => e?.id == question?.questionId)
+							?.map((e) => `Other: ${e?.value}`);
+
+						if (a?.length > 0) {
+							ans.push(a[0]);
+						}
+
+						formdata.append(
+							`product_question[${index}][id]`,
+							question?.questionId
+						);
+						formdata.append(
+							`product_question[${index}][answer]`,
+							JSON.stringify(ans)
+						);
+					} else {
+						formdata.append(
+							`product_question[${index}][id]`,
+							question?.questionId
+						);
+						formdata.append(
+							`product_question[${index}][answer]`,
+							JSON.stringify(
+								options
+									?.filter((e) => e?.id == question?.questionId)
+									?.map((e) => e?.checkboxValues)[0]
+							)
+						);
+					}
 				} else {
 					formdata.append(
-						`product_question[${index}][answer]`,
-						question?.answer
+						`product_question[${index}][id]`,
+						question?.questionId
 					);
+					const matchingOption = options.find(
+						(option) => option.id === question?.questionId
+					);
+					if (matchingOption) {
+						formdata.append(
+							`product_question[${index}][answer]`,
+							JSON.stringify(matchingOption.checkboxValues)
+						);
+					} else {
+						formdata.append(
+							`product_question[${index}][answer]`,
+							question?.answer
+						);
+					}
 				}
 			});
-
 		var requestOptions = {
 			method: "POST",
 			headers: myHeaders,
@@ -419,12 +475,11 @@ function Add_product(props) {
 			fetch(api + "/api/add_product", requestOptions)
 				.then((response) => response.json())
 				.then((result) => {
+					setsubmitStatus(false);
 					setImage(result.message);
-
 					toast.success("Product Added successful!");
-
 					setTimeout(() => {
-						navigate("/supplier-product-showcase");
+						navigate("/supplier-product-showcase/all-products");
 					}, 2000);
 				})
 				.catch((error) => {
@@ -434,11 +489,6 @@ function Add_product(props) {
 				});
 		}
 	};
-	useEffect(() => {
-		// console.log(errorfield, contact, image);
-	}, [errorfield, contact, image]);
-
-	// console.log(contact?.category);
 
 	const onImageChange = (event) => {
 		if (event.target.files && event.target.files[0]) {
@@ -499,8 +549,6 @@ function Add_product(props) {
 	const [question, setquestion] = useState([]);
 	const [categories, setcategories] = useState([]);
 	const [check, setcheck] = useState(true);
-	// console.log(contact?.s_category, "<<<<<<< contact?.s_category");
-	console.log(question, " THis IS question");
 	const question_data = () => {
 		var myHeaders = new Headers();
 		myHeaders.append(
@@ -570,7 +618,6 @@ function Add_product(props) {
 		}
 
 		answerArray?.map((item) => {
-			// console.log(item, "<<<<<<<");
 			if (item?.answer == "") {
 				if (emptyans_id.filter((id) => id == item?.questionId)[0]) {
 					emptyans_id.filter((id) => id == item?.questionId)[0] =
@@ -582,9 +629,6 @@ function Add_product(props) {
 				setemptyans_id(emptyans_id?.filter((id) => id != item?.questionId));
 			}
 		});
-
-		console.log(answerArray);
-		// console.log(answerArray?.length, question?.length);
 	};
 
 	useEffect(() => {
@@ -594,10 +638,6 @@ function Add_product(props) {
 			}
 		});
 	}, [answerArray.length, handlequestion]);
-
-	useEffect(() => {
-		console.log(answerArray);
-	}, [answerArray]);
 
 	const [sidebar, setsidebar] = useState(true);
 	const [subcategories, setsubcategories] = useState([]);
@@ -617,7 +657,6 @@ function Add_product(props) {
 	const selcetcate = (e) => {
 		categories.filter((itemId) => {
 			if (itemId.category_name == e) {
-				console.log(itemId);
 				setCategory_Id(itemId?.id);
 				axios
 					.get(`${api}/api/subcategory?category_id=${itemId?.id}`)
@@ -665,7 +704,7 @@ function Add_product(props) {
 									<a href="/dashboard">Supplier</a>
 								</li>
 								<li>
-									<a href="/supplier-product-showcase">
+									<a href="/supplier-product-showcase/all-products">
 										<span>Product Showcase</span>
 									</a>
 								</li>
@@ -988,8 +1027,6 @@ function Add_product(props) {
 												maxLength={8}
 												onChange={(e) => {
 													const { value } = e.target;
-													console.log(value, "value");
-													console.log(dateOfCreation, anserstyle);
 													setDateOfCreation(moment(value).format("DD-MM-YYYY"));
 													// const cleanedValue = value.replace(/\D/g, ''); // Remove non-digit characters
 													// const formattedValue = cleanedValue.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3'); // Format as MM/DD/YYYY
@@ -1030,13 +1067,14 @@ function Add_product(props) {
 										<p className="limit">{contact.Description?.length}/250</p>
 									</div>
 									{question?.map((quest, index) => {
-										// console.log(quest?.ques_obj);
 										return (
 											<div className="radio_section">
 												<p>
 													Q {index + 1}.{" " + quest?.question}
 													<span style={{ color: "red", fontSize: "1.2em" }}>
-														{quest?.mandatory === 1 ? "" : "*"}
+														{quest?.mandatory === 1 || quest?.mandatory == null
+															? ""
+															: "*"}
 													</span>
 												</p>
 												<div className="radio_btn">
@@ -1072,13 +1110,15 @@ function Add_product(props) {
 																})[0] == quest?.id &&
 																anserstyle == true &&
 																quest?.mandatory != 1
-																	? { borderBottom: "1px solid red" }
+																	? // ||quest?.mandatory != null
+																	  { borderBottom: "1px solid red" }
 																	: anserstyle == true &&
 																	  emptyans?.filter((item) => {
 																			return item?.id == quest?.id;
 																	  }) == undefined &&
 																	  quest?.mandatory != 1
-																	? { borderBottom: "1px solid red" }
+																	? //    || quest?.mandatory != null
+																	  { borderBottom: "1px solid red" }
 																	: {}
 															}
 														></textarea>
@@ -1089,17 +1129,19 @@ function Add_product(props) {
 														<div
 															className="custom-select"
 															style={
-																emptyans_id?.filter((item) => {
+																(emptyans_id?.filter((item) => {
 																	return item === quest?.id;
 																})[0] == quest?.id &&
-																anserstyle == true &&
-																quest?.mandatory != 1
+																	anserstyle == true &&
+																	quest?.mandatory != 1) ||
+																quest?.mandatory != null
 																	? { borderBottom: "1px solid red" }
-																	: anserstyle == true &&
-																	  emptyans?.filter((item) => {
-																			return item?.id == quest?.id;
-																	  }) == undefined &&
-																	  quest?.mandatory != 1
+																	: (anserstyle == true &&
+																			emptyans?.filter((item) => {
+																				return item?.id == quest?.id;
+																			}) == undefined &&
+																			quest?.mandatory != 1) ||
+																	  quest?.mandatory != null
 																	? { borderBottom: "1px solid red" }
 																	: {}
 															}
@@ -1123,7 +1165,6 @@ function Add_product(props) {
 														<>
 															{quest?.ques_obj?.length > 0 &&
 																quest?.ques_obj?.map((option, index2) => {
-																	// console.log(option);
 																	if (option != null) {
 																		return (
 																			<div className="align-items-center">
@@ -1134,7 +1175,7 @@ function Add_product(props) {
 																							? quest?.type.toLowerCase()
 																							: "radio"
 																					}
-																					id={`op${index2}`}
+																					id={`op${quest.id + "-" + index2}`}
 																					name={`question${quest.id}`} // Assign a unique name for each group of radio buttons
 																					value={option}
 																					onClick={(e) => {
@@ -1151,29 +1192,104 @@ function Add_product(props) {
 																					}}
 																				/>
 																				<label
-																					htmlFor={`op${index2}`}
+																					htmlFor={`op${
+																						quest.id + "-" + index2
+																					}`}
 																					style={
 																						emptyans_id?.filter((item) => {
 																							return item === quest?.id;
 																						})[0] == quest?.id &&
 																						anserstyle == true &&
-																						quest?.mandatory != 1
+																						quest?.mandatory == 0
 																							? {
 																									borderBottom: "1px solid red",
+																									cursor: "pointer",
 																							  }
 																							: anserstyle == true &&
 																							  emptyans?.filter((item) => {
 																									return item?.id == quest?.id;
 																							  }) == undefined &&
-																							  quest?.mandatory != 1
+																							  quest?.mandatory == 0
 																							? {
 																									borderBottom: "1px solid red",
+																									cursor: "pointer",
 																							  }
-																							: {}
+																							: { cursor: "pointer" }
 																					}
 																				>
 																					{option}
 																				</label>{" "}
+																				{options
+																					?.filter(
+																						(e) => e?.id === quest?.id
+																					)[0]
+																					?.checkboxValues?.includes("Other") &&
+																				option == "Other" ? (
+																					<input
+																						id={`op${quest.id + "-" + index2}`}
+																						className="input-wrap form-control"
+																						type="text"
+																						style={
+																							otherValues?.filter(
+																								(a) => a?.id == quest?.id
+																							)?.length == 0
+																								? {
+																										borderBottom:
+																											"1px solid red",
+																										marginTop: "20px",
+																								  }
+																								: {
+																										marginTop: "20px",
+																								  }
+																						}
+																						value={
+																							otherValues?.length > 0
+																								? otherValues?.filter(
+																										(e) => e?.id == quest?.id
+																								  )[0]?.value || ""
+																								: ""
+																						}
+																						onChange={(e) => {
+																							if (e.target.value == "") {
+																								let arr = otherValues?.filter(
+																									(a) => a?.id != quest?.id
+																								);
+																								setOtherValues(arr);
+																							} else if (
+																								e.target.value != " "
+																							) {
+																								if (
+																									otherValues?.filter(
+																										(e) => e?.id == quest?.id
+																									)?.length == 0
+																								) {
+																									setOtherValues([
+																										...otherValues,
+																										{
+																											id: quest?.id,
+																											value: e.target.value,
+																										},
+																									]);
+																								} else {
+																									const updatedList =
+																										otherValues.map((item) =>
+																											item.id === quest?.id
+																												? {
+																														id: quest.id,
+																														value:
+																															e.target.value,
+																												  }
+																												: item
+																										);
+																									setOtherValues(updatedList);
+																								}
+																							}
+																						}}
+																						placeholder={"Please specify"}
+																					/>
+																				) : (
+																					""
+																				)}
 																				{/* Use htmlFor instead of for for labels */}
 																			</div>
 																		);
@@ -1222,7 +1338,19 @@ function Add_product(props) {
 														: {}
 												}
 											>
-												Can upload maximum 5 images and 1 document.
+												<span
+													style={
+														contact?.product_file.filter(
+															(file) =>
+																file?.type && file?.type.includes("image")
+														).length == 5
+															? { color: "red" }
+															: {}
+													}
+												>
+													Can upload maximum 5 images
+												</span>{" "}
+												and 1 document.
 											</p>
 										</h4>
 									</div>
@@ -1258,7 +1386,6 @@ function Add_product(props) {
 									<div className="thumbnail_section">
 										<h6>Set Thumbnail Image </h6>
 										{contact?.product_file?.map((data, index) => {
-											// console.log(data);
 											if (data["type"]?.split("/")[0] === "image") {
 												return (
 													<div className="thumb_inner row align-items-center">
@@ -1331,11 +1458,10 @@ function Add_product(props) {
 
 							<div className="button_wrap row">
 								<button
+									style={submitStatus ? { background: "grey" } : {}}
 									disabled={submitStatus || false}
 									className="btn btn-secondary"
 									onClick={(e) => {
-										console.log("clicked");
-
 										if (
 											contact.p_name != "" &&
 											contact.ps_name != "" &&
@@ -1360,6 +1486,7 @@ function Add_product(props) {
 										}
 									}}
 								>
+									<a className={submitStatus ? "loading-circle" : ""}></a>
 									{submitStatus ? "Loading..." : "Submit"}
 								</button>
 								<a href="/dashboard" className="btn btn-primary">
@@ -1369,7 +1496,7 @@ function Add_product(props) {
 							<div className="error-button row justify-content-center">
 								<a
 									className="error_icon"
-									href="/supplier-product-showcase"
+									href="/supplier-product-showcase/all-products"
 									onClick={(e) => {
 										window.scrollTo(0, 100);
 									}}

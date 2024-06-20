@@ -177,7 +177,7 @@ function Billing() {
 						<table>
 							<thead>
 								<tr>
-									<th>S.No.</th>
+									<th>No.</th>
 									<th>Payment Date</th>
 									<th>Invoice Number</th>
 									<th>Package Price</th>
@@ -203,7 +203,7 @@ function Billing() {
 													</td>
 													<td>{moment(item?.date).format("DD-MM-YYYY")}</td>
 													<td>{item?.invoice_number}</td>
-													<td>€{(item?.amount)?.includes(".00") ? item?.amount?.split(".00")[0] : item?.amount }</td>
+													<td>€{item?.amount}</td>
 													<td>{item?.title}</td>
 													<td>{item.productName?.product_name ?? ""}</td>
 													<td>
@@ -228,31 +228,31 @@ function Billing() {
 															>
 																Renew Plan
 															</button>
-														) :
-															// item.endDate?.recurring_status === "active" ? (
-															// 	<button
-															// 		className="btn btn-primary remove-primary"
-															// 		onClick={() => {
-															// 			setShowAlert({
-															// 				open: true,
-															// 				subscriptionId:
-															// 					item?.endDate?.recurring_subs_id,
-															// 				id: item?.id,
-															// 			});
-															// 		}}
-															// 	>
-															// 		Cancel Plan
-															// 	</button>
-															// ) : 
-															// item.endDate?.recurring_status ===
-															//   "canceled" ? (
-															// 	<button className="btn btn-primary remove-primary Done-meeting">
-															// 		Plan Cancelled
-															// 	</button>
-															// ) :
-															(
-																""
-															)}
+														) : 
+														// item.endDate?.recurring_status === "active" ? (
+														// 	<button
+														// 		className="btn btn-primary remove-primary"
+														// 		onClick={() => {
+														// 			setShowAlert({
+														// 				open: true,
+														// 				subscriptionId:
+														// 					item?.endDate?.recurring_subs_id,
+														// 				id: item?.id,
+														// 			});
+														// 		}}
+														// 	>
+														// 		Cancel Plan
+														// 	</button>
+														// ) : 
+														// item.endDate?.recurring_status ===
+														//   "canceled" ? (
+														// 	<button className="btn btn-primary remove-primary Done-meeting">
+														// 		Plan Cancelled
+														// 	</button>
+														// ) :
+														(
+															""
+														)}
 													</td>
 												</tr>
 											);

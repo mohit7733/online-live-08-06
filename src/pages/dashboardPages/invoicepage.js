@@ -3,8 +3,8 @@ import ReactToPrint from "react-to-print";
 import { api } from "../base_url";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import moment from "moment";
 import { country } from "../dashboard/country";
 import "./invoice.css";
@@ -55,7 +55,7 @@ function Invoicepage() {
 	})[0];
 	// console.log(
 	//   billingdata,
-	//   country?.data?.filter((data) =>
+	//   country?.data?.filter((data) => 
 	//     return data?.code == personaldata?.address?.country;
 	//   })[0],
 	//   "<<<<<<<<",
@@ -63,26 +63,26 @@ function Invoicepage() {
 	// );
 
 	console.log("**************** invoice page *****************");
-	const downloadPdf = () => {
-		const input = document.getElementById("invoice");
-		const button = document.getElementById("button");
-		html2canvas(input, {
-			scale: 2,
-			exclude: button,
-		}).then((canvas) => {
-			const imgData = canvas.toDataURL("image/png");
-			const pdf = new jsPDF("p", "cm", "a4");
+const downloadPdf = () => {
+const input = document.getElementById("invoice")
+const button = document.getElementById("button")
+html2canvas(input,{
+	scale:2,
+	exclude:button,
+})
+        .then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('p','cm','a4');
 			const width = pdf.internal.pageSize.getWidth();
-			const imgAspectRatio = canvas.width / canvas.height;
-			const pdfHeight = width / imgAspectRatio;
-			pdf.addImage(imgData, "JPEG", 0, 2, width, pdfHeight);
-			pdf.save("invoice.pdf");
-		});
-	};
+            const imgAspectRatio = canvas.width / canvas.height;
+            const pdfHeight = width / imgAspectRatio;
+            pdf.addImage(imgData, 'JPEG',0,2,width,pdfHeight);
+            pdf.save("invoice.pdf");});
+};
 	return (
 		<>
-			<div className="mainDiv" id="invoice" ref={componentRef}>
-				<table className="table_1">
+			<div className="mainDiv" id="invoice" ref={componentRef}>	
+				<table className="table_1" >
 					<tr>
 						<td>
 							<table className="table_1">
@@ -226,11 +226,9 @@ function Invoicepage() {
 										<td className="css_2">Sub total before VAT €</td>
 										<td className="css_2"></td>
 										<td className="css_2">
-											{billingdata?.endDate?.discount_amount
-												? parseInt(billingdata?.amount) +
-												  parseInt(billingdata?.endDate?.discount_amount) -
-												  billingdata?.vatamt
-												: billingdata?.amount - billingdata?.vatamt}
+											{billingdata?.endDate?.discount_amount ? parseInt(billingdata?.amount) +
+												parseInt(billingdata?.endDate?.discount_amount) -
+												billingdata?.vatamt : billingdata?.amount - billingdata?.vatamt}
 											.00
 										</td>
 									</tr>
@@ -279,12 +277,7 @@ function Invoicepage() {
 								</tbody>
 							</table>
 							<p
-								style={{
-									paddingTop: 240,
-									fontSize: 14,
-									lineHeight: "1.4em",
-									color: "#a7a7a7",
-								}}
+								style={{paddingTop:240, fontSize: 14, lineHeight: "1.4em", color: "#a7a7a7" }}
 							>
 								SARL au Capital de 10.000 € • Siège Social: HEALTH AND BEAUTY
 								FRANCE, 5 rue Geoffroy Marie, 75009 Paris, France • Email:{" "}
@@ -309,14 +302,7 @@ function Invoicepage() {
 					trigger={() => <button  className="print_btn">Download</button>}
 					content={() => componentRef.current}
 				/> */}
-				<button
-					id="button"
-					data-html2canvas-ignore="true"
-					onClick={downloadPdf}
-					className="print_btn"
-				>
-					Download
-				</button>
+				<button id="button" data-html2canvas-ignore="true" onClick={downloadPdf} className="print_btn">Download</button>
 			</div>
 		</>
 	);

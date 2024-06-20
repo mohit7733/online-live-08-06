@@ -558,7 +558,7 @@ function Pandingmeeting() {
                     </div>
                   )} */}
 
-									<div style={{display: 'none'}} className="button-wrapper m-lft">
+									<div className="button-wrapper m-lft">
 										{productData?.meeting_status?.status >= 3 ? (
 											""
 										) : (
@@ -738,7 +738,7 @@ function Pandingmeeting() {
 				</div>
 				<div className=" calendar_fix calendar-wrapper">
 					<DatePicker setDate={showTimePicker} />
-					{showTP ? <Timepicker setTime={setSTime} sTime={sTime} /> : null}
+					{showTP ? <Timepicker sDate={sDate} slots={slots} setTime={setSTime} sTime={sTime} /> : null}
 				</div>
 				<div className="selected-time">
 					{slots.map((item) => {

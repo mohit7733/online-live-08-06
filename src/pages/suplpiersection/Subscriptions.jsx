@@ -60,7 +60,7 @@ export default function Subscriptions(props) {
 						<a href="#">Supplier </a>
 					</li>
 					<li>
-						<a href="/supplier-product-showcase">
+						<a href="/supplier-product-showcase/all-products">
 							<span> Product Showcase </span>
 						</a>
 					</li>

@@ -17,7 +17,7 @@ function Add_remark(props) {
     description: "",
   });
   // const type_user = localStorage.getItem("user_type");
-  console.log(state , "this is state for add remark user")
+  console.log(state, "this is state for add remark user");
   useEffect(() => {
     const path = window.location.pathname;
     const id = path.substring(path.lastIndexOf("/") + 1);
@@ -37,7 +37,6 @@ function Add_remark(props) {
     // If the last word is neither 'buyer' nor 'supplier', set a default value or handle it as needed
     type_user = "unknown";
   }
-  console.log(type_user, "this is our type_user");
 
   const handleInputChange = (e) => {
     setFormData((prevFormData) => ({
@@ -148,6 +147,7 @@ function Add_remark(props) {
               id="description"
               value={formData.description}
               onChange={handleInputChange}
+              placeholder="Share your feedback....."
             ></textarea>
           </div>
           <div className="btn_wrapper row">

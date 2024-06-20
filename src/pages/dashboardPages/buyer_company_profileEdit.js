@@ -26,11 +26,11 @@ function Company_profile_Edit(props) {
 	const [Addstyel, setAddstyel] = useState(false);
 	const [Addstyel2, setAddstyel2] = useState(false);
 	const [checkoption, setcheckoption] = useState(false);
-	const [options, setoptions] = useState([]);
 	const [selectOptions, setSelectOptions] = useState([]);
 	const [answerArray, setanswerArray] = useState([]);
 	const [optionpush1, setoptionpush1] = useState(false);
-	const [optionpush2, setoptionpush2] = useState(false);
+	const [validlink, setvalidLink] = useState(false);
+	const [otherValues, setOtherValues] = useState([]);
 
 	const sectors_array = [];
 	selectOptions?.map((item) => {
@@ -39,7 +39,6 @@ function Company_profile_Edit(props) {
 			sectors_array?.push(item?.value);
 		}
 		// sectors_array?.push(item?.value);
-		console.log(sectors_array);
 	});
 
 	const [contact, setcontact] = useState({
@@ -50,8 +49,8 @@ function Company_profile_Edit(props) {
 		country: "",
 		c_name: "",
 		Description: "",
-		product_file: [],
-		product_file2: [],
+		product_file3: [],
+		product_file4: [],
 		thumb_index: "",
 		Policy: "",
 		Quantity: "",
@@ -64,13 +63,32 @@ function Company_profile_Edit(props) {
 	const [question, setquestion] = useState([]);
 	const [emptyans_id, setemptyans_id] = useState([]);
 
+	useEffect(() => {
+		setvalidLink(matchYoutubeUrl());
+	}, [contact.yt_link]);
+
+	useEffect(() => {
+		if (question?.length > 0) {
+			get_companyinfo();
+		}
+	}, [question]);
+
+	function matchYoutubeUrl(url) {
+		let p =
+			/^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+		if (contact.yt_link?.match(p)) {
+			return true;
+		}
+		return false;
+	}
+
 	const question_data = () => {
-		var myHeaders = new Headers();
+		let myHeaders = new Headers();
 		myHeaders.append(
 			"Authorization",
 			"Bearer " + localStorage.getItem("token")
 		);
-		var requestOptions = {
+		let requestOptions = {
 			method: "GET",
 			headers: myHeaders,
 			redirect: "follow",
@@ -88,8 +106,6 @@ function Company_profile_Edit(props) {
 			.catch((error) => console.log("error", error));
 	};
 
-	// console.log(contact?.thumb_index, "thumb_indexthumb_indexthumb_index");
-
 	const [errorfield, seterrorfield] = useState({
 		p_name: "",
 		ps_name: "",
@@ -98,7 +114,7 @@ function Company_profile_Edit(props) {
 		country: "",
 		c_name: "",
 		Description: "",
-		product_file: [],
+		product_file3: "",
 		thumb_index: "",
 		Policy: "",
 		Quantity: "",
@@ -143,6 +159,10 @@ function Company_profile_Edit(props) {
 			case "thumb_index":
 				errorfield.thumb_index = e.target.value == "" ? "required" : "";
 				break;
+			case "product_file3":
+				errorfield.product_file3 =
+					contact.product_file3?.length == 0 ? "required" : "";
+				break;
 			default:
 				break;
 		}
@@ -172,9 +192,10 @@ function Company_profile_Edit(props) {
 			case "Description":
 				errorfield.Description = contact.Description == "" ? "required" : "";
 				break;
-			// case "product_file":
-			//   errorfield.product_file = contact.product_file == "" ? "required" : "";
-			//   break;
+			case "product_file3":
+				errorfield.product_file3 =
+					contact.product_file3?.length == 0 ? "required" : "";
+				break;
 			case "Policy":
 				errorfield.Policy = contact.Policy == "" ? "required" : "";
 				break;
@@ -198,24 +219,26 @@ function Company_profile_Edit(props) {
 	const [optionsedit, setoptions2] = useState([]);
 
 	const handlequestion2 = (e, id, type, pqId) => {
-		if (type?.toLowerCase() === "checkbox") {
+		if (type?.toLowerCase() == "checkbox") {
 			if (e.target.checked) {
 				if (!optionsedit.find((item) => item.id === id)) {
 					const newOption = { id: id, checkbox: [e.target.value] };
-					setoptions2([...options, newOption]);
-				} else {
+					setoptions2([...optionsedit, newOption]);
+				  } else {
 					setoptions2((prevOptions) =>
-						prevOptions.map((option) =>
-							option.id === id
-								? {
-										...option,
-										checkbox: [...option.checkbox, e.target.value],
-								  }
-								: option
-						)
+					  prevOptions.map((option) =>
+						option.id === id &&
+						!option.checkbox?.includes(e.target.value)
+						  ? {
+							  ...option,
+							  checkbox: [...option.checkbox, e.target.value],
+							}
+						  : option
+					  )
 					);
-				}
+				  }
 			} else {
+				// Unchecking the checkbox, set the corresponding option's value to null
 				setoptions2((prevOptions) =>
 					prevOptions.map((option) =>
 						option.id === id
@@ -228,16 +251,18 @@ function Company_profile_Edit(props) {
 							: option
 					)
 				);
+
+				let a = otherValues?.filter((b) => b?.id != id);
+				setOtherValues(a);
 			}
+			setoptions2((prevOptionsEdit) =>
+            (prevOptionsEdit || []).filter((item) => item?.checkbox?.length)
+        );
 		}
 	};
 
-	// console.log(optionsedit, "debug2");
-	useEffect(() => {
-		console.log(optionsedit, answerArray, "debug1");
-	}, [optionsedit]);
 
-	const get_companyinfo = async () => {
+	const get_companyinfo = async (ignore_thumb_index, thumb_index) => {
 		await axios
 			.get(api + "/api/company-profile", {
 				headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -245,29 +270,53 @@ function Company_profile_Edit(props) {
 			.then((res) => {
 				if (res?.data?.success == true) {
 					setTimeout(() => {
-						setEditData(res.data?.data);
+						let obj = res.data?.data;
+						if (question?.length > obj.questions?.length) {
+							let ques = question
+								?.filter(
+									(e) =>
+										!obj.questions.some((b) => b?.company_question_id == e?.id)
+								)
+								?.map((c) => {
+									let obj = { ...c };
+									if (c.type == "Checkbox" || c.type == "Objective") {
+										obj.objects = JSON.parse(c.objects);
+										return obj;
+									} else if (c.type == "Subjective" || c.type == "Textarea") {
+										obj.objects = null;
+										return obj;
+									}
+									return c;
+								});
+							obj.questions = [...obj.questions, ...ques];
+						}
+						editData.questions = obj.questions;
+						setEditData(obj);
 						contact.p_name = res?.data?.data.company?.company_name;
 						contact.ps_name = res?.data?.data.company?.company_short_name;
 						contact.country = res?.data?.data.company?.country;
 						contact.Description = res?.data?.data.company?.company_dec;
-						contact.thumb_index =
-							res?.data?.data.company?.thumb_index != null &&
-							res?.data?.data.company?.thumb_index != "null"
-								? parseInt(res?.data?.data.company?.thumb_index)
-								: 1;
+						if (ignore_thumb_index != true) {
+							contact.thumb_index =
+								res?.data?.data.company?.thumb_index != null &&
+								res?.data?.data.company?.thumb_index != "null"
+									? parseInt(res?.data?.data.company?.thumb_index)
+									: 1;
+						} else {
+							contact.thumb_index = thumb_index;
+						}
 						if (
 							/^[\],:{}\s]*$/.test(
 								res?.data?.data.company?.sector
 									?.replace(/\\["\\\/bfnrtu]/g, "@")
-									.replace(
+									?.replace(
 										/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,
 										"]"
 									)
-									.replace(/(?:^|:|,)(?:\s*\[)+/g, "")
+									?.replace(/(?:^|:|,)(?:\s*\[)+/g, "")
 							)
 						) {
 							const arrayof = JSON.parse(res?.data?.data.company?.sector);
-							console.log(optionpush1, "<<<<<<<");
 
 							if (optionpush1 == false) {
 								arrayof.map((item) => {
@@ -279,34 +328,66 @@ function Company_profile_Edit(props) {
 						}
 
 						contact.Creation = res?.data?.data.company?.company_short_name;
-						contact.product_file2 = res.data?.data?.media_files;
+
+						if (contact?.product_file3?.length == 0) {
+							contact.product_file3 = res.data?.data?.media_files?.filter(
+								(e) => e?.media_type == "image"
+							);
+						}
+
+						contact.product_file4 = res.data?.data?.media_files?.filter(
+							(e) => e?.media_type == "doc"
+						);
 						contact.questions = res?.data?.data.questions;
 						contact.yt_link =
 							res?.data?.data.company?.youtube_link != null
 								? res?.data?.data.company?.youtube_link
 								: "";
-
-						res?.data?.data.questions?.map((item) => {
-							if (item.type?.toLowerCase() == "checkbox") {
-								if (
-									/^[\],:{}\s]*$/.test(
-										item?.answer
-											.replace(/\\["\\\/bfnrtu]/g, "@")
-											.replace(
-												/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,
-												"]"
-											)
-											.replace(/(?:^|:|,)(?:\s*\[)+/g, "")
-									)
-								) {
-									const ans22 = JSON.parse(item?.answer);
-									optionsedit?.push({
-										id: item.id,
-										checkbox: ans22,
-									});
+						if (otherValues?.length == 0 && optionsedit?.length == 0) {
+							let od = [];
+							let oe = [];
+							res?.data?.data.questions?.map((item) => {
+								if (item.type?.toLowerCase() == "checkbox") {
+									if (
+										/^[\],:{}\s]*$/.test(
+											item?.answer
+												?.replace(/\\["\\\/bfnrtu]/g, "@")
+												?.replace(
+													/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,
+													"]"
+												)
+												?.replace(/(?:^|:|,)(?:\s*\[)+/g, "")
+										)
+									) {
+										const ans22 = JSON.parse(item?.answer);
+										if (
+											ans22?.filter((e) => e?.includes("Other:"))?.length > 0
+										) {
+											let v = ans22
+												?.filter?.((e) => e?.includes("Other:"))[0]
+												?.slice(7);
+											od?.push({ id: item?.id, value: v });
+											let v1 = [
+												...ans22?.filter?.((e) => !e?.includes("Other:")),
+												"Other",
+											];
+											oe?.push({
+												id: item.id,
+												checkbox: v1,
+											});
+										} else {
+											oe?.push({
+												id: item.id,
+												checkbox: ans22,
+											});
+										}
+									}
 								}
-							}
-						});
+							});
+							setoptions2(oe);
+							setOtherValues(od);
+
+						}
 					}, 50);
 
 					setTimeout(() => {
@@ -319,14 +400,15 @@ function Company_profile_Edit(props) {
 				console.log(error);
 			});
 	};
-
+	const [submitStatus, setsubmitStatus] = useState(false);
 	const edit_product = () => {
-		var myHeaders = new Headers();
+		setsubmitStatus(true)
+		let myHeaders = new Headers();
 		myHeaders.append(
 			"Authorization",
 			"Bearer " + localStorage.getItem("token")
 		);
-		var formdata = new FormData();
+		let formdata = new FormData();
 		formdata.append("company_name", contact.p_name);
 		formdata.append("company_short_name", contact.ps_name);
 		formdata.append("company_dec", contact.Description);
@@ -336,61 +418,163 @@ function Company_profile_Edit(props) {
 		formdata.append("id", editData?.company?.id);
 		formdata.append("thumb_index", contact?.thumb_index);
 
-		answerArray?.map((question, index) => {
-			// console.log(question);
-			// if( question?.answer != ""){
+		let a = optionsedit?.filter(
+			(a) =>
+				a?.checkbox?.includes("Other") &&
+				otherValues?.filter((b) => b?.id == a?.id)?.length == 0
+		);
 
-			formdata.append(`company_question[${index}][id]`, question?.questionId);
-			formdata.append(
-				`company_question[${index}][answer]`,
-				optionsedit?.filter((item) => {
-					return item?.id == question?.questionId;
-				})[0]?.id == question?.questionId
-					? JSON.stringify(
-							optionsedit?.filter((item) => {
-								return item?.id == question?.questionId;
-							})[0]?.checkbox
-					  )
-					: question?.answer
-			);
-			formdata.append(
-				`company_question[${index}][pqid]`,
-				question?.questionPqId
-			);
+		if (a?.length > 0) {
+			setsubmitStatus(false)
+			toast.error("Please mention other option");
+			// window.scrollTo(0, 0);
+			return;
+		}
+		answerArray?.map((question, index) => {
+			if (
+				optionsedit?.filter((e) => e?.id == question?.questionId)?.length > 0
+			) {
+				let ans = [];
+				if (
+					otherValues?.filter((e) => e?.id == question?.questionId)?.length > 0
+				) {
+					optionsedit
+						?.filter((e) => e?.id == question?.questionId)
+						?.map((e) => {
+							e?.checkbox
+								?.filter((a) => a != "Other")
+								?.map((b) => {
+									ans.push(b);
+								});
+						});
+
+						let a = otherValues
+							?.filter((e) => e?.id == question?.questionId)
+							?.map((e) => `Other: ${e?.value}`);
+
+						if(a?.length > 0) {
+							ans.push(a[0])
+						}
+
+					formdata.append(
+						`company_question[${index}][id]`,
+						question?.questionPqId == undefined ? null : question?.questionId
+					);
+					formdata.append(
+						`company_question[${index}][answer]`,
+						JSON.stringify(ans)
+					);
+					formdata.append(
+						`company_question[${index}][pqid]`,
+						question?.questionPqId == undefined
+							? question?.questionId
+							: question?.questionPqId
+					);
+				} else {
+					formdata.append(
+						`company_question[${index}][id]`,
+						question?.questionPqId == undefined ? null : question?.questionId
+					);
+					formdata.append(
+						`company_question[${index}][answer]`,
+						JSON.stringify(
+							optionsedit
+								?.filter((e) => e?.id == question?.questionId)
+								?.map((e) => e?.checkbox)[0]
+						)
+					);
+					formdata.append(
+						`company_question[${index}][pqid]`,
+						question?.questionPqId == undefined
+							? question?.questionId
+							: question?.questionPqId
+					);
+				}
+			} else {
+				formdata.append(
+					`company_question[${index}][id]`,
+					question?.questionPqId == undefined ? null : question?.questionId
+				);
+				formdata.append(`company_question[${index}][answer]`, question?.answer);
+				formdata.append(
+					`company_question[${index}][pqid]`,
+					question?.questionPqId == undefined
+						? question?.questionId
+						: question?.questionPqId
+				);
+			}
+
 			// }
 		});
 
-		contact.product_file.map((data) => {
-			formdata.append("documents[]", data);
+		contact.product_file3.map((data) => {
+			if (data?.media_type != "image") {
+				formdata.append("documents[]", data);
+			}
 		});
 
-		var requestOptions = {
+		contact.product_file4.map((data) => {
+			if (data?.media_type != "doc") {
+				formdata.append("documents[]", data);
+			}
+		});
+
+		let requestOptions = {
 			method: "POST",
 			headers: myHeaders,
 			body: formdata,
 			redirect: "follow",
 		};
 
+		let newQuestions = editData?.questions?.filter(
+			(item) =>
+				item?.mandatory === 0 &&
+				(item?.answer == undefined ||
+					item?.answer === "" ||
+					item?.answer === null)
+		);
+		if (newQuestions?.length > 0) {
+			let notAnswered = newQuestions?.filter(
+				(a) => !answerArray?.some((b) => b?.questionId == a?.id)
+			);
+			console.log(notAnswered)
+			if (notAnswered?.length > 0) {
+				setsubmitStatus(false)
+				toast.error("Please Fill required Answer!");
+				window.scrollTo(0, 0);
+				return;
+			}
+		}
+
 		if (
-			optionsedit.length < 1 ||
-			answerArray?.filter((item) => {
-				return item?.mandatory != 0 && item?.answer == "";
-			})?.length > 0
+			optionsedit.some((checkbox) => checkbox?.checkbox?.length === 0) ||
+			answerArray?.filter(
+				(item) =>
+					item?.mandatory === 0 &&
+					(item?.answer === "" || item?.answer === null)
+			)?.length > 0
 		) {
-			toast.error("Please Fill required Answer !");
+			console.log(optionsedit,answerArray)
+			setsubmitStatus(false)
+			toast.error("Please Fill required answer! 2");
 		} else {
+			// console.log(optionsedit,answerArray)
+			// setsubmitStatus(false)
+			// return;
 			fetch(api + "/api/edit-company-profile", requestOptions)
 				.then((response) => response.json())
 				.then((result) => {
 					if (result.success == true) {
+						setsubmitStatus(false)
 						toast.success("Company profile updated successful!");
 						setTimeout(() => {
 							navigate("/buyer-company-profile");
 							// window.location.reload();
 						}, 2000);
+						setImage(result.message);
 					}
-					setImage(result.message);
 					if (result?.success == false) {
+						setsubmitStatus(false)
 						toast.error("Please fill all required fields !");
 						window.scrollTo(0, 0);
 						setTimeout(() => {
@@ -399,23 +583,14 @@ function Company_profile_Edit(props) {
 					}
 				})
 				.catch((error) => {
+					setsubmitStatus(false)
 					toast.error("Please Fill all required answers !");
-					// console.log("error", error);
+					console.log("error", error);
 				});
 		}
 	};
-	useEffect(() => {
-		console.log(errorfield);
-	}, [errorfield, contact, image, contact]);
 
-	const imagelimt =
-		contact?.product_file2?.length + contact.product_file?.length;
-	const imagelimt2 =
-		contact?.product_file2?.filter((item) => item?.media_type == "image")
-			?.length +
-		contact?.product_file?.filter((item) => {
-			return item?.type == "image/png" || item?.type == "image/jpeg";
-		})?.length;
+	const imagelimt = contact?.product_file3?.length;
 
 	const onImageChange = (event) => {
 		// if (event.target.files && event.target.files[0]) {
@@ -438,41 +613,34 @@ function Company_profile_Edit(props) {
 		// }
 		if (event.target.files && event.target.files[0]) {
 			if (
-				contact?.product_file.filter((e) => e.type.split("/")[0] === "image")
-					.length +
-					contact?.product_file2.length <
-					5 &&
+				contact?.product_file3?.length <= 5 &&
 				event.target.files[0].type.split("/")[0] === "image"
 			) {
-				if (
-					contact.product_file?.filter((file) => {
-						return file?.type != "application/pdf";
-					})?.length <= 5
-				) {
-					if (event.target.files[0].size < 838000) {
-						if (
-							event.target.files[0].name
-								.substr(event.target.files[0].name.lastIndexOf("\\") + 1)
-								.split(".")[1] != "jfif"
-						) {
-							contact.product_file.push(event.target.files[0]);
-						} else {
-							toast.error("This is not supported!");
+				if (event.target.files[0].size < 838000) {
+					if (
+						event.target.files[0].name
+							.substr(event.target.files[0].name.lastIndexOf("\\") + 1)
+							.split(".")[1] != "jfif"
+					) {
+						// contact.product_file.push(event.target.files[0]);
+						contact.product_file3.push(event.target.files[0]);
+						if (errorfield?.product_file3 != "") {
+							seterrorfield({ ...errorfield, product_file3: "" });
 						}
 					} else {
-						toast.error("File size must not be more than 800 kB.");
+						toast.error("This is not supported!");
 					}
-					setTimeout(() => {
-						setcontact({ ...contact });
-					}, 400);
+				} else {
+					toast.error("File size must not be more than 800 kB.");
 				}
+				setTimeout(() => {
+					setcontact({ ...contact });
+				}, 400);
 			} else if (
-				contact?.product_file.filter(
-					(e) => e.type.split("/")[0] === "application"
-				).length < 1 &&
+				contact?.product_file4?.length < 1 &&
 				event.target.files[0].type.split("/")[0] === "application"
 			) {
-				contact.product_file.push(event.target.files[0]);
+				contact.product_file4.push(event.target.files[0]);
 				setTimeout(() => {
 					setcontact({ ...contact });
 				}, 400);
@@ -480,10 +648,21 @@ function Company_profile_Edit(props) {
 		}
 	};
 	const deletedata = (a) => {
-		let x = contact?.product_file;
+		let i = contact.thumb_index;
+		if (a == 0 && contact?.product_file3?.length > a) {
+			i = i - 1;
+		} else if (i == a && contact?.product_file3?.length > a && i != 0) {
+			i = a - 1;
+		} else if (i == a && contact?.product_file3?.length > a) {
+		} else if (i > a && i != 0) {
+			i = i - 1;
+		}
+		let x = contact?.product_file3;
 		x.splice(a, 1);
-		setcontact({ ...contact, product_file: x });
+		setcontact({ ...contact, product_file3: x, thumb_index: i });
+		return i;
 	};
+
 	const check_data = [
 		{ name: "p_name" },
 		{ name: "ps_name" },
@@ -497,15 +676,19 @@ function Company_profile_Edit(props) {
 		{ name: "Quantity" },
 		{ name: "Guarantee" },
 		{ name: "Creation" },
+		{ name: "product_file3" },
 	];
 
-	const delete_image = (id) => {
-		var myHeaders = new Headers();
+	const delete_image = (id, index, isDoc) => {
+		if (isDoc) {
+			setcontact({ ...contact, product_file4: [] });
+		}
+		let myHeaders = new Headers();
 		myHeaders.append(
 			"Authorization",
 			"Bearer " + localStorage.getItem("token")
 		);
-		var requestOptions = {
+		let requestOptions = {
 			method: "GET",
 			headers: myHeaders,
 			redirect: "follow",
@@ -516,9 +699,12 @@ function Company_profile_Edit(props) {
 		)
 			.then((response) => response.json())
 			.then((result) => {
-				// get_companyinfo();
 				if (result?.status == "success") {
-					get_companyinfo();
+					let thumb_index = contact?.thumb_index;
+					if (index != undefined) {
+						thumb_index = deletedata(index);
+					}
+					get_companyinfo(true, thumb_index);
 				}
 			})
 			.catch((error) => console.log("error", error));
@@ -526,31 +712,58 @@ function Company_profile_Edit(props) {
 
 	const handlequestion = (e, id, type, pq_id, mandatory) => {
 		if (answerArray.filter((data) => data.questionId == id)[0]) {
-			answerArray.filter((data) => data.questionId == id)[0].answer =
-				e.target.value;
-		} else {
+			let {checked}=e.target
+			if(checked && mandatory==0){
+				answerArray.filter((data) => data.questionId == id)[0].answer = e.target.value
+			}
+			else if(checked==false && mandatory==0 && e.target.type=="checkbox"){
+				answerArray.filter((data) => data.questionId == id)[0].answer = ""
+			}
+			else if(checked ==true || checked ==false && mandatory!=0){
+				answerArray.filter((data) => data.questionId == id)[0].answer = e.target.value
+			} 
+			else{
+				answerArray.filter((data) => data.questionId == id)[0].answer = e.target.value
+			}
+			console.log(answerArray)
+	}else {
+		let {checked}=e.target
+		if(checked==false && optionsedit.filter((data) => data.id ==id)[0].checkbox.length==1){
+			// setanswerArray((prev)=>
+			// ({...prev,answer:e.target.value,questionId:id, mandatory:mandatory,questionPqId:pq_id}))
 			answerArray.push({
-				answer: e.target.value,
-				questionId: id,
-				questionPqId: pq_id,
-				mandatory: mandatory,
-			});
+					answer: "",
+					questionId: id,
+					questionPqId: pq_id,
+					mandatory: mandatory,
+				});	
+			}
+			else{
+				answerArray.push({
+					answer: e.target.value,
+					questionId: id,
+					questionPqId: pq_id,
+					mandatory: mandatory,
+				});	
+			}
+			// answerArray.push({
+			// 	answer: e.target.value,
+			// 	questionId: id,
+			// 	questionPqId: pq_id,
+			// 	mandatory: mandatory,
+			// });
+			console.log(answerArray)
 		}
-		// console.log(answerArray , answerArray?.filter((item)=>{
-		//   return item?.mandatory != 0 && item?.answer == ""
-		// }));
 	};
 
 	const [givenoptions, setgivenoptions] = useState();
 	const companySectoroptions = [];
-
 	givenoptions?.map((item) => {
 		companySectoroptions.push({
 			value: item?.category_name,
 			label: item?.category_name,
 		});
 	});
-
 	useEffect(() => {
 		axios
 			.get(api + "/api/sector-category")
@@ -559,14 +772,12 @@ function Company_profile_Edit(props) {
 				setgivenoptions(short_list);
 			})
 			.catch((error) => {
-				// handle error here, e.g. set error state
 				console.log(error);
 			});
 		question_data();
 	}, []);
 
 	useEffect(() => {
-		get_companyinfo();
 		setpsname(editData?.product_name);
 	}, []);
 
@@ -592,7 +803,6 @@ function Company_profile_Edit(props) {
 			},
 		}),
 	};
-
 	return (
 		<>
 			<ToastContainer
@@ -687,7 +897,7 @@ function Company_profile_Edit(props) {
 													<option>Country *</option>
 													{country.data.map((data, i) => {
 														return (
-															<option value={data.country}>
+															<option key={i} value={data.country}>
 																{data.country}
 															</option>
 														);
@@ -741,69 +951,57 @@ function Company_profile_Edit(props) {
 											{contact.Description?.length + "/" + "250"}
 										</p>
 									</div>
-									{editData.questions?.sort((a,b) =>  a.company_question_id - b.company_question_id)?.map((item, index) => {
-										// console.log(item?.mandatory);
-										return (
-											<div className="radio_section">
-												<p>
-													Q {index + 1}.{" " + item?.question}
-													<span style={{ color: "red", fontSize: "1.2em" }}>
-														{item?.mandatory === null ? "" : "*"}
-													</span>
-												</p>
-												<div className="radio_btn">
-													{item?.type == "Subjective" ||
-													item?.type.toLowerCase() === "textarea" ? (
-														<textarea
-															className="form-control"
-															name="Policy"
-															placeholder={"Your Answer"}
-															defaultValue={
-																contact?.questions?.filter(
-																	(data) =>
-																		data?.company_question_id ==
-																		item?.company_question_id
-																)[0]?.answer == "null" ? "" : contact?.questions?.filter(
-																	(data) =>
-																		data?.company_question_id ==
-																		item?.company_question_id
-																)[0]?.answer
-															}
-															onChange={(e) => {
-																handlequestion(
-																	e,
-																	item.id,
-																	item?.type,
-																	item?.company_question_id,
-																	item?.mandatory
-																);
-																if (
-																	answerArray?.filter(
-																		(data) => data?.questionId == item?.id
-																	)[0]?.answer == ""
-																) {
-																	setAddstyel2(true);
-																} else {
-																	setAddstyel2(false);
+									{editData?.questions
+										?.sort(
+											(a, b) => a.company_question_id - b.company_question_id
+										)
+										?.map((item, index) => {
+											return (
+												<div className="radio_section" key={index}>
+													<p>
+														Q {index + 1}.{" " + item?.question}
+														<span style={{ color: "red", fontSize: "1.2em" }}>
+															{item?.mandatory === null ? "" : "*"}
+														</span>
+													</p>
+													<div className="radio_btn">
+														{item?.type == "Subjective" ||
+														item?.type?.toLowerCase() === "textarea" ? (
+															<textarea
+																className="form-control"
+																name="Policy"
+																placeholder={"Your Answer"}
+																defaultValue={
+																	contact?.questions?.filter(
+																		(data) =>
+																			data?.company_question_id ==
+																			item?.company_question_id
+																	)[0]?.answer == "null"
+																		? ""
+																		: contact?.questions?.filter(
+																				(data) =>
+																					data?.company_question_id ==
+																					item?.company_question_id
+																		  )[0]?.answer
 																}
-															}}
-															style={
-																answerArray?.filter(
-																	(data) => data?.questionId == item?.id
-																)[0]?.answer === "" &&
-																item?.mandatory != null &&
-																Addstyel2 == true
-																	? { borderBottom: "1px solid red" }
-																	: {}
-															}
-														></textarea>
-													) : (
-														""
-													)}
-													{item?.type.toLowerCase() === "select" ? (
-														<>
-															<div
-																className="custom-select"
+																onChange={(e) => {
+																	handlequestion(
+																		e,
+																		item.id,
+																		item?.type,
+																		item?.company_question_id,
+																		item?.mandatory
+																	);
+																	if (
+																		answerArray?.filter(
+																			(data) => data?.questionId == item?.id
+																		)[0]?.answer == ""
+																	) {
+																		setAddstyel2(true);
+																	} else {
+																		setAddstyel2(false);
+																	}
+																}}
 																style={
 																	answerArray?.filter(
 																		(data) => data?.questionId == item?.id
@@ -813,201 +1011,341 @@ function Company_profile_Edit(props) {
 																		? { borderBottom: "1px solid red" }
 																		: {}
 																}
-															>
-																<select
-																	defaultValue={
-																		contact?.questions?.filter(
-																			(data) =>
-																				data?.company_question_id ==
-																				item?.company_question_id
-																		)[0]?.answer
+															></textarea>
+														) : (
+															""
+														)}
+														{item?.type?.toLowerCase() === "select" ? (
+															<>
+																<div
+																	className="custom-select"
+																	style={
+																		answerArray?.filter(
+																			(data) => data?.questionId == item?.id
+																		)[0]?.answer === "" &&
+																		item?.mandatory != null &&
+																		Addstyel2 == true
+																			? { borderBottom: "1px solid red" }
+																			: {}
 																	}
-																	onChange={(e) => {
-																		handlequestion(
-																			e,
-																			item.id,
-																			item?.type,
-																			item?.company_question_id,
-																			item?.mandatory
-																		);
-																	}}
-																	className=""
 																>
-																	<option disabled={true}>Select</option>
-																	{item?.objects?.map((option) => {
-																		return (
-																			<option value={option}>{option}</option>
-																		);
-																	})}
-																</select>
-															</div>
-														</>
-													) : (
-														<>
-															{item?.objects?.map((option, indexkey) => {
-																if (item?.type.toLowerCase() == "checkbox") {
-																	try {
-																		if (
-																			/^[\],:{}\s]*$/.test(
-																				item?.answer
-																					.replace(/\\["\\\/bfnrtu]/g, "@")
-																					.replace(
-																						/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,
-																						"]"
-																					)
-																					.replace(/(?:^|:|,)(?:\s*\[)+/g, "")
-																			)
-																		) {
-																			var ans = JSON.parse(item?.answer);
+																	<select
+																		defaultValue={
+																			contact?.questions?.filter(
+																				(data) =>
+																					data?.company_question_id ==
+																					item?.company_question_id
+																			)[0]?.answer
 																		}
-																	} catch (error) {
-																		console.log(error);
-																	}
-																	// console.log(ans);
-																}
-																if (option != null) {
-																	return (
-																		<>
-																			<div className="align-items-center">
-																				{item?.type.toLowerCase() ==
-																				"objective" ? (
-																					<>
-																						<input
-																							type={
-																								item?.type.toLowerCase() !==
-																								"objective"
-																									? "Checkbox"
-																									: "radio"
-																							}
-																							// id={"op" + index2}
-																							value={option}
-																							name={`question${item.id}`}
-																							defaultChecked={
-																								contact?.questions
-																									?.filter(
-																										(data) =>
-																											data?.company_question_id ==
-																											item?.company_question_id
-																									)[0]
-																									?.answer?.toLowerCase() ==
-																								option.toLowerCase()
-																							}
-																							onClick={(e) => {
-																								handlequestion2(
-																									e,
-																									item.id,
-																									item?.type,
-																									item?.company_question_id,
-																									item?.mandatory
-																								);
-																								handlequestion(
-																									e,
-																									item.id,
-																									item?.type,
-																									item?.company_question_id,
-																									item?.mandatory
-																								);
-																							}}
-																						/>
-																					</>
-																				) : (
-																					<input
-																						type={
-																							item?.type.toLowerCase() !==
-																							"objective"
-																								? "Checkbox"
-																								: "radio"
-																						}
-																						id={"op" + indexkey}
-																						name={`question${item.id}`}
-																						defaultChecked={
-																							ans
-																								?.filter(
-																									(item) =>
-																										item?.toUpperCase() ==
-																										option?.toUpperCase()
-																								)[0]
-																								?.toUpperCase() ==
-																							option?.toUpperCase()
-																						}
-																						defaultValue={option}
-																						onClick={(e) => {
-																							handlequestion(
-																								e,
-																								item.id,
-																								item?.type,
-																								item?.company_question_id,
-																								item?.mandatory
-																							);
-																							handlequestion2(
-																								e,
-																								item.id,
-																								item?.type,
-																								item?.company_question_id,
-																								item?.mandatory
-																							);
-
-																							setcheckoption(true);
-																							setAddstyel(true);
-																						}}
-																					/>
-																				)}
-																				<label
-																					htmlFor="Lorem Ipsum A"
-																					key={option}
-																					style={
-																						optionsedit?.length < 1 &&
-																						Addstyel == true &&
-																						item?.type.toLowerCase() ==
-																							"checkbox"
-																							? {
-																									borderBottom: "1px solid red",
-																							  }
-																							: optionsedit?.filter((item3) => {
-																									return item3?.id == item.id;
-																							  })[0]?.checkbox?.length == 0 &&
-																							  optionsedit?.filter((item2) => {
-																									return item2?.id == item.id;
-																							  })[0]?.id == item.id &&
-																							  item?.type.toLowerCase() ==
-																									"checkbox"
-																							? {
-																									borderBottom: "1px solid red",
-																							  }
-																							: {}
-																					}
-																				>
+																		onChange={(e) => {
+																			handlequestion(
+																				e,
+																				item.id,
+																				item?.type,
+																				item?.company_question_id,
+																				item?.mandatory
+																			);
+																		}}
+																		className=""
+																	>
+																		<option disabled={true}>Select</option>
+																		{item?.objects?.map((option) => {
+																			return (
+																				<option value={option} key={index}>
 																					{option}
-																				</label>
-																			</div>
-																		</>
-																	);
-																}
-															})}
-														</>
-													)}
+																				</option>
+																			);
+																		})}
+																	</select>
+																</div>
+															</>
+														) : (
+															<>
+																{item?.objects &&
+																	item?.objects?.map((option, indexkey) => {
+																		if (
+																			item?.type.toLowerCase() == "checkbox"
+																		) {
+																			try {
+																				if (
+																					/^[\],:{}\s]*$/.test(
+																						item?.answer
+																							?.replace(/\\["\\\/bfnrtu]/g, "@")
+																							?.replace(
+																								/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,
+																								"]"
+																							)
+																							?.replace(
+																								/(?:^|:|,)(?:\s*\[)+/g,
+																								""
+																							)
+																					)
+																				) {
+																					var ans = JSON.parse(item?.answer);
+																				}
+																			} catch (error) {
+																				console.log(error);
+																			}
+																		}
+																		if (option != null) {
+																			return (
+																				<div key={indexkey}>
+																					<div className="align-items-center">
+																						{item?.type.toLowerCase() ==
+																						"objective" ? (
+																							<>
+																								<input
+																									type={
+																										item?.type.toLowerCase() !==
+																										"objective"
+																											? "Checkbox"
+																											: "radio"
+																									}
+																									// id={"op" + index2}
+																									value={option}
+																									name={`question${item.id}`}
+																									defaultChecked={
+																										contact?.questions
+																											?.filter(
+																												(data) =>
+																													data?.company_question_id ==
+																													item?.company_question_id
+																											)[0]
+																											?.answer?.toLowerCase() ==
+																										option.toLowerCase()
+																									}
+																									onClick={(e) => {
+																										handlequestion(
+																											e,
+																											item.id,
+																											item?.type,
+																											item?.company_question_id,
+																											item?.mandatory
+																										);
+																									}}
+																								/>
+																							</>
+																						) : (
+																							<input
+																								type={
+																									item?.type.toLowerCase() !==
+																									"objective"
+																										? "Checkbox"
+																										: "radio"
+																								}
+																								id={"op" + indexkey}
+																								name={`question${item.id}`}
+																								defaultChecked={
+																									ans
+																										?.filter((item) => {
+																											return (
+																												item?.toUpperCase() ==
+																												option?.toUpperCase()
+																											);
+																										})[0]
+																										?.toUpperCase() ==
+																										option?.toUpperCase() ||
+																									(ans?.filter((item) => {
+																										return item?.includes(
+																											"Other:"
+																										);
+																									})[0]?.length > 0 &&
+																										option
+																											?.toUpperCase()
+																											?.includes("OTHER"))
+																								}
+																								defaultValue={option}
+																								onClick={(e) => {
+																									handlequestion(
+																										e,
+																										item.id,
+																										item?.type,
+																										item?.company_question_id,
+																										item?.mandatory
+																									);
+																									handlequestion2(
+																										e,
+																										item.id,
+																										item?.type,
+																										item?.company_question_id,
+																										item?.mandatory
+																									);
+
+																									setcheckoption(true);
+																									setAddstyel(true);
+																								}}
+																							/>
+																						)}
+																						<label
+																							key={option}
+																							style={
+																								optionsedit?.length < 1 &&
+																								Addstyel == true &&
+																								item?.type.toLowerCase() ==
+																									"checkbox"
+																									? {
+																											borderBottom:
+																												"1px solid red",
+																									  }
+																									: optionsedit?.filter(
+																											(item3) => {
+																												return (
+																													item3?.id == item.id
+																												);
+																											}
+																									  )[0]?.checkbox?.length ==
+																											0 &&
+																									  optionsedit?.filter(
+																											(item2) => {
+																												return (
+																													item2?.id == item.id
+																												);
+																											}
+																									  )[0]?.id == item.id &&
+																									  item?.type.toLowerCase() ==
+																											"checkbox" && item?.mandatory !=null
+																									? {
+																											borderBottom:
+																												"1px solid red",
+																									  }
+																									: {}
+																							}
+																						>
+																							{option}
+																						</label>
+																					</div>
+																					{/* Checkbox Others textarea display CODE */}
+																					{option == "Other"
+																						? optionsedit?.map((data) => {
+																								return data?.checkbox?.map(
+																									(other, index) => {
+																										return other == "Other" &&
+																											item.id === data.id ? (
+																											<input
+																												key={index}
+																												className="form-control"
+																												type="text"
+																												placeholder={
+																													"Please Specify"
+																												}
+																												style={
+																													otherValues?.filter(
+																														(a) =>
+																															a?.id == item?.id
+																													)?.length == 0
+																														? {
+																																borderBottom:
+																																	"1px solid red",
+																														  }
+																														: {}
+																												}
+																												value={
+																													otherValues?.length >
+																													0
+																														? otherValues?.filter(
+																																(e) =>
+																																	e?.id ==
+																																	item?.id
+																														  )[0]?.value || ""
+																														: ""
+																												}
+																												onChange={(e) => {
+																													if (
+																														e.target.value == ""
+																													) {
+																														let arr =
+																															otherValues?.filter(
+																																(a) =>
+																																	a?.id !=
+																																	item?.id
+																															);
+																														setOtherValues(arr);
+																													} else if (
+																														e.target.value !=
+																														" "
+																													) {
+																														if (
+																															otherValues?.filter(
+																																(e) =>
+																																	e?.id ==
+																																	item?.id
+																															)?.length == 0
+																														) {
+																															setOtherValues([
+																																...otherValues,
+																																{
+																																	id: item?.id,
+																																	value:
+																																		e.target
+																																			.value,
+																																},
+																															]);
+																														} else {
+																															const updatedList =
+																																otherValues.map(
+																																	(i) =>
+																																		i.id ===
+																																		item?.id
+																																			? {
+																																					id: item.id,
+																																					value:
+																																						e
+																																							.target
+																																							.value,
+																																			  }
+																																			: i
+																																);
+																															setOtherValues(
+																																updatedList
+																															);
+																														}
+																													}
+
+																													handlequestion(
+																														e,
+																														item.id,
+																														item?.type,
+																														item?.company_question_id,
+																														item?.mandatory
+																													);
+																												}}
+																											/>
+																										) : (
+																											""
+																										);
+																									}
+																								);
+																						  })
+																						: ""}
+																				</div>
+																			);
+																		}
+																	})}
+															</>
+														)}
+													</div>
 												</div>
-											</div>
-										);
-									})}
+											);
+										})}
 								</div>
 								<div className="col_right">
 									<h6>Product Images</h6>
 									<div
 										className="data_upload"
 										style={
-											imagelimt > 0 ? {} : { borderBottom: "2px solid red" }
+											errorfield?.product_file3 == ""
+												? {}
+												: { borderBottom: "2px solid red" }
 										}
 									>
 										<input
 											type={"file"}
 											name="product_file"
-											disabled={imagelimt >= 6 ? true : false}
+											disabled={imagelimt >= 5 ? true : false}
 											onChange={(e) => {
-												seterrorfield({ ...errorfield, product_file: "" });
 												onImageChange(e);
 											}}
-											accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf,application/msword ,application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.slideshow, application/vnd.openxmlformats-officedocument.presentationml.presentation"
+											accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.pdf,application/msword ,application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.slideshow, application/vnd.openxmlformats-officedocument.presentationml.presentation"
 										/>
 										<img src="images/profile_upload.svg" alt="" />
 										<h4>
@@ -1016,7 +1354,13 @@ function Company_profile_Edit(props) {
 											Document
 											<br />
 											<p> Image , Document Size : 800kb </p>
-											<p style={imagelimt >= 6 ? { color: "red" } : {}}>
+											<p
+												style={
+													contact?.product_file3?.length >= 5
+														? { color: "red" }
+														: {}
+												}
+											>
 												Can upload maximum 5 images and
 												<span style={{ color: "#999999" }}>1 document.</span>
 											</p>
@@ -1034,11 +1378,97 @@ function Company_profile_Edit(props) {
 												onChange={(e) => logins_field2(e)}
 											/>
 										</div>
+										{
+											<p
+												style={
+													contact.yt_link == ""
+														? { display: "none" }
+														: {
+																display: "block",
+																color: "red",
+																fontSize: "10px",
+														  }
+												}
+											>
+												{validlink != true ? "Please Enter A valid Link !" : ""}
+											</p>
+										}
 									</div>
 									<div className="thumbnail_section">
 										<h6>Set Thumbnail Image</h6>
-										{contact?.product_file?.map((data, index) => {
-											// console.log(data);
+										{contact?.product_file3?.map((data, index) => {
+											if (!data) {
+												return;
+											}
+											if (data["type"]?.split("/")[0] === "image") {
+												return (
+													<div
+														key={index}
+														className="thumb_inner row align-items-center"
+													>
+														<input
+															type="radio"
+															id={"profile" + data?.image_id}
+															value={index}
+															defaultChecked={contact?.thumb_index == index}
+															// checked={contact?.thumb_index == index}
+															name="thumb_index"
+															onChange={(e) => logins_field2(e)}
+														/>
+														<figure className="center">
+															<img
+																src={
+																	URL.createObjectURL(data)
+																		? URL.createObjectURL(data)
+																		: data?.file_path
+																}
+																alt=""
+															/>
+														</figure>
+														<p>{data?.name}</p>
+														<figure
+															onClick={(e) => {
+																deletedata(index);
+															}}
+														>
+															<img src={trash} alt="" />
+														</figure>
+													</div>
+												);
+											} else if (data?.media_type == "image") {
+												return (
+													<div
+														key={index}
+														className="thumb_inner row align-items-center"
+													>
+														<input
+															defaultChecked={contact?.thumb_index == index}
+															// checked={contact?.thumb_index == index}
+															type="radio"
+															id={"profile" + index}
+															name="thumb_index"
+															onChange={(e) => logins_field2(e)}
+															value={index}
+														/>
+														<figure className="center">
+															<img src={data?.file_path} alt="" />
+														</figure>
+														<p>{"Uploaded images"}</p>
+														<figure
+															onClick={(e) => {
+																delete_image(data?.id, index);
+															}}
+														>
+															<img src={trash} alt="" />
+														</figure>
+													</div>
+												);
+											}
+										})}
+										{/* {[...contact?.product_file2, ...contact?.product_file]?.map((data, index) => {
+                       if(!data){
+                        return
+                       }
 											if (data["type"]?.split("/")[0] === "image") {
 												return (
 													<div className="thumb_inner row align-items-center">
@@ -1071,9 +1501,35 @@ function Company_profile_Edit(props) {
 														</figure>
 													</div>
 												);
+											} else if (data?.media_type == "image") {
+												return (
+													<div className="thumb_inner row align-items-center">
+														<input
+															defaultChecked={contact?.thumb_index == index}
+															type="radio"
+															id={"profile" + index}
+															name="thumb_index"
+															onChange={(e) => logins_field2(e)}
+															value={index}
+														/>
+														<figure className="center">
+															<img src={data?.file_path} alt="" />
+														</figure>
+														<p>{"Uploaded images"}</p>
+														<figure
+															onClick={(e) => {
+																delete_image(data?.id);
+																deletedata(index);
+																// setSelectOptions([])
+															}}
+														>
+															<img src={trash} alt="" />
+														</figure>
+													</div>
+												);
 											}
-										})}
-										{contact?.product_file2?.map((data, index) => {
+										})} */}
+										{/* {contact?.product_file2?.map((data, index) => {
 											if (data?.media_type == "image") {
 												return (
 													<div className="thumb_inner row align-items-center">
@@ -1102,11 +1558,54 @@ function Company_profile_Edit(props) {
 													</div>
 												);
 											}
-										})}
+										})} */}
 									</div>
 									<div className="doc_upload">
-										<h6>Uploaded Documents</h6>
-										{contact?.product_file2?.map((data, index) => {
+										<h6>Uploaded Document</h6>
+										{contact?.product_file4?.map((data, index) => {
+											if (data["type"]?.split("/")[0] === "application") {
+												return (
+													<div
+														className="inner_doc row align-items-center"
+														key={index}
+													>
+														<figure>
+															<img src={pdficon} alt="" />
+														</figure>
+														<p>{data.name}</p>
+														<figure
+															onClick={(e) =>
+																setcontact({ ...contact, product_file4: [] })
+															}
+														>
+															<img src={trash} alt="" />
+														</figure>
+													</div>
+												);
+											} else if (data?.media_type == "doc") {
+
+												return (
+													<div
+														className="inner_doc row align-items-center"
+														key={index}
+													>
+														<figure>
+															<img src={pdficon} alt="" />
+														</figure>
+														<p>{"Uploaded doc"}</p>
+														<figure
+															onClick={(e) => {
+																delete_image(data?.id, undefined, true);
+															}}
+														>
+															<img src={trash} alt="" />
+														</figure>
+													</div>
+												);
+											}
+										})}
+
+										{/* {contact?.product_file?.map((data, index) => {
 											if (data["type"]?.split("/")[0] === "application") {
 												return (
 													<div className="inner_doc row align-items-center">
@@ -1124,8 +1623,6 @@ function Company_profile_Edit(props) {
 													</div>
 												);
 											} else if (data?.media_type == "doc") {
-												// console.log(data , "<<");
-
 												return (
 													<div className="inner_doc row align-items-center">
 														<figure>
@@ -1143,45 +1640,7 @@ function Company_profile_Edit(props) {
 													</div>
 												);
 											}
-										})}
-
-										{contact?.product_file?.map((data, index) => {
-											if (data["type"]?.split("/")[0] === "application") {
-												return (
-													<div className="inner_doc row align-items-center">
-														<figure>
-															<img src={pdficon} alt="" />
-														</figure>
-														<p>{data.name}</p>
-														<figure
-															onClick={(e) => {
-																deletedata(index);
-															}}
-														>
-															<img src={trash} alt="" />
-														</figure>
-													</div>
-												);
-											} else if (data?.media_type == "doc") {
-												// console.log(data , "<<");
-												return (
-													<div className="inner_doc row align-items-center">
-														<figure>
-															<img src={pdficon} alt="" />
-														</figure>
-														<p>{"Uploaded doc"}</p>
-														<figure
-															onClick={(e) => {
-																delete_image(data?.id);
-																deletedata(index);
-															}}
-														>
-															<img src={trash} alt="" />
-														</figure>
-													</div>
-												);
-											}
-										})}
+										})} */}
 									</div>
 								</div>
 							</div>
@@ -1192,15 +1651,17 @@ function Company_profile_Edit(props) {
               </p> */}
 							<div className="button_wrap row">
 								<button
+									disabled={submitStatus}
+									style={submitStatus?{background:"grey"}:{}}
 									className="btn btn-secondary"
 									type="button"
 									onClick={(e) => {
 										if (
 											// errorfield?.p_name == ""
-											imagelimt === 0 &&
-											contact.p_name == "" &&
-											contact.ps_name == "" &&
-											contact.country == "" &&
+											contact.product_file3?.length === 0 ||
+											contact.p_name == "" ||
+											contact.ps_name == "" ||
+											contact.country == "" ||
 											contact.Description == ""
 											// errorfield?.c_name == ""
 										) {
@@ -1210,7 +1671,10 @@ function Company_profile_Edit(props) {
 											window.scrollTo(0, 100);
 											setAddstyel2(true);
 										} else {
-											if (imagelimt != 0 && selectOptions.length != 0) {
+											if (
+												contact.product_file3?.length != 0 &&
+												selectOptions.length != 0
+											) {
 												edit_product();
 											} else {
 												window.scrollTo(0, 100);
@@ -1218,17 +1682,21 @@ function Company_profile_Edit(props) {
 										}
 									}}
 								>
-									Submit
+									<a className={submitStatus?"loading-circle":""}>
+                        			</a>
+									{submitStatus ? "Loading..." : "Submit"}
+
 								</button>
-								<a 
-								onClick={() => {
-									if (editData?.company != null) {
-									navigate("/buyer-company-profile");
-									} else {
-									navigate("/");
-									}
-								}} 
-								className="btn btn-primary">
+								<a
+									onClick={() => {
+										if (editData?.company != null) {
+											navigate("/buyer-company-profile");
+										} else {
+											navigate("/");
+										}
+									}}
+									className="btn btn-primary"
+								>
 									Cancel
 								</a>
 							</div>

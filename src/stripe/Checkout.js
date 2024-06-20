@@ -86,10 +86,6 @@ export const CheckoutForm2 = (props) => {
     "SE",
     "FR",
   ];
-useEffect(()=>{
-
-  console.log(country_name,detail_data, props, props);
-},[detail_data])
   useEffect(() => {
     axios
       .get(`${Vat_check_api}=${vat}`)
@@ -97,7 +93,6 @@ useEffect(()=>{
         (res) => {
           if (res.data.valid === true) {
             setCountryCode(res.data.country_code);
-            // console.log(res.data.country_code , "siddhu")
             if (coutnry_list.includes(res.data.country_code)) {
               setVatError(false);
             }
@@ -122,7 +117,6 @@ useEffect(()=>{
       event.preventDefault();
       return;
     }
-    console.log("payment happend");
     event.preventDefault();
     setPaymentLoading(true);
     const cardNumberElement = elements.getElement(CardNumberElement);
@@ -213,8 +207,6 @@ useEffect(()=>{
   //   setVat(event.target.value);
   //   console.log(event.target.value);
   // }
-
-  // console.log(detail_data.address.country , "hey budy")
   const purchase = (data) => {
     var myHeaders = new Headers();
     myHeaders.append(
@@ -282,7 +274,6 @@ useEffect(()=>{
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
         settexdata(data.data);
       })
       .catch((error) => console.error(error));
@@ -320,7 +311,7 @@ useEffect(()=>{
                   <a href="#">Supplier </a>
                 </li>
                 <li>
-                  <a href="/supplier-product-showcase">
+                  <a href="/supplier-product-showcase/all-products">
                     <span> Product Showcase </span>
                   </a>
                 </li>
@@ -328,7 +319,6 @@ useEffect(()=>{
                   <a
                     onClick={() => {
                       checkSubscription().then((response) => {
-                        console.log(response, "<<<<<<<,");
                         if (response.subscription_status !== 0) {
                           navigate("/add-new-product");
                         } else {
@@ -558,7 +548,6 @@ useEffect(()=>{
                     // checked=""
                     onChange={(e) => {
                       setshowVat(true);
-                      // console.log(e);
                     }}
                   />
                   <label htmlFor="buyer" className="">
@@ -573,7 +562,6 @@ useEffect(()=>{
                     value="A supplier"
                     onChange={(e) => {
                       setshowVat(false);
-                      // console.log(e);
                     }}
                   />
                   <label htmlFor="A supplier" className="removeClass">
@@ -617,6 +605,7 @@ useEffect(()=>{
                   {isPaymentLoading ? "Loading..." : "Pay"}
                 </button>
                 <button
+                  disabled={isPaymentLoading}
                   className="btn btn-primary"
                   style={{ marginLeft: "5rem" }}
                   onClick={() => navigate("/company-subscription")}

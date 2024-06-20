@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";import { useLocation, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { api } from "../base_url";
 import Slider from "react-slick";
-import ReactPlayer from "react-player";
 // import ProductImage from "../../../public/images/prod-detail_1.jpg"
 function Productdetails() {
 	const [productData, setProductData] = useState([]);
 	const [check, setcheck] = useState(true);
-	const { id } = useParams();
-	const { state } = useLocation();
 	const slugdata = useParams();
 	let token = localStorage.getItem("token");
 	const path = window.location.pathname;
@@ -154,13 +152,13 @@ function Productdetails() {
 														></iframe>
 													</figure>
 												</div>
-											) : productData?.media_files?.file_path
-													?.substr(
-														productData?.media_files?.file_path?.lastIndexOf(
+											) : productData?.media_files.file_path
+													.substr(
+														productData?.media_files.file_path.lastIndexOf(
 															"\\"
 														) + 1
 													)
-													?.split(".")[3] == "pdf" ? (
+													.split(".")[3] == "pdf" ? (
 												<div>
 													<figure>
 														<embed
@@ -220,7 +218,7 @@ function Productdetails() {
 									}
 								>
 									{/* <a href="#"> */}
-										<h3>Do you want more information?</h3>
+										<h3>Do you want more information about this product?</h3>
 									{/* </a> */}
 									<p>You need to be a part of our distributors community</p>
 									<div className="button_row row align-items-center">

@@ -111,11 +111,11 @@ export default function Favourite(props) {
 				</ul>
 			</div>
 
-			<div className="row justify-content-between align-item-center favorite-wrap">
+			<div style={{marginBottom:"25px"}} className="row justify-content-between align-item-center favorite-wrap">
 				<h2>Favourites List</h2>
 				<a onClick={() => navigate("/product-view")}>View All Products</a>
 			</div>
-
+{/* 
 			<div className="add_product_wrap row justify-content-between">
 				<div className="column">
 					<div className="search">
@@ -162,7 +162,7 @@ export default function Favourite(props) {
 						Clear all
 					</button>
 				</div>
-			</div>
+			</div> */}
 
 			<ol
 				className="favourite_fix sub_category list grid-view-filter"

@@ -65,7 +65,7 @@ function Home_product() {
 
           </div>
           <div className="text-center pt-30" data-aos="fade-up">
-            <a href={localStorage.getItem("token") != null  ? "/supplier-product-showcase" : "/login"} className="btn btn-secondary">
+            <a href={localStorage.getItem("token") != null  ? "/supplier-product-showcase/all-products" : "/login"} className="btn btn-secondary">
               I want to list my product
             </a>
           </div>

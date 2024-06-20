@@ -28,7 +28,6 @@ function User_management(props) {
         if (response.data?.success == true) {
           setusers(response.data?.data);
           // window.location.reload()
-
         }
       })
       .catch((error) => {
@@ -82,20 +81,20 @@ function User_management(props) {
               alt="warning"
             />
             <br />
-            <p>Are you sure , you want to delete this user ?</p>
+            <p>Are you sure, you want to delete this user ?</p>
 
             <div>
+            <button
+                onClick={() => deleteuser(user_id)}
+                className="btn btn-block btn-primary"
+              >
+                Delete
+              </button>
               <button
                 onClick={() => setalertshow(false)}
                 className="btn btn-block btn-secondary"
               >
                 Cancel
-              </button>
-              <button
-                onClick={() => deleteuser(user_id)}
-                className="btn btn-block btn-primary"
-              >
-                Delete
               </button>
             </div>
           </div>
@@ -123,8 +122,8 @@ function User_management(props) {
             </li>
           </ul>
         </div>
-        <div className="add_product_wrap row justify-content-between">
-          <div className="column">
+        <div style={{maxWidth:"1180px"}} className="add_product_wrap row justify-content-between">
+          {/* <div className="column">
             <div className="search">
               <input
                 type="text"
@@ -135,12 +134,14 @@ function User_management(props) {
             <button type="submit" className="btn btn-block btn-secondary">
               Search
             </button>
-          </div>
-          <div className="column justify-end">
+          </div> */}
+
+          <div style={{marginLeft:"auto"}} className="column justify-end">
             {users?.super_admin?.manage_type?.toLowerCase() == "superadmin" &&
             users?.super_admin?.id == localStorage.getItem("user_id") ? (
               <button
-                // disabled={users?.shared_user?.length == 4 ? true : false}
+              style={users?.shared_user?.length === 4?{background:"grey"}:{}}
+                disabled={users?.shared_user?.length == 4 ? true : false}
                 type="submit"
                 className="btn-block btn btn-primary row align-item-center"
                 onClick={() => {
@@ -170,7 +171,7 @@ function User_management(props) {
           <table>
             <thead>
               <tr>
-                <th>S.No.</th>
+                <th>No.</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Email Address</th>
@@ -197,9 +198,9 @@ function User_management(props) {
                 <td className="roles">
                   {users?.super_admin?.manage_type?.toLowerCase() ==
                   "superadmin" ? (
-                    <span className="super-admin">Super Admin</span>
+                    <span className="super-admin">Admin</span>
                   ) : (
-                    <span className="shared-user">Shared User</span>
+                    <span className="shared-user">Standard User</span>
                   )}
                 </td>
                 <td className="action">
@@ -241,7 +242,7 @@ function User_management(props) {
                     <td className="roles">
                       <span className="shared-user">
                         {item?.manage_type?.toLowerCase() == "shareduser"
-                          ? "Shared User"
+                          ? "Standard User"
                           : ""}
                       </span>
                     </td>

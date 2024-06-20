@@ -19,7 +19,6 @@ export default function Left_menu2(props) {
 	const [submenu2, setsubmenu2] = useState(false);
 	const [showcompanydetails, setshowcompanydetails] = useState(false);
 	const navigate = useNavigate();
-	console.log(props.setsidebar);
 
 	return (
 		<div
@@ -79,7 +78,7 @@ export default function Left_menu2(props) {
 								</li>
 								<li>
 									<a
-										href="/supplier-product-showcase"
+										href="/supplier-product-showcase/all-products"
 										style={{ cursor: "pointer" }}
 									>
 										<img src={edit} alt="" />
@@ -89,7 +88,7 @@ export default function Left_menu2(props) {
 								<li className={submenu ? "backdrop" : ""}>
 									<a
 										className="menu_submenu supplier"
-										// onClick={(e) => setsubmenu(!submenu)}
+										onClick={(e) => setsubmenu(!submenu)}
 									>
 										<img className="bgdrop-icon-hide" src={Schedule} alt="" />
 										<img
@@ -101,7 +100,7 @@ export default function Left_menu2(props) {
 										My Meetings
 										<i className="fa fa-angle-down drop" aria-hidden="true"></i>
 									</a>
-									{/* <ul
+									<ul
 										className="sub__menu supplier-meetings"
 										style={submenu ? { display: "block" } : { display: "none" }}
 									>
@@ -129,7 +128,7 @@ export default function Left_menu2(props) {
 												Passed Meetings
 											</a>
 										</li>
-									</ul> */}
+									</ul>
 
 									{/* <!-- <span className="icon-drop"></span> --> */}
 								</li>
@@ -188,7 +187,7 @@ export default function Left_menu2(props) {
 								<li className={submenu2 ? "backdrop" : ""}>
 									<a
 										className="menu_submenu buyer"
-										// onClick={(e) => setsubmenu2(!submenu2)}
+										onClick={(e) => setsubmenu2(!submenu2)}
 									>
 										<img className="bgdrop-icon-hide" src={Schedule} alt="" />
 										<img
@@ -200,7 +199,7 @@ export default function Left_menu2(props) {
 										My Meetings
 										<i className="fa fa-angle-down drop" aria-hidden="true"></i>
 									</a>
-									{/* <ul
+									<ul
 										className="sub__menu buyer-meeting"
 										style={
 											submenu2 ? { display: "block" } : { display: "none" }
@@ -223,7 +222,7 @@ export default function Left_menu2(props) {
 										<li className="active" style={{ cursor: "pointer" }}>
 											<a href="/passed-meeting/buyer">Passed Meetings</a>
 										</li>
-									</ul> */}
+									</ul>
 								</li>
 								<li className="border">
 									<a href="/contact-us">

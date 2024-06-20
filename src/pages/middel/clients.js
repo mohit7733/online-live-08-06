@@ -22,7 +22,6 @@ function Clients() {
       setcheck(false);
     }
   }, [check]);
-  console.log(theytrusted, "they trusted data");
   return (
     <>
       <div className="section client-section">
