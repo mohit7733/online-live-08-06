@@ -1,3 +1,5 @@
+
+
 @media only screen and (max-width: 767px) {
 
     .product_showcase .btn {
@@ -114,10 +116,10 @@
         max-width: 50%;
         justify-content: end;
     }
-    
+
     .product_showcase .btn {
         min-width: 110px;
-    } 
+    }
 
     .product_showcase .customFilterInput .btn {
         align-self: flex-start;
@@ -288,7 +290,8 @@
     table {
         max-width: 100% !important;
         width: 100% !important;
-    }    
+    }
+
     .button_wrap.row div .btn {
         width: 100%;
         max-width: 190px;
@@ -336,9 +339,9 @@
 
 @media only screen and (min-width: 1180px) and (max-width: 1280px) {
     .product_section .categories .category-search .column .btn {
-            min-width: 145px !important;
-            margin: 0 !important;
-        }
+        min-width: 145px !important;
+        margin: 0 !important;
+    }
 }
 
 /* new css @D */
@@ -453,9 +456,10 @@
 
 @media (max-width:570px) {
     .calendar_fix {
-            display: flex;
-            flex-wrap: wrap !important;
-        }
+        display: flex;
+        flex-wrap: wrap !important;
+    }
+
     .t-wrapper,
     .react-calendar {
         width: 100%;

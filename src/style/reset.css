@@ -243,7 +243,7 @@ p {
   font-size: 18px;
   line-height: 46px;
   border-radius: 40px;
-  cursor: pointer !important;
+  cursor: pointer;
   min-width: 150px;
   text-align: center;
   font-family: 'Poppins', sans-serif;
@@ -315,22 +315,22 @@ p {
 }
 
 .btn-icon {
-  width: 35px;
-  height: 35px;
-  background-color: rgba(25, 160, 221, 0.4);
+  align-items: center;
+  background-color: rgba(25,160,221,.4);
   border-radius: 10px;
   display: flex;
+  height: 30px;
   justify-content: center;
-  align-items: center;
-  transition: all 0.5s;
-}
+  transition: all .5s;
+  width: 30px;
+} 
 
 .btn-icon:hover {
   background-color: #E30613;
 }
 
 .btn-icon img {
-  width: 24px !important;
+  width: 20px!important;
 }
 
 .form-group {
@@ -373,12 +373,11 @@ p {
   color: #666;
   cursor: pointer;
   font-family: Poppins, sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   height: 48px;
   outline: none;
   padding: 0 10px;
   width: 100%;
-  
 }
 
 .custom-select select option[value=""],

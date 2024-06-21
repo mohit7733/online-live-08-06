@@ -6,6 +6,15 @@ select option:hover {
   background-color: yellow;
 }
 
+.input-wrap {
+  border-top: solid 1px #dedede;
+  height: 50px !important;
+  line-height: 50px;
+}
+.product_prfile .row .col_left .radio_section .form-control {
+  border: transparent;
+}
+
 .alert_box {
   position: fixed;
   height: 100vh;
@@ -137,9 +146,13 @@ footer .f-logos {
 }
 
 .radio_section .form-control {
-  border: none;
+  /* border: none; */
 }
 
+.product_research_wrap2.product_research_wrap .radio_section .radio_btn input.form-control {
+  border: solid 1px #dedede;
+  height: 45px;
+}
 
 @media (max-width: 750px) {
   .btn_resp {
@@ -237,7 +250,7 @@ margin-right: 8px !important; */
   border: 1px solid #d9d9d9;
   border-radius: 25px;
   display: flex;
-  height: 40px;
+  height: auto;
   position: relative;
 }
 
@@ -246,7 +259,7 @@ margin-right: 8px !important; */
   border-radius: 25px 0 0 25px;
   box-sizing: border-box;
   color: #fff;
-  height: 38px;
+  height: auto;
   padding: 6px 20px;
 }
 
@@ -272,7 +285,8 @@ margin-right: 8px !important; */
 }
 
 .request-box-wrapper {
-  padding: 20px;
+  padding: 26px;
+  min-width:315px;
 }
 
 .about .inner .inner-text ul li {
@@ -438,7 +452,21 @@ color: #000000;
 table thead tr th:first-child {
   padding-right: 12px;
 }
+.table_form.buyer_meeting th,
+.table_form.supplier_form th,
+.table_form.pending_meeting_table th
+{
+  min-width: 190px;
+}
+.table_form.pending_meeting_table th,
+.table_form.pending_meeting_table td{
+   min-width: auto !important;
+   width: auto !important;
+}
 
+.text-left ul li{
+text-align: left;
+}
 .ssetspace {
   display: flex;
   padding-top: 32px;
@@ -739,15 +767,19 @@ button.btn-left.btn.btn-secondary {
 .selected-time {
   display: flex;
   flex-wrap: wrap;
+  padding: 12px 0 60px!important;
   position: relative;
-  padding: 12px 0 60px 0 !important;
+  max-width: 480px;
+  width: 100%;
 }
 
 .selected-time p {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   line-height: 2;
-  margin-right: 31px;
+  margin-right: 60px;
+  min-width: 180px;
   width: 30%;
 }
 
@@ -1120,6 +1152,7 @@ input::-webkit-inner-spin-button {
 
 .countrycodeadd2 {
   padding-left: 165px;
+  -webkit-appearance: textfield;
 }
 
 .rotate_icon i {
@@ -1180,9 +1213,11 @@ input::-webkit-inner-spin-button {
   align-items: center;
 }
 
-.active_list {
-  background-color: #69c6dd !important;
-}
+/* .active_list {
+    background-color: #69c6dd!important;
+    padding: 0px !important;
+    height: 30px;
+} */
 
 .product_supplier_inner {
   width: 100%;
@@ -1268,10 +1303,10 @@ table {
   overflow-x: scroll;
 }
 
-.User_management .column.justify-end {
-  flex: 0 0 35% !important;
+/* .User_management .column.justify-end {
+  flex: 0 0 35% !important; 
   max-width: 35% !important;
-}
+} */
 
 .User_management table {
   width: 1180px;

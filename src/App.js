@@ -222,7 +222,7 @@ function App() {
 						element={<Private_route element={<User_manegment_Both />} />}
 					/>
 					<Route
-						path="/supplier-product-showcase"
+						path="/supplier-product-showcase/:filter"
 						element={<Private_route element={<Supplier_product_showcase />} />}
 					/>
 					<Route
@@ -239,7 +239,7 @@ function App() {
 						element={<MeetingSubscriptionPage />}
 					/>
 					<Route
-						path="/dashboard/user-management"
+						path="/dashboard"
 						element={<Private_route element={<Supplier_product_showcase />} />}
 					/>
 					<Route path="/edit-user/:id" element={<Edit_user />} />
