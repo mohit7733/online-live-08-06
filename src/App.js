@@ -3,7 +3,7 @@ import "./style/reset.css";
 import "./style/style.css";
 import "./style/stylemain.css";
 import "./style/stylenew.css";
-import "./style/responsive_new.css"
+import "./style/responsive_new.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./style/csschanges.css";
@@ -26,12 +26,10 @@ import Productview from "./pages/productpages/productview";
 import Productdetails from "./pages/productpages/Productdetails";
 import ProductBuyer from "./pages/productpages/ProductBuyer";
 import Productresearch from "./pages/productpages/Productresearch";
-import Productbuyer2 from "./pages/productpages/Productbuyer2";
 import Productbeforemeeting from "./pages/productpages/Productbeforemeeting";
 import Productaftermeeting from "./pages/productpages/Productaftermeeting";
 import Pandingmeeting from "./pages/meetings/Pandingmeeting";
 import AcceptMeeting from "./pages/meetings/AcceptMeeting";
-import Productbuyer3 from "./pages/productpages/BuyerMeeting";
 import Contract from "./pages/productpages/Contract";
 import MeetingDone from "./pages/meetings/MeetingDone";
 import Add_user from "./pages/dashboard/add_user";
@@ -61,18 +59,48 @@ import Supplier_confirmed_me from "./pages/dashboardPages/Supplier_confirmed_me"
 import { ToastContainer } from "react-toastify";
 import Add_product from "./pages/dashboardPages/add_new_productS";
 import Buyer_company_profile from "./pages/dashboardPages/buyer_company_profile";
-import Test from "./pages/dashboardPages/test";
 import Private_route from "./pages/middel/private_route";
 import Create_password from "./pages/middel/createnew_pass";
 import Company_profile_Edit from "./pages/dashboardPages/buyer_company_profileEdit";
-import MeetingSubscription from "./pages/meetings/MeetingSubscription";
 import MeetingSubscriptionPage from "./pages/dashboardPages/meeting_subscriptionPage";
 import Billing from "./pages/dashboardPages/billing";
 import Invoicepage from "./pages/dashboardPages/invoicepage";
 import NotFound404 from "./pages/notfound/NotFound";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { api } from "./pages/base_url";
+import warningicon from "./assets/images/warning2.png";
 
 // import Forgot_password from './pages/middel/forgot_password'
 function App() {
+	const [alertshow, setalertshow] = useState(false);
+
+	useEffect(() => {
+		if ((localStorage.getItem("user_type") == "Supplier" ||
+				localStorage.getItem("user_type") == "Both") &&
+			window.location.pathname != "/company-information-fill"
+		) {
+			axios
+				.get(`${api}/api/company-detail`, {
+					headers: {
+						Authorization: "Bearer " + localStorage.getItem("token"),
+					},
+				})
+				.then((res) => {
+					if (res?.data?.data?.length === 0) {
+					} else if (
+						res?.data?.data[0]?.company_name &&
+						res?.data?.data[0]?.timezone == null
+					) {
+						setalertshow(true)
+					}
+				})
+				.catch((error) => {
+					console.error(error);
+				});
+		}
+	}, []);
+
 	return (
 		<>
 			<ToastContainer
@@ -86,6 +114,29 @@ function App() {
 				draggable={false}
 				pauseOnHover
 			/>
+			{alertshow == true ? (
+				<div className="alert_box">
+					<div className="box_size">
+						<img src={warningicon} alt="warning" />
+						<br />
+						<p>Please complete your company information to proceed.</p>
+
+						<div style={{ width: "100%" }}>
+							<button
+								onClick={() => {
+									window.location.href = "/company-information-fill";
+									setalertshow(false)
+								}}
+								className="btn btn-block btn-primary"
+							>
+								Complete Now
+							</button>
+						</div>
+					</div>
+				</div>
+			) : (
+				""
+			)}
 			<Router>
 				<Header />
 				<Routes>

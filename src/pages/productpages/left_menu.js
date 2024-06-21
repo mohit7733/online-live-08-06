@@ -84,7 +84,7 @@ export default function Left_menu(props) {
   }, [coprofile]);
   // console.log(props.requeststatus, "meeting status from the props");
   useEffect(() => {
-    if (
+    if (id &&
       !pathname?.includes("supplier") &&
       !pathname?.includes("buyer-profile/pending-meeting")
     ) {
