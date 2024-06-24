@@ -12,6 +12,7 @@ import Left_arrow from "../../assets/images/arrow-left (1).png";
 import Right_arrow from "../../assets/images/arrow-right (1).png";
 import Testmonial from "../middel/testmonial";
 import { country } from "../dashboard/country";
+import { toast } from "react-toastify";
 // import Loader from "../LoaderPage/Loader";
 
 function Productview() {
@@ -167,28 +168,28 @@ function Productview() {
     Promise.all([getCompanyDetail(), getCompanyProfile()])
       .then(([companyDetailRes, companyProfileRes]) => {
         if (
-          companyDetailRes?.data?.data?.length === 0 &&
-          companyProfileRes?.data?.data?.company === null
+          companyDetailRes?.data?.data?.length == 0 &&
+          companyProfileRes?.data?.data?.company == null && user_type != "Supplier"
         ) {
           setIsCompanyDetailsFilled(false);
           setIsCompanyProfileFilled(false);
           if (user_type === "Both" || user_type === "Buyer") {
+            toast.error(
+              "Please fill out your Part 1 : company information and Part 2 : company profile in order to see the product showcase."
+            );
             setTimeout(() => {
-              toast.error(
-                "Please fill out your Part 1 : company information and Part 2 : company profile in order to see the product showcase."
-              );
+              navigate("/company-information");
             }, [4000]);
-            navigate("/company-information");
           }
         } else if (companyDetailRes?.data?.data?.length === 0) {
           if (companyDetailRes?.data?.data?.length === 0) {
-            if (user_type === "Both" || user_type === "Buyer") {
+            if (user_type === "Both" || user_type === "Buyer" || user_type === "Supplier") {
+              toast.error(
+                "Please fill out your Part 1 : Company information in order to see the product showcase."
+              );
               setTimeout(() => {
-                toast.error(
-                  "Please fill out your Part 1 : Company information in order to see the product showcase."
-                );
+                navigate("/company-information");
               }, [4000]);
-              navigate("/company-information");
             }
           }
         } else {

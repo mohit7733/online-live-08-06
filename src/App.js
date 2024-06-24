@@ -78,7 +78,7 @@ function App() {
 	useEffect(() => {
 		if ((localStorage.getItem("user_type") == "Supplier" ||
 				localStorage.getItem("user_type") == "Both") &&
-			window.location.pathname != "/company-information-fill"
+			window.location.pathname != "/company-information"
 		) {
 			axios
 				.get(`${api}/api/company-detail`, {
@@ -119,12 +119,12 @@ function App() {
 					<div className="box_size">
 						<img src={warningicon} alt="warning" />
 						<br />
-						<p>Please complete your company information to proceed.</p>
+						<p>Please update your timezone in company information to proceed further.</p>
 
 						<div style={{ width: "100%" }}>
 							<button
 								onClick={() => {
-									window.location.href = "/company-information-fill";
+									window.location.href = "/company-information";
 									setalertshow(false)
 								}}
 								className="btn btn-block btn-primary"

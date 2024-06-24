@@ -81,9 +81,9 @@ function Company_information(props) {
               fill_now: "details",
             },
           });
-          setTimeout(() => {
-            toast.error("No records have found ! Please Fill");
-          }, 5000);
+          // setTimeout(() => {
+          //   toast.error("No records have found ! Please Fill");
+          // }, 5000);
         } else {
           // setCInfo(result.data);
           // setcounrtcode1(result.data?.contact1_code);
@@ -100,14 +100,14 @@ function Company_information(props) {
                 fill_now: "details",
               },
             });
-            setTimeout(() => {
-              toast.error("No records have found ! Please Fill");
-            }, 5000);
+            // setTimeout(() => {
+            //   toast.error("No records have found ! Please Fill");
+            // }, 5000);
           }
         }
       })
       .catch((error) => {
-        toast.error("No records have found");
+        // toast.error("No records have found");
 
         console.log("error", error);
       });
