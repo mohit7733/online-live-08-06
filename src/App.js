@@ -76,8 +76,7 @@ function App() {
 	const [alertshow, setalertshow] = useState(false);
 
 	useEffect(() => {
-		if ((localStorage.getItem("user_type") == "Supplier" ||
-				localStorage.getItem("user_type") == "Both") &&
+		if (
 			window.location.pathname != "/company-information"
 		) {
 			axios
@@ -90,9 +89,10 @@ function App() {
 					if (res?.data?.data?.length === 0) {
 					} else if (
 						res?.data?.data[0]?.company_name &&
-						res?.data?.data[0]?.timezone == null
+						(res?.data?.data[0]?.timezone == null ||
+							res?.data?.data[0]?.timezone == "null")
 					) {
-						setalertshow(true)
+						setalertshow(true);
 					}
 				})
 				.catch((error) => {
@@ -119,13 +119,16 @@ function App() {
 					<div className="box_size">
 						<img src={warningicon} alt="warning" />
 						<br />
-						<p>Please update your timezone in company information to proceed further.</p>
+						<p>
+							Please update your timezone in company information to proceed
+							further.
+						</p>
 
 						<div style={{ width: "100%" }}>
 							<button
 								onClick={() => {
 									window.location.href = "/company-information";
-									setalertshow(false)
+									setalertshow(false);
 								}}
 								className="btn btn-block btn-primary"
 							>
