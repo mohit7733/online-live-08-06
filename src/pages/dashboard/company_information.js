@@ -131,12 +131,20 @@ function Company_information(props) {
     // if (validateEditInformation()) {
     var formvalues = new FormData();
     for (let key in cInfo) {
-      formvalues.append(key, cInfo[key]);
+      if(key == "copy_billing_address" && cInfo[key] != null) {
+        formvalues.append(key, cInfo[key]);
+      } else if(key != "copy_billing_address") {
+        formvalues.append(key, cInfo[key]);
+      }
     }
     formvalues.append("country_code", counrtcode);
     formvalues.append("contact1_code", contact_code1);
     formvalues.append("contact2_code", contact_code2);
-    formvalues.append("copy_billing_address", SaveAdd);
+
+    console.log("SaveAdd >>>>>>>>>>>>>>>>>>>>>>>>>>>", SaveAdd , typeof SaveAdd)
+    if(SaveAdd != null) {
+      formvalues.append("copy_billing_address", SaveAdd);
+    }
     // if()
     if (valuetimezonecheck === undefined) {
       formvalues.append("timezone", selectedTimeZone);
