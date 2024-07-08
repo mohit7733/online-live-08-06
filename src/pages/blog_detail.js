@@ -61,7 +61,7 @@ function Blog_detail() {
 	useEffect(() => {
 		if (check) {
 			theytrusted_data();
-			// theytrusted_data2();
+			theytrusted_data2();
 			setcheck(false);
 		}
 		window.scrollTo({

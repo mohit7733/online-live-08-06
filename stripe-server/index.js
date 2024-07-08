@@ -1,7 +1,6 @@
-const express = require("express");
-const app = express();
+const express = require("express");const app = express();
 require("dotenv").config();
-const stripe = require("stripe")(process.env.REACT_APP_STRIPE_SECRET_TEST);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const https = require("https");
@@ -146,7 +145,14 @@ app.post("/stripe/subscription", cors(), async (req, res) => {
 			expand: ["latest_invoice.payment_intent"],
 		});
 
+		console.log("**************************subscription*****************************");
+		console.log(subscription)
+		console.log("********************************************************************");
+
 		const paymentIntent = subscription?.latest_invoice?.payment_intent;
+		console.log("**************************paymentIntent*****************************");
+		console.log(paymentIntent)
+		console.log("********************************************************************");
 
 		return res.status(200).json({
 			data: {
@@ -158,7 +164,9 @@ app.post("/stripe/subscription", cors(), async (req, res) => {
 			message: "Subscription successfull.",
 		});
 	} catch (error) {
+		console.log("**************************error*****************************");
 		console.log("error", error);
+		console.log("********************************************************************");
 		return res.status(500).json({
 			message: "Internal server error",
 		});
